@@ -383,6 +383,9 @@ static bool GLSL_IsGPUShaderCompiled (GLuint shader)
 	return (compiled == GL_TRUE);
 }
 
+extern int shaders_next_id;
+extern shaderProgram_t *shaders[2048];
+
 static GLuint GLSL_CompileGPUShader(
 	GLuint program,
 	const GLchar *buffer,
@@ -506,6 +509,17 @@ static void GLSL_LinkProgram(GLuint program)
 	}
 }
 
+GLint GLSL_LinkProgramSafe(GLuint program) {
+	GLint linked;
+	qglLinkProgram(program);
+	qglGetProgramiv(program, GL_LINK_STATUS, &linked);
+	if (!linked) {
+		GLSL_PrintProgramInfoLog(program, qfalse);
+		Com_Printf("shaders failed to link\n");
+	}
+	return linked;
+}
+
 static void GLSL_ShowProgramUniforms(GLuint program)
 {
 	int             i, count, size;
@@ -531,7 +545,7 @@ static void GLSL_ShowProgramUniforms(GLuint program)
 	qglUseProgram(0);
 }
 
-static void GLSL_BindShaderInterface( shaderProgram_t *program )
+void GLSL_BindShaderInterface( shaderProgram_t *program )
 {
 	static const char *shaderInputNames[] = {
 		"attr_Position",  // ATTR_INDEX_POSITION
@@ -637,7 +651,6 @@ class ShaderProgramBuilder
 		bool AddShader(const GPUShaderDesc& shaderDesc, const char *extra);
 		bool Build(shaderProgram_t *program);
 
-	private:
 		static const size_t MAX_SHADER_SOURCE_LEN = 16384;
 
 		void ReleaseShaders();
@@ -784,12 +797,24 @@ static bool GLSL_LoadGPUShader(
 	const GPUProgramDesc& programDesc)
 {
 	builder.Start(name, attribs, xfbVariables);
+
+	// register this shader to access/edit it in live editor  
+	int shader_id = shaders_next_id++;
+	shaders[shader_id] = program;
+	shaders[shader_id]->attribs = attribs;
+
 	for ( int i = 0; i < programDesc.numShaders; ++i )
 	{
 		const GPUShaderDesc& shaderDesc = programDesc.shaders[i];
 		if ( !builder.AddShader(shaderDesc, extra) )
 		{
 			return false;
+		}
+		if (shaderDesc.type == GPUSHADER_VERTEX) {
+			strncpy(program->vertexText, builder.shaderSource.c_str(), sizeof(program->vertexText));
+		}
+		if (shaderDesc.type == GPUSHADER_FRAGMENT) {
+			strncpy(program->fragText, builder.shaderSource.c_str(), sizeof(program->fragText));
 		}
 	}
 	return builder.Build(program);
@@ -2102,6 +2127,8 @@ static int GLSL_LoadGPUProgramWeather(
 
 void GLSL_LoadGPUShaders()
 {
+	shaders_next_id = 0;
+
 #if 0
 	// vertex size = 48 bytes
 	VertexFormat bspVertexFormat = {
@@ -2261,6 +2288,8 @@ void GLSL_BindProgram(shaderProgram_t * program)
 		GLSL_BindNullProgram();
 		return;
 	}
+
+	program->usageCount++;
 
 	if(r_logFile->integer)
 	{

@@ -10,11 +10,11 @@ GLint GLSL_LinkProgramSafe(GLuint program);
 DockShaders::DockShaders() {}
 
 const char *DockShaders::label() {
-	return "shaders";
+	return "GLSL";
 }
 
-extern int shaders_next_id;
-extern shaderProgram_t *shaders[2048];
+int shaders_next_id = 0;
+shaderProgram_t *shaders[2048] = { NULL };
 
 bool IsKeyPressedMap(ImGuiKey key, bool repeat = true);
 
@@ -63,35 +63,31 @@ void R_SetupShaderMapsLightall(shaderProgram_t *shader) {
 }
 
 void DockShaders::recompileShader() {
-#if 0
-		int newProgram = qglCreateProgram();
-		int retVert = GLSL_MyCompileGPUShader(newProgram, &shader->vertexShader, shader->vertexText, strlen(shader->vertexText), GL_VERTEX_SHADER);
-		if (retVert == 0) {
-			imgui_log("Couldn't compile Vertex shader\n");
-			return;
-		}
-		int retFrag = GLSL_MyCompileGPUShader(newProgram, &shader->fragmentShader, shader->fragText, strlen(shader->fragText), GL_FRAGMENT_SHADER);
-		if (retFrag == 0) {
-			imgui_log("Couldn't compile Fragment shader\n");
-			return;
-		}
-		// if both shaders compiled, link them and resetup all the quake stuff
-		shader->program = newProgram;
-		//GLSL_BindAttributeLocations(shader, shader->attribs);
-		GLSL_BindShaderInterface(shader);
-		int retLink = GLSL_LinkProgramSafe(newProgram);
-		GLSL_BindShaderInterface(shader);
-		GLSL_InitUniforms(shader);
+	int newProgram = qglCreateProgram();
+	int retVert = GLSL_MyCompileGPUShader(newProgram, &shader->vertexShader, shader->vertexText, strlen(shader->vertexText), GL_VERTEX_SHADER);
+	if (retVert == 0) {
+		imgui_log("Couldn't compile Vertex shader\n");
+		return;
+	}
+	int retFrag = GLSL_MyCompileGPUShader(newProgram, &shader->fragmentShader, shader->fragText, strlen(shader->fragText), GL_FRAGMENT_SHADER);
+	if (retFrag == 0) {
+		imgui_log("Couldn't compile Fragment shader\n");
+		return;
+	}
+	// if both shaders compiled, link them and resetup all the quake stuff
+	shader->program = newProgram;
+	//GLSL_BindAttributeLocations(shader, shader->attribs);
+	GLSL_BindShaderInterface(shader);
+	int retLink = GLSL_LinkProgramSafe(newProgram);
+	GLSL_BindShaderInterface(shader);
+	GLSL_InitUniforms(shader);
 
-		// atm just fixing up lightall shaders for pbr testing, wanna make a better system tho...
-		// e.g. being able dynamically to change every input map, gotta see
-		if (strcmp(shader->name, "lightall") == 0)
-			R_SetupShaderMapsLightall(shader);
+	// atm just fixing up lightall shaders for pbr testing, wanna make a better system tho...
+	// e.g. being able dynamically to change every input map, gotta see
+	if (strcmp(shader->name, "lightall") == 0)
+		R_SetupShaderMapsLightall(shader);
 
-
-
-		imgui_log("ret compile shader:  retVert=%d retFrag=%d retLink=%d\n", retVert, retFrag, retLink);
-#endif
+	imgui_log("ret compile shader:  retVert=%d retFrag=%d retLink=%d\n", retVert, retFrag, retLink);
 }
 
 //void DockShaders::recompileFragmentShader() {
@@ -103,8 +99,6 @@ void DockShaders::recompileShader() {
 //}
 
 void DockShaders::imgui() {
-#if 0
-
 	#define NUM_SHADERS 2048
 	int num_shaders = shaders_next_id;
 	//shaderProgram_t *shaders[NUM_SHADERS];
@@ -172,5 +166,4 @@ void DockShaders::imgui() {
 	if (ImGui::IsItemActive() && ImGui::GetIO().KeyCtrl && IsKeyPressedMap(ImGuiKey_Enter, 0)) {
 		recompileShader();
 	}
-#endif
 }
