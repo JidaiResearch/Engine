@@ -33,26 +33,24 @@ void RE_MouseClickEvent(int key, int state) {
 		imgui_mouse_set_button(key, state);
 }
 
-int					Key_GetCatcher					() {
+int Key_GetCatcher					() {
 	return ri.Key_GetCatcher();
 }
 
-const char			*Clipboard_Get					() {
+const char *Clipboard_Get					() {
 	return ri.Clipboard_Get();
 }
 
-void				Clipboard_Set					(const char *text) {
+void Clipboard_Set(const char *text) {
 	return ri.Clipboard_Set(text);
 }
-
-void blsadasda() {}
 
 void RE_RenderImGui() {
 	float width = glConfig.vidWidth;
 	float height = glConfig.vidHeight;
 
-	//if (!(Key_GetCatcher() & KEYCATCH_IMGUI))
-	//	return;
+	if (!(Key_GetCatcher() & KEYCATCH_IMGUI))
+		return;
 
 	// copy over all keys to imgui
 	ImGuiIO& io = ImGui::GetIO();

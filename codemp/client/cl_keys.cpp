@@ -1432,7 +1432,45 @@ CL_KeyEvent
 Called by the system for both key up and key down events
 ===================
 */
+
 void CL_KeyEvent (int key, qboolean down, unsigned time) {
+	// depending on keycatch the client can now disable mouse, keyboard and other stuff  
+	if (down && key == A_F2) {
+		Key_SetCatcher(Key_GetCatcher() ^ KEYCATCH_IMGUI);
+		return;
+	}
+	
+	if (Key_GetCatcher() & KEYCATCH_IMGUI) {
+		switch (key) {
+		case A_MOUSE1:
+			re->MouseClickEvent(0, down);
+			return;
+		case A_MOUSE2:
+			re->MouseClickEvent(1, down);
+			return;
+		case A_MOUSE3:
+			re->MouseClickEvent(2, down);
+			return;
+		case A_MOUSE4:
+			re->MouseClickEvent(3, down);
+			return;
+		case A_MOUSE5:
+			re->MouseClickEvent(4, down);
+			return;
+		default:
+			re->KeyEvent(key, down);
+		}
+
+		if (down) {
+			if (key == A_MWHEELUP)
+				re->MouseWheelEvent(1.0);
+
+			if (key == A_MWHEELDOWN)
+				re->MouseWheelEvent(-1.0);
+		}
+		return;
+	}
+
 	if( down )
 		CL_KeyDownEvent( key, time );
 	else
@@ -1452,7 +1490,8 @@ void CL_CharEvent( int key ) {
 		return;
 
 	// distribute the key down event to the appropriate handler
-		 if ( Key_GetCatcher() & KEYCATCH_CONSOLE )		Field_CharEvent( &g_consoleField, key );
+	     if ( Key_GetCatcher() & KEYCATCH_IMGUI)		re->CharEvent(key);
+	else if ( Key_GetCatcher() & KEYCATCH_CONSOLE )		Field_CharEvent( &g_consoleField, key );
 	else if ( Key_GetCatcher() & KEYCATCH_UI )			UIVM_KeyEvent( key|K_CHAR_FLAG, qtrue );
 	else if ( Key_GetCatcher() & KEYCATCH_CGAME )		CGVM_KeyEvent( key|K_CHAR_FLAG, qtrue );
 	else if ( Key_GetCatcher() & KEYCATCH_MESSAGE )		Field_CharEvent( &chatField, key );

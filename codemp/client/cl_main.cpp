@@ -2360,6 +2360,16 @@ static IHeapAllocator *GetG2VertSpaceServer( void ) {
 	return G2VertSpaceServer;
 }
 
+const char *Clipboard_Get() {
+	// static char tmp[...] ?
+	// todo: free it with SDL_free
+	return SDL_GetClipboardText();
+}
+
+void Clipboard_Set(const char *text) {
+	SDL_SetClipboardText(text);
+}
+
 #define DEFAULT_RENDER_LIBRARY "rd-vanilla"
 
 void CL_InitRef( void ) {
@@ -2476,6 +2486,11 @@ void CL_InitRef( void ) {
 
 	ri.PD_Store = PD_Store;
 	ri.PD_Load = PD_Load;
+
+	// ImGui integration
+	ri.Key_GetCatcher = Key_GetCatcher;
+	ri.Clipboard_Get = Clipboard_Get;
+	ri.Clipboard_Set = Clipboard_Set;
 
 	ret = GetRefAPI( REF_API_VERSION, &ri );
 
