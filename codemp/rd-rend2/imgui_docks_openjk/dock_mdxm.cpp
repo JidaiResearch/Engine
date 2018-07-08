@@ -2,7 +2,7 @@
 #include "../imgui_docks/dock_console.h"
 #include "../imgui_openjk/gluecode.h"
 #include "../imgui_openjk/imgui_openjk_default_docks.h"
-#include "../compose_models.h"
+#include "../tr_compose_models.h"
 
 qboolean model_upload_mdxm_to_gpu(model_t *mod);
 

@@ -3464,6 +3464,13 @@ void R_ImageLoader_Init(void);
 
 void RB_SurfaceGhoul( CRenderableSurface *surf );
 
+void RE_KeyEvent(int key, int state);
+void RE_CharEvent(int key);
+void RE_MouseWheelEvent(float dir);
+void RE_MouseClickEvent(int key, int state);
+void RE_DropFileEvent(const char *filename);
+void RE_RenderImGui();
+
 class Allocator;
 GPUProgramDesc ParseProgramSource( Allocator& allocator, const char *text );
 

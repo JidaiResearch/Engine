@@ -1,4 +1,4 @@
-#include "compose_models.h"
+#include "tr_compose_models.h"
 
 void scaleVertices(mdxmSurface_t *surf, float scalar) {
 	mdxmVertex_t *vert = firstVertex(surf);

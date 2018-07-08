@@ -245,6 +245,12 @@ typedef struct refexport_s {
 		float				(*Font_StrLenPixels)					( const char *text, const int iFontIndex, const float scale );
 	} ext;
 
+	// Used for ImGui integration
+	void(*KeyEvent)				(int key, int state);
+	void(*CharEvent)			(int key);
+	void(*MouseWheelEvent)		(float dir);
+	void(*MouseClickEvent)		(int key, int state);
+	void(*DropFileEvent)		(const char *filename);
 } refexport_t;
 
 //
@@ -346,6 +352,11 @@ typedef struct refimport_s {
 	// Persistent data store
 	bool			(*PD_Store)							( const char *name, const void *data, size_t size );
 	const void *	(*PD_Load)							( const char *name, size_t *size );
+
+	// Used for ImGui integration
+	int (*Key_GetCatcher)();
+	const char *(*Clipboard_Get)();
+	void (*Clipboard_Set)(const char *text);
 } refimport_t;
 
 // this is the only function actually exported at the linker level

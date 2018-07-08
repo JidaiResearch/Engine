@@ -2190,6 +2190,12 @@ Q_EXPORT refexport_t* QDECL GetRefAPI ( int apiVersion, refimport_t *rimp ) {
 	Ghoul2 Insert End
 	*/
 
+	re.KeyEvent = RE_KeyEvent;
+	re.CharEvent = RE_CharEvent;
+	re.MouseWheelEvent = RE_MouseWheelEvent;
+	re.MouseClickEvent = RE_MouseClickEvent;
+	re.DropFileEvent = RE_DropFileEvent;
+
 	return &re;
 }
 }
