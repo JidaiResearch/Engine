@@ -99,7 +99,7 @@ STATIC int handle_uncaught_exception(mp_obj_base_t *exc) {
 // Returns standard error codes: 0 for success, 1 for all other errors,
 // except if FORCED_EXIT bit is set then script raised SystemExit and the
 // value of the exit is in the lower 8 bits of the return value
-STATIC int execute_from_lexer(int source_kind, const void *source, mp_parse_input_kind_t input_kind, bool is_repl) {
+int execute_from_lexer(int source_kind, const void *source, mp_parse_input_kind_t input_kind, bool is_repl) {
     mp_hal_set_interrupt_char(CHAR_CTRL_C);
 
     nlr_buf_t nlr;
@@ -406,7 +406,7 @@ STATIC void set_sys_argv(char *argv[], int argc, int start_arg) {
 MP_NOINLINE int main_(int argc, char **argv);
 
 
-int main(int argc, char **argv) {
+int main_py(int argc, char **argv) {
     #if MICROPY_PY_THREAD
     mp_thread_init();
     #endif
@@ -631,6 +631,8 @@ MP_NOINLINE int main_(int argc, char **argv) {
             break;
         }
     }
+
+	return 0;
 
     if (ret == NOTHING_EXECUTED || inspect) {
         if (isatty(0)) {
