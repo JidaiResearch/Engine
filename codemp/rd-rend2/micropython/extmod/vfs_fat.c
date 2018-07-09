@@ -25,7 +25,7 @@
  * THE SOFTWARE.
  */
 
-#include "py/mpconfig.h"
+#include "../mpconfig.h"
 #if MICROPY_VFS_FAT
 
 #if !MICROPY_VFS

@@ -24,7 +24,7 @@
  * THE SOFTWARE.
  */
 
-#include "py/mpconfig.h"
+#include "../mpconfig.h"
 #if MICROPY_PY_USSL && MICROPY_SSL_MBEDTLS
 
 #include <stdio.h>

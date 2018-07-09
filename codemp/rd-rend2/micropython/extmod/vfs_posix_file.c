@@ -24,9 +24,9 @@
  * THE SOFTWARE.
  */
 
-#include "py/runtime.h"
-#include "py/stream.h"
-#include "extmod/vfs_posix.h"
+#include "../runtime.h"
+#include "../stream.h"
+#include "vfs_posix.h"
 
 #if MICROPY_VFS_POSIX
 

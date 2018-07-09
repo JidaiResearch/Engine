@@ -29,8 +29,8 @@
 #include <errno.h> // for declaration of global errno variable
 #include <fcntl.h>
 
-#include "py/runtime.h"
-#include "py/stream.h"
+#include "../runtime.h"
+#include "../stream.h"
 
 #if MICROPY_PY_BTREE
 

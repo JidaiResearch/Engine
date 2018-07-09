@@ -30,7 +30,7 @@
 // This file contains cumulative declarations for extmod/ .
 
 #include <stddef.h>
-#include "py/runtime.h"
+#include "../runtime.h"
 
 MP_DECLARE_CONST_FUN_OBJ_VAR_BETWEEN(mp_uos_dupterm_obj);
 

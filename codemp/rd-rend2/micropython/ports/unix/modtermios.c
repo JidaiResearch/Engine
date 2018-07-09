@@ -29,9 +29,9 @@
 #include <unistd.h>
 #include <errno.h>
 
-#include "py/objlist.h"
-#include "py/runtime.h"
-#include "py/mphal.h"
+#include "../../objlist.h"
+#include "../../runtime.h"
+#include "../../mphal.h"
 
 STATIC mp_obj_t mod_termios_tcgetattr(mp_obj_t fd_in) {
     struct termios term;

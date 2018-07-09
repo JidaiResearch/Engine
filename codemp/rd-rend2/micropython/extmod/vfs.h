@@ -26,8 +26,8 @@
 #ifndef MICROPY_INCLUDED_EXTMOD_VFS_H
 #define MICROPY_INCLUDED_EXTMOD_VFS_H
 
-#include "py/lexer.h"
-#include "py/obj.h"
+#include "../../lexer.h"
+#include "../../obj.h"
 
 // return values of mp_vfs_lookup_path
 // ROOT is 0 so that the default current directory is the root directory

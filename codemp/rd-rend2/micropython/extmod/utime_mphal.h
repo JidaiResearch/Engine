@@ -27,7 +27,7 @@
 #ifndef MICROPY_INCLUDED_EXTMOD_UTIME_MPHAL_H
 #define MICROPY_INCLUDED_EXTMOD_UTIME_MPHAL_H
 
-#include "py/obj.h"
+#include "../../obj.h"
 
 MP_DECLARE_CONST_FUN_OBJ_1(mp_utime_sleep_obj);
 MP_DECLARE_CONST_FUN_OBJ_1(mp_utime_sleep_ms_obj);

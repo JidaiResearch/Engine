@@ -26,11 +26,11 @@
 
 #include <stdio.h>
 
-#include "py/objlist.h"
-#include "py/objstringio.h"
-#include "py/parsenum.h"
-#include "py/runtime.h"
-#include "py/stream.h"
+#include "../objlist.h"
+#include "../objstringio.h"
+#include "../parsenum.h"
+#include "../runtime.h"
+#include "../stream.h"
 
 #if MICROPY_PY_UJSON
 

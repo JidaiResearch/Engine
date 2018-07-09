@@ -24,7 +24,7 @@
  * THE SOFTWARE.
  */
 
-#include "py/mpconfig.h"
+#include "../../mpconfig.h"
 #if MICROPY_PY_UTIME
 
 #include <unistd.h>
@@ -34,10 +34,10 @@
 #include <sys/time.h>
 #include <math.h>
 
-#include "py/runtime.h"
-#include "py/smallint.h"
-#include "py/mphal.h"
-#include "extmod/utime_mphal.h"
+#include "../../runtime.h"
+#include "../../smallint.h"
+#include "../../mphal.h"
+#include "../../extmod/utime_mphal.h"
 
 #ifdef _WIN32
 static inline int msec_sleep_tv(struct timeval *tv) {

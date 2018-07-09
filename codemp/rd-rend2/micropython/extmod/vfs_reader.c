@@ -27,10 +27,10 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "py/runtime.h"
-#include "py/stream.h"
-#include "py/reader.h"
-#include "extmod/vfs.h"
+#include "../runtime.h"
+#include "../stream.h"
+#include "../reader.h"
+#include "vfs.h"
 
 #if MICROPY_READER_VFS
 

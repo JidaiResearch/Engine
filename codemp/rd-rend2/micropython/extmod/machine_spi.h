@@ -26,8 +26,8 @@
 #ifndef MICROPY_INCLUDED_EXTMOD_MACHINE_SPI_H
 #define MICROPY_INCLUDED_EXTMOD_MACHINE_SPI_H
 
-#include "py/obj.h"
-#include "py/mphal.h"
+#include "../obj.h"
+#include "../mphal.h"
 #include "drivers/bus/spi.h"
 
 // SPI protocol

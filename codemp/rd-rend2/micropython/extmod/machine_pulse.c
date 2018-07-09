@@ -24,9 +24,9 @@
  * THE SOFTWARE.
  */
 
-#include "py/runtime.h"
-#include "py/mperrno.h"
-#include "extmod/machine_pulse.h"
+#include "../runtime.h"
+#include "../mperrno.h"
+#include "machine_pulse.h"
 
 #if MICROPY_PY_MACHINE_PULSE
 

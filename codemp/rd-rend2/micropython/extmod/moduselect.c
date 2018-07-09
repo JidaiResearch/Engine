@@ -24,17 +24,17 @@
  * THE SOFTWARE.
  */
 
-#include "py/mpconfig.h"
+#include "../mpconfig.h"
 #if MICROPY_PY_USELECT
 
 #include <stdio.h>
 
-#include "py/runtime.h"
-#include "py/obj.h"
-#include "py/objlist.h"
-#include "py/stream.h"
-#include "py/mperrno.h"
-#include "py/mphal.h"
+#include "../runtime.h"
+#include "../obj.h"
+#include "../objlist.h"
+#include "../stream.h"
+#include "../mperrno.h"
+#include "../mphal.h"
 
 // Flags for poll()
 #define FLAG_ONESHOT (1)

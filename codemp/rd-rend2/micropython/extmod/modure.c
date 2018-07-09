@@ -28,10 +28,10 @@
 #include <assert.h>
 #include <string.h>
 
-#include "py/runtime.h"
-#include "py/binary.h"
-#include "py/objstr.h"
-#include "py/stackctrl.h"
+#include "../runtime.h"
+#include "../binary.h"
+#include "../objstr.h"
+#include "../stackctrl.h"
 
 #if MICROPY_PY_URE
 

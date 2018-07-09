@@ -27,8 +27,8 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "py/runtime.h"
-#include "py/stream.h"
+#include "../runtime.h"
+#include "../stream.h"
 
 #if MICROPY_PY_USSL && MICROPY_SSL_AXTLS
 

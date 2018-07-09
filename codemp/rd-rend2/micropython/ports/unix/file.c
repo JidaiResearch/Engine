@@ -31,10 +31,10 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-#include "py/runtime.h"
-#include "py/stream.h"
-#include "py/builtin.h"
-#include "py/mphal.h"
+#include "../../runtime.h"
+#include "../../stream.h"
+#include "../../builtin.h"
+#include "../../mphal.h"
 #include "fdfile.h"
 
 #if MICROPY_PY_IO && !MICROPY_VFS

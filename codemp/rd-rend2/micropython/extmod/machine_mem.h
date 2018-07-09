@@ -26,7 +26,7 @@
 #ifndef MICROPY_INCLUDED_EXTMOD_MACHINE_MEM_H
 #define MICROPY_INCLUDED_EXTMOD_MACHINE_MEM_H
 
-#include "py/obj.h"
+#include "../obj.h"
 
 typedef struct _machine_mem_obj_t {
     mp_obj_base_t base;

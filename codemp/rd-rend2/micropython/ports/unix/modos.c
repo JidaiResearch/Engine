@@ -32,12 +32,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include <dirent.h>
-#include "py/mpconfig.h"
+#include "../../mpconfig.h"
 
-#include "py/runtime.h"
-#include "py/objtuple.h"
-#include "py/mphal.h"
-#include "extmod/misc.h"
+#include "../../runtime.h"
+#include "../../objtuple.h"
+#include "../../mphal.h"
+#include "../../extmod/misc.h"
 
 #ifdef __ANDROID__
 #define USE_STATFS 1

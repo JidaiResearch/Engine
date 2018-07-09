@@ -30,8 +30,8 @@
 #include <dlfcn.h>
 #include <ctype.h>
 
-#include "py/runtime.h"
-#include "py/binary.h"
+#include "../../runtime.h"
+#include "../../binary.h"
 
 #include <jni.h>
 

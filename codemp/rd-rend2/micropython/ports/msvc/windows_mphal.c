@@ -25,8 +25,8 @@
  */
 
 
-#include "py/mpstate.h"
-#include "py/mphal.h"
+#include "../../mpstate.h"
+#include "../../mphal.h"
 
 #include <sys/time.h>
 #include <windows.h>

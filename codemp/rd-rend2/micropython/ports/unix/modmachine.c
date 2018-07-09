@@ -27,13 +27,13 @@
 #include <stdio.h>
 #include <stdint.h>
 
-#include "py/runtime.h"
-#include "py/obj.h"
+#include "../../runtime.h"
+#include "../../obj.h"
 
-#include "extmod/machine_mem.h"
-#include "extmod/machine_pinbase.h"
-#include "extmod/machine_signal.h"
-#include "extmod/machine_pulse.h"
+#include "../../extmod/machine_mem.h"
+#include "../../extmod/machine_pinbase.h"
+#include "../../extmod/machine_signal.h"
+#include "../../extmod/machine_pulse.h"
 
 #if MICROPY_PLAT_DEV_MEM
 #include <errno.h>

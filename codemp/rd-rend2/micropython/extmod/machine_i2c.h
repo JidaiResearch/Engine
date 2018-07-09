@@ -26,7 +26,7 @@
 #ifndef MICROPY_INCLUDED_EXTMOD_MACHINE_I2C_H
 #define MICROPY_INCLUDED_EXTMOD_MACHINE_I2C_H
 
-#include "py/obj.h"
+#include "../obj.h"
 
 // I2C protocol
 // the first 4 methods can be NULL, meaning operation is not supported

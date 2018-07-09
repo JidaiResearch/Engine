@@ -29,9 +29,9 @@
 #include <string.h>
 #include <sys/time.h>
 
-#include "py/mphal.h"
-#include "py/runtime.h"
-#include "extmod/misc.h"
+#include "../../mphal.h"
+#include "../../runtime.h"
+#include "../../extmod/misc.h"
 
 #ifndef _WIN32
 #include <signal.h>

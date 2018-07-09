@@ -28,9 +28,9 @@
 #include <assert.h>
 #include <string.h>
 
-#include "py/runtime.h"
-#include "py/binary.h"
-#include "extmod/modubinascii.h"
+#include "../runtime.h"
+#include "../binary.h"
+#include "modubinascii.h"
 
 mp_obj_t mod_binascii_hexlify(size_t n_args, const mp_obj_t *args) {
     // Second argument is for an extension to allow a separator to be used

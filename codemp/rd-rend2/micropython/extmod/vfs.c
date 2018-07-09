@@ -27,10 +27,10 @@
 #include <stdint.h>
 #include <string.h>
 
-#include "py/runtime.h"
-#include "py/objstr.h"
-#include "py/mperrno.h"
-#include "extmod/vfs.h"
+#include "../runtime.h"
+#include "../objstr.h"
+#include "../mperrno.h"
+#include "vfs.h"
 
 #if MICROPY_VFS
 

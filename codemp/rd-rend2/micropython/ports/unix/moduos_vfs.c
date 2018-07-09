@@ -27,9 +27,9 @@
 #include <stdint.h>
 #include <string.h>
 
-#include "extmod/vfs.h"
-#include "extmod/vfs_posix.h"
-#include "extmod/vfs_fat.h"
+#include "../../extmod/vfs.h"
+#include "../../extmod/vfs_posix.h"
+#include "../../extmod/vfs_fat.h"
 
 #if MICROPY_VFS
 

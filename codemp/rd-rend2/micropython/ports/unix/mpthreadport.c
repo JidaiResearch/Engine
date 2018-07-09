@@ -28,9 +28,9 @@
 #include <stdlib.h>
 #include <errno.h>
 
-#include "py/runtime.h"
-#include "py/mpthread.h"
-#include "py/gc.h"
+#include "../../runtime.h"
+#include "../../mpthread.h"
+#include "../../gc.h"
 
 #if MICROPY_PY_THREAD
 

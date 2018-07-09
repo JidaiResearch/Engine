@@ -28,13 +28,13 @@
 #include <stdint.h>
 #include <string.h>
 
-#include "py/runtime.h"
-#include "py/stream.h"
-#include "py/builtin.h"
+#include "../runtime.h"
+#include "../stream.h"
+#include "../builtin.h"
 #ifdef MICROPY_PY_WEBREPL_DELAY
-#include "py/mphal.h"
+#include "../mphal.h"
 #endif
-#include "extmod/modwebsocket.h"
+#include "modwebsocket.h"
 #include "genhdr/mpversion.h"
 
 #if MICROPY_PY_WEBREPL

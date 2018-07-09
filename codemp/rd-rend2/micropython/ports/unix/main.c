@@ -37,17 +37,17 @@
 #include <errno.h>
 #include <signal.h>
 
-#include "py/compile.h"
-#include "py/runtime.h"
-#include "py/builtin.h"
-#include "py/repl.h"
-#include "py/gc.h"
-#include "py/stackctrl.h"
-#include "py/mphal.h"
-#include "py/mpthread.h"
-#include "extmod/misc.h"
-#include "extmod/vfs.h"
-#include "extmod/vfs_posix.h"
+#include "../../compile.h"
+#include "../../runtime.h"
+#include "../../builtin.h"
+#include "../../repl.h"
+#include "../../gc.h"
+#include "../../stackctrl.h"
+#include "../../mphal.h"
+#include "../../mpthread.h"
+#include "../../extmod/misc.h"
+#include "../../extmod/vfs.h"
+#include "../../extmod/vfs_posix.h"
 #include "genhdr/mpversion.h"
 #include "input.h"
 

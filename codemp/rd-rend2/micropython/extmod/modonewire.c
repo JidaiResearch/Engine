@@ -27,8 +27,8 @@
 #include <stdio.h>
 #include <stdint.h>
 
-#include "py/obj.h"
-#include "py/mphal.h"
+#include "../obj.h"
+#include "../mphal.h"
 
 /******************************************************************************/
 // Low-level 1-Wire routines

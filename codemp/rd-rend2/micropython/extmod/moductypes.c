@@ -28,9 +28,9 @@
 #include <string.h>
 #include <stdint.h>
 
-#include "py/runtime.h"
-#include "py/objtuple.h"
-#include "py/binary.h"
+#include "../runtime.h"
+#include "../objtuple.h"
+#include "../binary.h"
 
 #if MICROPY_PY_UCTYPES
 

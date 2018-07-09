@@ -1,18 +1,18 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "py/obj.h"
-#include "py/objstr.h"
-#include "py/runtime.h"
-#include "py/gc.h"
-#include "py/repl.h"
-#include "py/mpz.h"
-#include "py/builtin.h"
-#include "py/emit.h"
-#include "py/formatfloat.h"
-#include "py/stream.h"
-#include "py/binary.h"
-#include "py/bc.h"
+#include "../../obj.h"
+#include "../../objstr.h"
+#include "../../runtime.h"
+#include "../../gc.h"
+#include "../../repl.h"
+#include "../../mpz.h"
+#include "../../builtin.h"
+#include "../../emit.h"
+#include "../../formatfloat.h"
+#include "../../stream.h"
+#include "../../binary.h"
+#include "../../bc.h"
 
 #if defined(MICROPY_UNIX_COVERAGE)
 

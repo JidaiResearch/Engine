@@ -24,13 +24,13 @@
  * THE SOFTWARE.
  */
 
-#include "py/mpconfig.h"
+#include "../mpconfig.h"
 #if MICROPY_PY_MACHINE
 
-#include "py/obj.h"
-#include "py/runtime.h"
-#include "extmod/virtpin.h"
-#include "extmod/machine_pinbase.h"
+#include "../obj.h"
+#include "../runtime.h"
+#include "virtpin.h"
+#include "machine_pinbase.h"
 
 // PinBase class
 

@@ -25,7 +25,7 @@
  */
 
 #include "fmode.h"
-#include "py/mpconfig.h"
+#include "../../mpconfig.h"
 #include <fcntl.h>
 #include <stdlib.h>
 

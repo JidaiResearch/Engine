@@ -27,7 +27,7 @@
 #include <assert.h>
 #include <string.h>
 
-#include "py/runtime.h"
+#include "../runtime.h"
 
 #if MICROPY_PY_URANDOM
 

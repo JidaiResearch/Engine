@@ -38,12 +38,12 @@
 #include <netdb.h>
 #include <errno.h>
 
-#include "py/objtuple.h"
-#include "py/objstr.h"
-#include "py/runtime.h"
-#include "py/stream.h"
-#include "py/builtin.h"
-#include "py/mphal.h"
+#include "../../objtuple.h"
+#include "../../objstr.h"
+#include "../../runtime.h"
+#include "../../stream.h"
+#include "../../builtin.h"
+#include "../../mphal.h"
 
 /*
   The idea of this module is to implement reasonable minimum of

@@ -27,9 +27,9 @@
 
 #include <string.h>
 
-#include "py/objlist.h"
-#include "py/runtime.h"
-#include "py/smallint.h"
+#include "../objlist.h"
+#include "../runtime.h"
+#include "../smallint.h"
 
 #if MICROPY_PY_UTIMEQ
 

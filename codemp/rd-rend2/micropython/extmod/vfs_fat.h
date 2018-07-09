@@ -26,10 +26,10 @@
 #ifndef MICROPY_INCLUDED_EXTMOD_VFS_FAT_H
 #define MICROPY_INCLUDED_EXTMOD_VFS_FAT_H
 
-#include "py/lexer.h"
-#include "py/obj.h"
+#include "../../lexer.h"
+#include "../../obj.h"
 #include "lib/oofatfs/ff.h"
-#include "extmod/vfs.h"
+#include "../../extmod/vfs.h"
 
 // these are the values for fs_user_mount_t.flags
 #define FSUSER_NATIVE       (0x0001) // readblocks[2]/writeblocks[2] contain native func

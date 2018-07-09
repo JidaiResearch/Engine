@@ -25,6 +25,8 @@
  * THE SOFTWARE.
  */
 
+#if 0
+
 #include <assert.h>
 #include <string.h>
 #include <errno.h>
@@ -32,9 +34,9 @@
 #include <ffi.h>
 #include <stdint.h>
 
-#include "py/runtime.h"
-#include "py/binary.h"
-#include "py/mperrno.h"
+#include "../../runtime.h"
+#include "../../binary.h"
+#include "../../mperrno.h"
 
 /*
  * modffi uses character codes to encode a value type, based on "struct"
@@ -502,3 +504,6 @@ const mp_obj_module_t mp_module_ffi = {
     .base = { &mp_type_module },
     .globals = (mp_obj_dict_t*)&mp_module_ffi_globals,
 };
+
+
+#endif

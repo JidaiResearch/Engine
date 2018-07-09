@@ -27,9 +27,9 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "py/runtime.h"
-#include "py/stream.h"
-#include "py/mperrno.h"
+#include "../runtime.h"
+#include "../stream.h"
+#include "../mperrno.h"
 
 #if MICROPY_PY_UZLIB
 

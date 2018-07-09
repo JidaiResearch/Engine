@@ -29,11 +29,11 @@
 #include <string.h>
 #include <stdio.h>
 
-#include "py/objlist.h"
-#include "py/runtime.h"
-#include "py/stream.h"
-#include "py/mperrno.h"
-#include "py/mphal.h"
+#include "../objlist.h"
+#include "../runtime.h"
+#include "../stream.h"
+#include "../mperrno.h"
+#include "../mphal.h"
 
 #include "lib/netutils/netutils.h"
 

@@ -25,16 +25,16 @@
  * THE SOFTWARE.
  */
 
-#include "py/mpconfig.h"
+#include "../mpconfig.h"
 #if MICROPY_PY_UTIME_MP_HAL
 
 #include <string.h>
 
-#include "py/obj.h"
-#include "py/mphal.h"
-#include "py/smallint.h"
-#include "py/runtime.h"
-#include "extmod/utime_mphal.h"
+#include "../obj.h"
+#include "../mphal.h"
+#include "../smallint.h"
+#include "../runtime.h"
+#include "utime_mphal.h"
 
 STATIC mp_obj_t time_sleep(mp_obj_t seconds_o) {
     #if MICROPY_PY_BUILTINS_FLOAT

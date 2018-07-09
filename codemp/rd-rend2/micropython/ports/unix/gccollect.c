@@ -26,8 +26,8 @@
 
 #include <stdio.h>
 
-#include "py/mpstate.h"
-#include "py/gc.h"
+#include "../../mpstate.h"
+#include "../../gc.h"
 
 #if MICROPY_ENABLE_GC
 

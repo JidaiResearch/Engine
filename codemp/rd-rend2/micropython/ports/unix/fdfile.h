@@ -27,7 +27,7 @@
 #ifndef MICROPY_INCLUDED_UNIX_FDFILE_H
 #define MICROPY_INCLUDED_UNIX_FDFILE_H
 
-#include "py/obj.h"
+#include "../../obj.h"
 
 typedef struct _mp_obj_fdfile_t {
     mp_obj_base_t base;

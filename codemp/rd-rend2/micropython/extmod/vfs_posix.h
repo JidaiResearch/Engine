@@ -26,8 +26,8 @@
 #ifndef MICROPY_INCLUDED_EXTMOD_VFS_POSIX_H
 #define MICROPY_INCLUDED_EXTMOD_VFS_POSIX_H
 
-#include "py/lexer.h"
-#include "py/obj.h"
+#include "../../lexer.h"
+#include "../../obj.h"
 
 extern const mp_obj_type_t mp_type_vfs_posix;
 extern const mp_obj_type_t mp_type_vfs_posix_fileio;

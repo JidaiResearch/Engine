@@ -24,10 +24,10 @@
  * THE SOFTWARE.
  */
 
-#include "py/runtime.h"
-#include "py/mperrno.h"
-#include "extmod/vfs.h"
-#include "extmod/vfs_posix.h"
+#include "../runtime.h"
+#include "../mperrno.h"
+#include "vfs.h"
+#include "vfs_posix.h"
 
 #if MICROPY_VFS_POSIX
 

@@ -29,8 +29,8 @@
 #include <string.h>
 #include <fcntl.h>
 
-#include "py/mpstate.h"
-#include "py/mphal.h"
+#include "../../mpstate.h"
+#include "../../mphal.h"
 #include "input.h"
 
 #if MICROPY_USE_READLINE == 1

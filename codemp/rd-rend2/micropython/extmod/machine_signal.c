@@ -24,15 +24,15 @@
  * THE SOFTWARE.
  */
 
-#include "py/mpconfig.h"
+#include "../mpconfig.h"
 #if MICROPY_PY_MACHINE
 
 #include <string.h>
 
-#include "py/obj.h"
-#include "py/runtime.h"
-#include "extmod/virtpin.h"
-#include "extmod/machine_signal.h"
+#include "../obj.h"
+#include "../runtime.h"
+#include "virtpin.h"
+#include "machine_signal.h"
 
 // Signal class
 

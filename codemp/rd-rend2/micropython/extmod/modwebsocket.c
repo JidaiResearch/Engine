@@ -28,9 +28,9 @@
 #include <stdint.h>
 #include <string.h>
 
-#include "py/runtime.h"
-#include "py/stream.h"
-#include "extmod/modwebsocket.h"
+#include "../runtime.h"
+#include "../stream.h"
+#include "modwebsocket.h"
 
 #if MICROPY_PY_WEBSOCKET
 
