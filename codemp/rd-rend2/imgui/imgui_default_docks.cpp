@@ -8,6 +8,7 @@
 #include "../imgui_docks/dock_repl.h"
 #include "../imgui_docks/dock_node.h"
 #include "../imgui_docks/dock_julia.h"
+#include "../imgui_docks/dock_micropython.h"
 
 #include <list>
 std::list<Dock *> docks;
@@ -133,6 +134,7 @@ CCALL int imgui_default_docks() {
 		//docks.push_back(new DockREPL("testone"));
 		docks.push_back(new DockConsole());
 		docks.push_back(new DockNode());
+		docks.push_back(new DockMicroPython());
 		//docks.push_back(new DockJulia());
 	}
 
