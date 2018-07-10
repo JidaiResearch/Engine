@@ -125,10 +125,14 @@ mp_obj_t mp_obj_new_module(qstr module_name) {
 /******************************************************************************/
 // Global module table and related functions
 
+
+extern const struct _mp_obj_module_t mp_module_openjk;
+
 STATIC const mp_rom_map_elem_t mp_builtin_module_table[] = {
-    { MP_ROM_QSTR(MP_QSTR___main__), MP_ROM_PTR(&mp_module___main__) },
-    { MP_ROM_QSTR(MP_QSTR_builtins), MP_ROM_PTR(&mp_module_builtins) },
+    { MP_ROM_QSTR(MP_QSTR___main__),    MP_ROM_PTR(&mp_module___main__) },
+    { MP_ROM_QSTR(MP_QSTR_builtins),    MP_ROM_PTR(&mp_module_builtins) },
     { MP_ROM_QSTR(MP_QSTR_micropython), MP_ROM_PTR(&mp_module_micropython) },
+	{ MP_ROM_QSTR(MP_QSTR_openjk),        MP_ROM_PTR(&mp_module_openjk) },
 
 #if MICROPY_PY_ARRAY
     { MP_ROM_QSTR(MP_QSTR_array), MP_ROM_PTR(&mp_module_array) },
@@ -220,6 +224,7 @@ STATIC const mp_rom_map_elem_t mp_builtin_module_table[] = {
 
     // extra builtin modules as defined by a port
     MICROPY_PORT_BUILTIN_MODULES
+
 };
 
 MP_DEFINE_CONST_MAP(mp_builtin_module_map, mp_builtin_module_table);
