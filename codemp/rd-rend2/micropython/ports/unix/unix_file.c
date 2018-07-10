@@ -63,45 +63,47 @@ STATIC void fdfile_print(const mp_print_t *print, mp_obj_t self_in, mp_print_kin
 }
 
 STATIC mp_uint_t fdfile_read(mp_obj_t o_in, void *buf, mp_uint_t size, int *errcode) {
-	mp_obj_fdfile_t *o = MP_OBJ_TO_PTR(o_in);
-	check_fd_is_open(o);
-	mp_int_t r = read(o->fd, buf, size);
-	if (r == -1) {
-		*errcode = errno;
-		return MP_STREAM_ERROR;
-	}
-	return r;
+	//mp_obj_fdfile_t *o = MP_OBJ_TO_PTR(o_in);
+	//check_fd_is_open(o);
+	//mp_int_t r = read(o->fd, buf, size);
+	//if (r == -1) {
+	//	*errcode = errno;
+	//	return MP_STREAM_ERROR;
+	//}
+	//return r;
+	return 0;
 }
 
 int imgui_log(char *format, ...);
 
 STATIC mp_uint_t fdfile_write(mp_obj_t o_in, const void *buf, mp_uint_t size, int *errcode) {
-	mp_obj_fdfile_t *o = MP_OBJ_TO_PTR(o_in);
-	check_fd_is_open(o);
+	//mp_obj_fdfile_t *o = MP_OBJ_TO_PTR(o_in);
+	//check_fd_is_open(o);
 #if MICROPY_PY_OS_DUPTERM
 	if (o->fd <= STDERR_FILENO) {
 		mp_hal_stdout_tx_strn(buf, size);
 		return size;
 	}
 #endif
-	mp_int_t r = write(o->fd, buf, size);
+	//mp_int_t r = write(o->fd, buf, size);
 
 	for (int i = 0; i < size; i++)
 		imgui_log("%c", ((char *)buf)[i]);
+	return size;
 
-	while (r == -1 && errno == EINTR) {
-		if (MP_STATE_VM(mp_pending_exception) != MP_OBJ_NULL) {
-			mp_obj_t obj = MP_STATE_VM(mp_pending_exception);
-			MP_STATE_VM(mp_pending_exception) = MP_OBJ_NULL;
-			nlr_raise(obj);
-		}
-		r = write(o->fd, buf, size);
-	}
-	if (r == -1) {
-		*errcode = errno;
-		return MP_STREAM_ERROR;
-	}
-	return r;
+	//while (r == -1 && errno == EINTR) {
+	//	if (MP_STATE_VM(mp_pending_exception) != MP_OBJ_NULL) {
+	//		mp_obj_t obj = MP_STATE_VM(mp_pending_exception);
+	//		MP_STATE_VM(mp_pending_exception) = MP_OBJ_NULL;
+	//		nlr_raise(obj);
+	//	}
+	//	r = write(o->fd, buf, size);
+	//}
+	//if (r == -1) {
+	//	*errcode = errno;
+	//	return MP_STREAM_ERROR;
+	//}
+	//return r;
 }
 
 STATIC mp_uint_t fdfile_ioctl(mp_obj_t o_in, mp_uint_t request, uintptr_t arg, int *errcode) {

@@ -24,6 +24,8 @@
  * THE SOFTWARE.
  */
 
+#if 0
+
 #include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
@@ -197,3 +199,5 @@ mp_uint_t mp_hal_ticks_us(void) {
     gettimeofday(&tv, NULL);
     return tv.tv_sec * 1000000 + tv.tv_usec;
 }
+
+#endif

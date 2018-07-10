@@ -25,7 +25,8 @@
  * THE SOFTWARE.
  */
 
-#include "py/mpconfig.h"
+
+//#include "py/mpconfig.h"
 
 #if MICROPY_PY_USELECT_POSIX
 

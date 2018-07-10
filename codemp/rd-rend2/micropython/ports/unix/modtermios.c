@@ -24,6 +24,8 @@
  * THE SOFTWARE.
  */
 
+#if 0
+
 #include <sys/types.h>
 #include <termios.h>
 #include <unistd.h>
@@ -148,3 +150,5 @@ const mp_obj_module_t mp_module_termios = {
     .base = { &mp_type_module },
     .globals = (mp_obj_dict_t*)&mp_module_termios_globals,
 };
+
+#endif

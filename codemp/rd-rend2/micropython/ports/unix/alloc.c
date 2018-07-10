@@ -24,6 +24,8 @@
  * THE SOFTWARE.
  */
 
+#if 0
+
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
@@ -105,3 +107,5 @@ void ffi_closure_free(void *ptr) {
 #endif
 
 #endif // MICROPY_EMIT_NATIVE || (MICROPY_PY_FFI && MICROPY_FORCE_PLAT_ALLOC_EXEC)
+
+#endif

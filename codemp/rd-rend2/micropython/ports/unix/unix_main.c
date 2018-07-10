@@ -61,11 +61,18 @@ STATIC uint emit_opt = MP_EMIT_OPT_NONE;
 long heap_size = 1024*1024 * (sizeof(mp_uint_t) / 4);
 #endif
 
+int imgui_log(char *format, ...);
 STATIC void stderr_print_strn(void *env, const char *str, size_t len) {
     (void)env;
-    ssize_t dummy = write(STDERR_FILENO, str, len);
-    mp_uos_dupterm_tx_strn(str, len);
-    (void)dummy;
+	// todo: write a module for imgui "stdio" and then just hook it in like here:
+	// https://stackoverflow.com/questions/550470/overload-print-python
+	// so we can keep native stdio stuff for dedicated server
+	// and treat rend2 as a special case... or print to imgui AND console
+	for (int i=0; i<len; i++)
+		imgui_log("%c", str[i]);
+    //ssize_t dummy = write(STDERR_FILENO, str, len);
+    //mp_uos_dupterm_tx_strn(str, len);
+    //(void)dummy;
 }
 
 const mp_print_t mp_stderr_print = {NULL, stderr_print_strn};

@@ -25,6 +25,7 @@
  * THE SOFTWARE.
  */
 
+#if 0
 #include <stdio.h>
 #include <assert.h>
 #include <string.h>
@@ -562,3 +563,5 @@ const mp_obj_module_t mp_module_socket = {
     .base = { &mp_type_module },
     .globals = (mp_obj_dict_t*)&mp_module_socket_globals,
 };
+
+#endif

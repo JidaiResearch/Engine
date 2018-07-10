@@ -26,6 +26,8 @@
  * THE SOFTWARE.
  */
 
+#if 0
+
 #include <string.h>
 #include <stdio.h>
 
@@ -1455,3 +1457,6 @@ const mp_obj_module_t mp_module_lwip = {
 };
 
 #endif // MICROPY_PY_LWIP
+
+
+#endif

@@ -24,6 +24,8 @@
  * THE SOFTWARE.
  */
 
+#if 0
+
 #include <stdio.h>
 #include <stdint.h>
 
@@ -160,3 +162,5 @@ const mp_obj_module_t mp_module_onewire = {
     .base = { &mp_type_module },
     .globals = (mp_obj_dict_t*)&onewire_module_globals,
 };
+
+#endif

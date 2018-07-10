@@ -24,11 +24,15 @@
  * THE SOFTWARE.
  */
 
+#if 0
+
 #include <stdio.h>
 #include <string.h>
 
 #include "../runtime.h"
 #include "machine_spi.h"
+
+#endif
 
 #if MICROPY_PY_MACHINE_SPI
 
