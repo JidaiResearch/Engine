@@ -565,7 +565,7 @@ set(MPRend2MicroPython
 	"${MPDir}/rd-rend2/micropython/lexer.h"
 	"${MPDir}/rd-rend2/micropython/malloc.c"
 	"${MPDir}/rd-rend2/micropython/map.c"
-	"${MPDir}/rd-rend2/micropython/mod_openjk.c"
+	"${MPDir}/rd-rend2/micropython/mod_openjk.cpp"
 	"${MPDir}/rd-rend2/micropython/misc.h"
 	"${MPDir}/rd-rend2/micropython/modarray.c"
 	"${MPDir}/rd-rend2/micropython/modbuiltins.c"

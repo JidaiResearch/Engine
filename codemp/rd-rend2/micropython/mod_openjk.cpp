@@ -24,12 +24,20 @@
  * THE SOFTWARE.
  */
 
+
+
+#include "server/server.h"
+
+extern "C" {
 #include "builtin.h"
 #include "runtime.h"
-
+#include "obj.h"
+}
 #if MICROPY_PY_BUILTINS_FLOAT && MICROPY_PY_MATH
 
-#include <math.h>
+
+
+
 
 // M_PI is not part of the math.h standard and may not be defined
 // And by defining our own we can ensure it uses the correct const format.
@@ -39,6 +47,8 @@ STATIC NORETURN void math_error(void) {
     mp_raise_ValueError("math domain error");
 }
 
+
+#if 0
 STATIC mp_obj_t math_generic_1(mp_obj_t x_obj, mp_float_t (*f)(mp_float_t)) {
     mp_float_t x = mp_obj_get_float(x_obj);
     mp_float_t ans = f(x);
@@ -232,48 +242,141 @@ STATIC mp_obj_t mp_math_degrees(mp_obj_t x_obj) {
 }
 STATIC MP_DEFINE_CONST_FUN_OBJ_1(mp_math_degrees_obj, mp_math_degrees);
 
-//#include "../imgui_docks/dock_console.h"
-int imgui_log(const char *fmt, ...);
 
-STATIC mp_obj_t mp_openjk_getVelocity(mp_obj_t x_obj) {
+#endif
+
+//#include "../imgui_docks/dock_console.h"
+extern "C" int imgui_log(const char *fmt, ...);
+
+
+
+//typedef mp_obj_t(*mp_fun_4_t)(mp_obj_t, mp_obj_t, mp_obj_t, mp_obj_t);
+//
+
+//
+//const mp_obj_type_t mp_type_fun_builtin_4 = {
+//	{ &mp_type_type },
+//	.name = MP_QSTR_function,
+//	.call = fun_builtin_4_call,
+//	.unary_op = mp_generic_unary_op,
+//};
+
+STATIC mp_obj_t fun_set_velocity(mp_obj_t self_in, size_t n_args, size_t n_kw, const mp_obj_t *args) {
+	//assert(MP_OBJ_IS_TYPE(self_in, &mp_type_fun_builtin_3));
+	//mp_obj_fun_builtin_fixed_t *self = (mp_obj_fun_builtin_fixed_t *)MP_OBJ_TO_PTR(self_in);
+	//mp_arg_check_num(n_args, n_kw, 3, 3, false);
+
+	int playerid = mp_obj_get_int(args[0]);
+	float x = mp_obj_get_float(args[1]);
+	float y = mp_obj_get_float(args[2]);
+	float z = mp_obj_get_float(args[3]);
+	imgui_log("Got: %d %f %f %f\n", playerid, x, y, z);
+
+	return mp_obj_new_int(321);
+	//return self->fun._3(args[0], args[1], args[2]);
+}
+const mp_obj_type_t mp_type_fun_setVelocity = {
+	&mp_type_type, NULL, MP_QSTR_function, NULL, NULL, fun_set_velocity, mp_generic_unary_op, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
+};
+
+
+
+struct _mp_obj_fun_builtin_fixed_t mp_obj_fun1(const mp_obj_type_t *type_, mp_obj_t fun_) {
+	struct _mp_obj_fun_builtin_fixed_t tmp;
+	tmp.base.type = type_;
+	tmp.fun._1 = (mp_fun_1_t)fun_;
+	return tmp;
+}
+struct _mp_obj_fun_builtin_fixed_t mp_obj_setvelocity(const mp_obj_type_t *type_, mp_obj_t fun_) {
+	struct _mp_obj_fun_builtin_fixed_t tmp;
+	tmp.base.type = type_;
+	tmp.fun._1 = (mp_fun_1_t)fun_;
+	return tmp;
+}
+//struct _mp_obj_fun_builtin_fixed_t mp_obj_fun4(const mp_obj_type_t *type_, mp_obj_t fun_) {
+//	struct _mp_obj_fun_builtin_fixed_t tmp;
+//	tmp.base.type = type_;
+//	tmp.fun._4 = (mp_fun_4_t)fun_;
+//	return tmp;
+//}
+
+
+
+extern "C" mp_obj_t mp_openjk_getVelocity(mp_obj_t x_obj) {
 	//mp_float_t int_part = 0.0;
 	//mp_float_t fractional_part = MICROPY_FLOAT_C_FUN(modf)(mp_obj_get_float(x_obj), &int_part);
 	mp_obj_t tuple[3];
 
 	int playerid = mp_obj_get_int(x_obj);
 
-	imgui_log("playerid=%d\n", playerid);
+	imgui_log("sv.gentities=%p\n", sv.gentities);
+	if (sv.gentities != NULL) {
+		sharedEntity_t *gents = sv.gentities;
+		gents->playerState->velocity[0] += 1000;
+		gents->playerState->velocity[1] += 1000;
+		gents->playerState->velocity[2] += 1000;
+	}
+
 
 	tuple[0] = mp_obj_new_float(1.0);
 	tuple[1] = mp_obj_new_float(2.0);
 	tuple[2] = mp_obj_new_float(3.0);
 	return mp_obj_new_tuple(3, tuple);
 }
-STATIC MP_DEFINE_CONST_FUN_OBJ_1(mp_openjk_getVelocity_obj, mp_openjk_getVelocity);
 
-STATIC mp_obj_t mp_openjk_setVelocity(mp_obj_t x_obj) {
-	mp_float_t int_part = 0.0;
-	mp_float_t fractional_part = MICROPY_FLOAT_C_FUN(modf)(mp_obj_get_float(x_obj), &int_part);
-	mp_obj_t tuple[2];
-	tuple[0] = mp_obj_new_float(fractional_part);
-	tuple[1] = mp_obj_new_float(int_part);
-	return mp_obj_new_tuple(2, tuple);
-}
-STATIC MP_DEFINE_CONST_FUN_OBJ_1(mp_openjk_setVelocity_obj, mp_openjk_setVelocity);
+//extern "C" mp_obj_t mp_openjk_setVelocity(mp_obj_t x_obj) {
+//	//mp_float_t int_part = 0.0;
+//	//mp_float_t fractional_part = MICROPY_FLOAT_C_FUN(modf)(mp_obj_get_float(x_obj), &int_part);
+//	//mp_obj_t tuple[2];
+//	//tuple[0] = mp_obj_new_float(fractional_part);
+//	//tuple[1] = mp_obj_new_float(int_part);
+//	//return mp_obj_new_tuple(2, tuple);
+//
+//	mp_obj_get_tu
+//	return NULL;
+//}
 
-STATIC const mp_rom_map_elem_t mp_module_openjk_globals_table[] = {
+static const mp_obj_fun_builtin_fixed_t  mp_openjk_getVelocity_obj = mp_obj_fun1(&mp_type_fun_builtin_1, mp_openjk_getVelocity);
+//static const mp_obj_fun_builtin_fixed_t  mp_openjk_setVelocity_obj = mp_obj_fun1(&mp_type_fun_builtin_1, mp_openjk_setVelocity);
+
+//STATIC MP_DEFINE_CONST_FUN_OBJ_VAR_BETWEEN(mp_math_log_obj, 1, 2, mp_math_log);
+
+
+typedef struct mp_setvelo_s {
+	mp_obj_base_t base;
+} mp_setvelo_t;
+
+mp_setvelo_t bla = { &mp_type_fun_setVelocity };
+
+extern "C" const mp_rom_map_elem_t mp_module_openjk_globals_table[] = {
     { MP_ROM_QSTR(MP_QSTR___name__    ), MP_ROM_QSTR(MP_QSTR_openjk)             },
-    { MP_ROM_QSTR(MP_QSTR_e           ), mp_const_float_e                        },
-    { MP_ROM_QSTR(MP_QSTR_pi          ), mp_const_float_pi                       },
+    //{ MP_ROM_QSTR(MP_QSTR_e           ), mp_const_float_e                        },
+    //{ MP_ROM_QSTR(MP_QSTR_pi          ), mp_const_float_pi                       },
     { MP_ROM_QSTR(MP_QSTR_getVelocity ), MP_ROM_PTR(&mp_openjk_getVelocity_obj ) },
-    { MP_ROM_QSTR(MP_QSTR_setVelocity ), MP_ROM_PTR(&mp_openjk_setVelocity_obj ) },
+    { MP_ROM_QSTR(MP_QSTR_setVelocity ), MP_ROM_PTR(&bla) },
 };
 
-STATIC MP_DEFINE_CONST_DICT(mp_module_openjk_globals, mp_module_openjk_globals_table);
 
-const mp_obj_module_t mp_module_openjk = {
-    .base = { &mp_type_module },
-    .globals = (mp_obj_dict_t*)&mp_module_openjk_globals,
+#define MP_DEFINE_CONST_DICT_CPP(dict_name, table_name) \
+    const mp_obj_dict_t dict_name = { \
+        &mp_type_dict, \
+       { \
+            1, \
+            1, \
+            1, \
+            MP_ARRAY_SIZE(table_name), \
+            MP_ARRAY_SIZE(table_name), \
+            (mp_map_elem_t*)(mp_rom_map_elem_t*)table_name \
+        }\
+    }
+
+
+
+STATIC MP_DEFINE_CONST_DICT_CPP(mp_module_openjk_globals, mp_module_openjk_globals_table);
+
+extern "C" const mp_obj_module_t mp_module_openjk = {
+     &mp_type_module ,
+    (mp_obj_dict_t*)&mp_module_openjk_globals
 };
 
 #endif // MICROPY_PY_BUILTINS_FLOAT && MICROPY_PY_MATH
