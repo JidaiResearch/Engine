@@ -426,6 +426,19 @@ int main_py(int argc, char **argv) {
     return main_(argc, argv);
 }
 
+#include "rd-rend2/ccall.h"
+
+CCALL void micropython_init();
+CCALL void micropython_eval(char *code);
+
+void micropython_init() {
+	main_py(0, NULL);
+}
+
+void micropython_eval(char *code) {
+	execute_from_lexer(LEX_SRC_STR, code, MP_PARSE_SINGLE_INPUT, true);
+}
+
 MP_NOINLINE int main_(int argc, char **argv) {
     #ifdef SIGPIPE
     // Do not raise SIGPIPE, instead return EPIPE. Otherwise, e.g. writing

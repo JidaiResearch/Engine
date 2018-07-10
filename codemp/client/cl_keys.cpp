@@ -32,6 +32,25 @@ key up events are sent even if in console mode
 
 */
 
+#include "../rd-rend2/imgui_docks/dock_console.h"
+#include <stdarg.h>
+
+// todo: cl_renderer.cpp
+int imgui_log(char *format, ...) {
+	// somehow doesnt work for format="%c"
+	//va_list args;
+	//va_start(args, format);
+	//int ret = re->imgui_log(format, args);
+	//va_end(args);
+
+	char buf[4096];
+	va_list args;
+	va_start(args, format);
+	vsnprintf(buf, sizeof(buf), format, args);
+	va_end(args);
+	return re->imgui_log(buf);
+}
+
 // console
 field_t		g_consoleField;
 int			nextHistoryLine;	// the last line in the history buffer, not masked

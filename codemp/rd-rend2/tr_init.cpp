@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #include "tr_allocator.h"
 #include "tr_weather.h"
 #include <algorithm>
+#include "imgui_docks/dock_console.h"
 
 static size_t FRAME_UNIFORM_BUFFER_SIZE = 8*1024*1024;
 static size_t FRAME_VERTEX_BUFFER_SIZE = 12*1024*1024;
@@ -2195,6 +2196,7 @@ Q_EXPORT refexport_t* QDECL GetRefAPI ( int apiVersion, refimport_t *rimp ) {
 	re.MouseWheelEvent = RE_MouseWheelEvent;
 	re.MouseClickEvent = RE_MouseClickEvent;
 	re.DropFileEvent = RE_DropFileEvent;
+	re.imgui_log = imgui_log;
 
 	return &re;
 }

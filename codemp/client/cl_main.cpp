@@ -36,6 +36,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "cl_lan.h"
 #include "snd_local.h"
 #include "sys/sys_loadlib.h"
+#include "rd-rend2/ccall.h"
 
 cvar_t	*cl_renderer;
 
@@ -2372,6 +2373,9 @@ void Clipboard_Set(const char *text) {
 
 #define DEFAULT_RENDER_LIBRARY "rd-vanilla"
 
+CCALL void micropython_init();
+CCALL void micropython_eval(char *code);
+
 void CL_InitRef( void ) {
 	static refimport_t ri;
 	refexport_t	*ret;
@@ -2491,6 +2495,9 @@ void CL_InitRef( void ) {
 	ri.Key_GetCatcher = Key_GetCatcher;
 	ri.Clipboard_Get = Clipboard_Get;
 	ri.Clipboard_Set = Clipboard_Set;
+
+	ri.micropython_init = micropython_init;
+	ri.micropython_eval = micropython_eval;
 
 	ret = GetRefAPI( REF_API_VERSION, &ri );
 

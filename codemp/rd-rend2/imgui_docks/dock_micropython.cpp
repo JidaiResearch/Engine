@@ -11,15 +11,15 @@ void ImStrncpy(char* dst, const char* src, int count);
 
 
 
-#define MICROPY_NLR_SETJMP (1)
-
-extern "C" {
-#include "micropython/nlr.h"
-#include "micropython/compile.h"
-#include "micropython/runtime.h"
-#include "micropython/gc.h"
-#include <micropython/stackctrl.h>
-}
+//#define MICROPY_NLR_SETJMP (1)
+//
+//extern "C" {
+//#include "micropython/nlr.h"
+//#include "micropython/compile.h"
+//#include "micropython/runtime.h"
+//#include "micropython/gc.h"
+//#include <micropython/stackctrl.h>
+//}
 
 //typedef void (*type_callback_repl)(int, int, char *);
 //type_callback_repl callback_repl_node;
@@ -64,15 +64,25 @@ static int repl_callback(ImGuiTextEditCallbackData *data) {
 //		return (mp_obj_t)nlr.ret_val;
 //	}
 //}
-#define BYTES_PER_WORD (sizeof(mp_uint_t))
+//#define BYTES_PER_WORD (sizeof(mp_uint_t))
+//extern "C" int main_py(int argc, char **argv);
+//extern "C" int execute_from_lexer(int source_kind, const void *source, mp_parse_input_kind_t input_kind, bool is_repl);
+//#define LEX_SRC_STR (1)
+//#define LEX_SRC_VSTR (2)
+//#define LEX_SRC_FILENAME (3)
+//#define LEX_SRC_STDIN (4)
 
-extern "C" int main_py(int argc, char **argv);
-extern "C" int execute_from_lexer(int source_kind, const void *source, mp_parse_input_kind_t input_kind, bool is_repl);
-#define LEX_SRC_STR (1)
-#define LEX_SRC_VSTR (2)
-#define LEX_SRC_FILENAME (3)
-#define LEX_SRC_STDIN (4)
+CCALL void micropython_init();
+CCALL void micropython_eval(char *code);
+#include "../tr_local.h"
 
+// todo: put in tr_imports.cpp or something
+CCALL void micropython_init() {
+	ri.micropython_init();
+}
+CCALL void micropython_eval(char *code) {
+	ri.micropython_eval(code);
+}
 
 void DockMicroPython::imgui() {
 	ImGui::InputTextMultiline("", replbuffer, sizeof replbuffer, ImGui::GetWindowSize() + ImVec2(-15, -35 - 20), ImGuiInputTextFlags_CallbackAlways | ImGuiInputTextFlags_AllowTabInput, repl_callback, (void *)this);
@@ -161,14 +171,15 @@ void DockMicroPython::imgui() {
 				//if (execute_from_str(str)) {
 				//	imgui_log("Error\n");
 				//}
-				main_py(0, NULL);
+				//main_py(0, NULL);
 				//execute_from_lexer(LEX_SRC_STDIN, "print('Hello world of easy embedding!')", MP_PARSE_SINGLE_INPUT, true);
+				micropython_init();
 			}
 			//execute_from_lexer(LEX_SRC_STDIN, replbuffer, MP_PARSE_SINGLE_INPUT, true);
 			//execute_from_lexer(LEX_SRC_STR, "print('Hello world of easy embedding!')", MP_PARSE_SINGLE_INPUT, true);
-			execute_from_lexer(LEX_SRC_STR, replbuffer, MP_PARSE_SINGLE_INPUT, true);
+			//execute_from_lexer(LEX_SRC_STR, replbuffer, MP_PARSE_SINGLE_INPUT, true);
 			//execute_from_str(replbuffer);
-
+			micropython_eval(replbuffer);
 			//if (callback_repl_node) {
 			//	callback_repl_node(select_start, select_end, replbuffer);
 			//} else {

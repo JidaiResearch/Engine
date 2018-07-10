@@ -246,11 +246,12 @@ typedef struct refexport_s {
 	} ext;
 
 	// Used for ImGui integration
-	void(*KeyEvent)				(int key, int state);
-	void(*CharEvent)			(int key);
-	void(*MouseWheelEvent)		(float dir);
-	void(*MouseClickEvent)		(int key, int state);
-	void(*DropFileEvent)		(const char *filename);
+	void(*KeyEvent)             (int key, int state);
+	void(*CharEvent)            (int key);
+	void(*MouseWheelEvent)      (float dir);
+	void(*MouseClickEvent)      (int key, int state);
+	void(*DropFileEvent)        (const char *filename);
+	int(*imgui_log)             (char *fmt, ...);
 } refexport_t;
 
 //
@@ -357,6 +358,9 @@ typedef struct refimport_s {
 	int (*Key_GetCatcher)();
 	const char *(*Clipboard_Get)();
 	void (*Clipboard_Set)(const char *text);
+
+	void (*micropython_init)();
+	void (*micropython_eval)(char *code);
 } refimport_t;
 
 // this is the only function actually exported at the linker level
