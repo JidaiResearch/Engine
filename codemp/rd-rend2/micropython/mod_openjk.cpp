@@ -300,6 +300,13 @@ struct _mp_obj_fun_builtin_fixed_t mp_obj_setvelocity(const mp_obj_type_t *type_
 //	return tmp;
 //}
 
+mp_obj_t mp_obj_new_vec3(float *threeFloats) {
+	mp_obj_t tuple[3];
+	tuple[0] = mp_obj_new_float(threeFloats[0]);
+	tuple[1] = mp_obj_new_float(threeFloats[0]);
+	tuple[2] = mp_obj_new_float(threeFloats[0]);
+	return mp_obj_new_tuple(3, tuple);
+}
 
 
 extern "C" mp_obj_t mp_openjk_getVelocity(mp_obj_t x_obj) {
@@ -309,19 +316,16 @@ extern "C" mp_obj_t mp_openjk_getVelocity(mp_obj_t x_obj) {
 
 	int playerid = mp_obj_get_int(x_obj);
 
-	imgui_log("sv.gentities=%p\n", sv.gentities);
-	if (sv.gentities != NULL) {
-		sharedEntity_t *gents = sv.gentities;
-		gents->playerState->velocity[0] += 1000;
-		gents->playerState->velocity[1] += 1000;
-		gents->playerState->velocity[2] += 1000;
+	imgui_log("sv.gentities=%p gentsize=%d\n", sv.gentities, sv.gentitySize);
+
+	if (sv.gentities != NULL) { // being in menu, just return (0,0,0)
+		float rekt[3] = { 0,0,0 };
+		return mp_obj_new_vec3(rekt);
 	}
 
-
-	tuple[0] = mp_obj_new_float(1.0);
-	tuple[1] = mp_obj_new_float(2.0);
-	tuple[2] = mp_obj_new_float(3.0);
-	return mp_obj_new_tuple(3, tuple);
+	
+	sharedEntity_t *gents = sv.gentities;
+	return mp_obj_new_vec3(gents->playerState->velocity);
 }
 
 //extern "C" mp_obj_t mp_openjk_setVelocity(mp_obj_t x_obj) {

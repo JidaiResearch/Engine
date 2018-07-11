@@ -216,14 +216,17 @@ CCALL void set_clipboard_text(char *text) {
 	clipboard_text = text;
 }
 
+const char *Clipboard_Get();
+void Clipboard_Set(const char *text);
+
 const char* ImGui_ImplSdlGL3_GetClipboardText(void*) {
 //#if !_WINDOWS
 //	return clipboard_text;
 //#else
 //    return SDL_GetClipboardText();
 //#endif
-	//return Clipboard_Get();
-	return "todo";
+	return Clipboard_Get();
+	//return "todo";
 }
 
 void ImGui_ImplSdlGL3_SetClipboardText(void*, const char* text) {
@@ -235,7 +238,7 @@ void ImGui_ImplSdlGL3_SetClipboardText(void*, const char* text) {
 #else
     //SDL_SetClipboardText(text);
 #endif
-	//Clipboard_Set(text);
+	Clipboard_Set(text);
 }
 
 // You can read the io.WantCaptureMouse, io.WantCaptureKeyboard flags to tell if dear imgui wants to use your inputs.

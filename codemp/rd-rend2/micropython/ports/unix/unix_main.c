@@ -148,7 +148,8 @@ int execute_from_lexer(int source_kind, const void *source, mp_parse_input_kind_
 
         if (!compile_only) {
             // execute it
-            mp_call_function_0(module_fun);
+            mp_obj_t ret = mp_call_function_0(module_fun);
+			imgui_log("ret: %p\n", ret);
             // check for pending exception
             if (MP_STATE_VM(mp_pending_exception) != MP_OBJ_NULL) {
                 mp_obj_t obj = MP_STATE_VM(mp_pending_exception);
@@ -436,7 +437,7 @@ void micropython_init() {
 }
 
 void micropython_eval(char *code) {
-	execute_from_lexer(LEX_SRC_STR, code, MP_PARSE_SINGLE_INPUT, true);
+	execute_from_lexer(LEX_SRC_STR, code, MP_PARSE_FILE_INPUT, true);
 }
 
 MP_NOINLINE int main_(int argc, char **argv) {
