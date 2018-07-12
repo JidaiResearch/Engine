@@ -805,6 +805,37 @@ set(MPEngineFiles ${MPEngineFiles} ${MPRend2MicroPythonPortsUnix})
 	
 	
 
+set(mp_client_duktape
+	"${MPDir}/duktape/bind_imgui.cpp"
+	"${MPDir}/duktape/bind_imgui.h"
+	"${MPDir}/duktape/bind_memory.cpp"
+	"${MPDir}/duktape/bind_memory.h"
+	"${MPDir}/duktape/bind_utils.h"
+	"${MPDir}/duktape/bind_utils2.cpp"
+	"${MPDir}/duktape/dukdebugheaders.h"
+	"${MPDir}/duktape/dukhelpers.cpp"
+	"${MPDir}/duktape/dukhelpers.h"
+	"${MPDir}/duktape/duktape.c"
+	"${MPDir}/duktape/duktape.h"
+	"${MPDir}/duktape/duktapestuff.h"
+	"${MPDir}/duktape/duk_config.h"
+	"${MPDir}/duktape/duk_internal_stuff.h"
+	"${MPDir}/duktape/js_stuff.cpp"
+)
+source_group("duktape" FILES ${mp_client_duktape})
+set(MPEngineFiles ${MPEngineFiles} ${mp_client_duktape})
+
+set(mp_client_root
+	"${MPDir}/include_duktape.h"
+)
+source_group("root" FILES ${mp_client_root})
+set(MPEngineFiles ${MPEngineFiles} ${mp_client_root})
+
+set(mp_client_javascript
+	"${MPDir}/javascript/init.js"
+)
+source_group("javascript" FILES ${mp_client_javascript})
+set(MPEngineFiles ${MPEngineFiles} ${mp_client_javascript})
 	
 	
 	

@@ -48,15 +48,15 @@ double glfwGetTime() {
 //	return imgui_log("%s", buf);
 //}
 
-CCALL int js_printf(char *msg, ...) {
-	va_list argptr;
-	va_start(argptr, msg);
-	char buf[4096];
-	vsnprintf(buf, 4096, msg, argptr);
-	int ret = imgui_log("%s", buf);
-	va_end(argptr);
-	return ret;
-}
+//CCALL int js_printf(char *msg, ...) {
+//	va_list argptr;
+//	va_start(argptr, msg);
+//	char buf[4096];
+//	vsnprintf(buf, 4096, msg, argptr);
+//	int ret = imgui_log("%s", buf);
+//	va_end(argptr);
+//	return ret;
+//}
 
 EXTERNC int imgui_log_to_browser_console = 0;
 

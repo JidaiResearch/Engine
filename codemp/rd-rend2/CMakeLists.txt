@@ -119,6 +119,8 @@ set(MPRend2ImGuiDockFiles
 	"${MPDir}/rd-rend2/imgui_docks/dock.h"
 	"${MPDir}/rd-rend2/imgui_docks/dock_console.cpp"
 	"${MPDir}/rd-rend2/imgui_docks/dock_console.h"
+	"${MPDir}/rd-rend2/imgui_docks/dock_duktape.cpp"
+	"${MPDir}/rd-rend2/imgui_docks/dock_duktape.h"
 	"${MPDir}/rd-rend2/imgui_docks/dock_julia.cpp"
 	"${MPDir}/rd-rend2/imgui_docks/dock_julia.h"
 	"${MPDir}/rd-rend2/imgui_docks/dock_micropython.cpp"
@@ -168,6 +170,29 @@ set(MPRend2ImGuiDocksOpenJKFiles
 )
 source_group("imgui_docks_openjk" FILES ${MPRend2ImGuiDocksOpenJKFiles})
 set(MPRend2Files ${MPRend2Files} ${MPRend2ImGuiDocksOpenJKFiles})
+
+
+
+
+set(mp_rend2_duktape
+	"${MPDir}/duktape/bind_imgui.cpp"
+	"${MPDir}/duktape/bind_imgui.h"
+	"${MPDir}/duktape/bind_memory.cpp"
+	"${MPDir}/duktape/bind_memory.h"
+	"${MPDir}/duktape/bind_utils.h"
+	"${MPDir}/duktape/bind_utils2.cpp"
+	"${MPDir}/duktape/dukdebugheaders.h"
+	"${MPDir}/duktape/dukhelpers.cpp"
+	"${MPDir}/duktape/dukhelpers.h"
+	"${MPDir}/duktape/duktape.c"
+	"${MPDir}/duktape/duktape.h"
+	"${MPDir}/duktape/duktapestuff.h"
+	"${MPDir}/duktape/duk_config.h"
+	"${MPDir}/duktape/duk_internal_stuff.h"
+	"${MPDir}/duktape/js_stuff.cpp"
+)
+source_group("duktape" FILES ${mp_rend2_duktape})
+set(MPRend2Files ${MPRend2Files} ${mp_rend2_duktape})
 
 set(MPRend2RdCommonFiles
 	"${MPDir}/rd-common/mdx_format.h"
