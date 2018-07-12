@@ -33,6 +33,6 @@ function printf() {
 			ret += msg[i];
 		}
 	}
-	log(ret);
+	imgui_log(ret);
 	return ret.length;
 }

@@ -1,4 +1,18 @@
-﻿shittyconsole = function (code, sel_from, sel_to) {
+﻿dir = "F:\\repos\\OpenDF2\\OpenDF2\\codemp\\javascript\\"
+
+function require(filename) {
+	var content = file_get_contents(filename);
+	try {
+		eval.bind(get_global())(content);
+	} catch (e) {
+		printf("require(%): error %\n", filename, e.stack);
+	}
+}
+
+require(dir + "/" + "printf.js")
+require(dir + "/" + "console.js")
+
+shittyconsole = function (code, sel_from, sel_to) {
 	if (sel_to < sel_from) {
 		tmp = sel_to;
 		sel_to = sel_from;
@@ -13,7 +27,7 @@
 
 print = function () {
 	for (var i = 0; i < arguments.length; i++) {
-		log(arguments[i]);
+		imgui_log(arguments[i]);
 	}
 }
 
@@ -77,25 +91,21 @@ handle_input = function (code, global) {
 	try {
 		var ret = eval.bind(global)(code);
 
-		log("> ");
+		imgui_log("> ");
 		var_dump(ret);
-		log("\n");
+		imgui_log("\n");
 
 	} catch (e) {
 		print("handle_input> error: ", e.stack, "\n");
 	}
 }
 
+
+
+
+
+
+
+
+
 print("init.js loaded :^)\n");
-
-
-Console = function () { /**/ }
-
-Console.prototype.log = function () {
-	for (var i = 0; i < arguments.length; i++) {
-		log(arguments[i]);
-	}
-}
-
-if (typeof console == "undefined")
-	console = new Console();

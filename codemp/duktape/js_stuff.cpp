@@ -146,7 +146,7 @@ int js_eval(char *msg) {
 	return 1;
 }
 
-duk_ret_t duk_func_log(duk_context *ctx) {
+duk_ret_t duk_func_imgui_log(duk_context *ctx) {
 	int i;
 	int n = duk_get_top(ctx);  /* #args */
 	char *res;
@@ -288,7 +288,7 @@ CCALL duk_context *js_get_ctx() { return ctx; }
 CCALL void js_reload() {
 	//js_eval_file_safe(ctx, "assets\\javascript\\pre_create.js");
 	js_eval_file_safe(ctx, "F:\\repos\\OpenDF2\\OpenDF2\\codemp\\javascript\\init.js");
-	js_eval_file_safe(ctx, "F:\\repos\\OpenDF2\\OpenDF2\\codemp\\javascript\\printf.js");
+	//js_eval_file_safe(ctx, "F:\\repos\\OpenDF2\\OpenDF2\\codemp\\javascript\\printf.js");
 	//js_eval_file_safe(ctx, "assets\\javascript\\lib_quake.js");
 	//js_call(ctx, "PostReload", "");
 }
@@ -308,7 +308,7 @@ int js_init() {
 	//init_win32_bindings(ctx);
 
 	struct funcis funcs[] = {
-		{"log",				        duk_func_log                    },
+		{"imgui_log"        ,       duk_func_imgui_log              },
 		{"file_get_contents",       duk_func_file_get_contents      },
 		{"file_put_contents",       duk_func_file_put_contents      },
 		{"reload"           ,       duk_func_reload                 },
