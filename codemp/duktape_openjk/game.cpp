@@ -388,15 +388,32 @@ float *js_push_vec3(duk_context *ctx) {
 
 int duk_func_entity_get_origin(duk_context *ctx) {
 	int entid = duk_to_int(ctx, 0);
-	
+
 	float *buf = js_push_vec3(ctx);
-	gentity_t *ent = g_entities+entid;
+	gentity_t *ent = g_entities + entid;
 	//G_Printf("Got id: %d ent->client=%d\n", entid, ent->client);
 	if (ent->client == NULL) {
 		VectorCopy(ent->r.currentOrigin, buf);
 		return 1;
 	}
 	VectorCopy(ent->client->ps.origin, buf);
+	return 1;
+}
+
+int duk_func_entity_get_velocity(duk_context *ctx) {
+	int entid = duk_to_int(ctx, 0);
+
+	float *buf = js_push_vec3(ctx);
+	gentity_t *ent = g_entities + entid;
+	//G_Printf("Got id: %d ent->client=%d\n", entid, ent->client);
+
+	// just return (0,0,0) when its no player
+	if (ent->client == NULL) {
+		float nullvec[3] = { 0,0,0 };
+		VectorCopy(nullvec, buf);
+		return 1;
+	}
+	VectorCopy(ent->client->ps.velocity, buf);
 	return 1;
 }
 
@@ -482,7 +499,7 @@ int duk_func_entity_set_origin(duk_context *ctx) {
 	float y = duk_to_number(ctx, 2);
 	float z = duk_to_number(ctx, 3);
 	gentity_t *ent = g_entities + entid;
-	vec3_t to = {x, y, z};
+	vec3_t to = { x, y, z };
 
 	if (ent->client) {
 		VectorCopy(to, ent->client->ps.origin);
@@ -491,6 +508,19 @@ int duk_func_entity_set_origin(duk_context *ctx) {
 
 	G_SetOrigin(ent, to);
 	G_LinkEntity(ent);
+	return 0;
+}
+int duk_func_entity_set_velocity(duk_context *ctx) {
+	int entid = duk_to_int(ctx, 0);
+	float x = duk_to_number(ctx, 1);
+	float y = duk_to_number(ctx, 2);
+	float z = duk_to_number(ctx, 3);
+	gentity_t *ent = g_entities + entid;
+	vec3_t to = { x, y, z };
+	if (ent->client) {
+		VectorCopy(to, ent->client->ps.velocity);
+		return 0;
+	}
 	return 0;
 }
 
@@ -898,9 +928,10 @@ int bind_game(duk_context *ctx) {
 	struct funcis funcs[] = {
 		{"entity_moveto",		          duk_func_entity_moveto                      },
 		{"entity_delete",		          duk_func_entity_delete                      },
-		//{"getargs",				          duk_func_getargs                            },
-		{"entity_get_origin",             duk_func_entity_get_origin                  },
-		{"entity_set_origin",             duk_func_entity_set_origin                  },
+		{"entity_get_origin"  ,           duk_func_entity_get_origin                  },
+		{"entity_set_origin"  ,           duk_func_entity_set_origin                  },
+		{"entity_get_velocity",           duk_func_entity_get_velocity                },
+		{"entity_set_velocity",           duk_func_entity_set_velocity                },
 		{"entity_set_model",              duk_func_entity_set_model                   },
 		{"entity_set_angles",             duk_func_entity_set_angles                  },
 		{"entity_get_angles",             duk_func_entity_get_angles                  },
@@ -926,6 +957,7 @@ int bind_game(duk_context *ctx) {
 		{"entity_delete",                 duk_func_entity_delete                      },
 		{"sendservercommand",             duk_func_sendservercommand                  },
 		{"getPlayersInRange",             duk_func_getPlayersInRange                  },
+		//{"getargs",				          duk_func_getargs                            },
 		//{"entity_send_hud",               duk_func_entity_send_hud                    },
 		//{"entity_hudelem_settext",        duk_func_entity_hudelem_settext             },
 		//{"entity_hudelem_hide",           duk_func_entity_hudelem_hide                },

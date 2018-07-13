@@ -171,10 +171,8 @@ function JS_getPlayersInRange(position, maxDistance) {
 }
 
 Entity.prototype.getPlayersInRange = function(maxDistance) {
-	return JS_getPlayersInRange(this.getOrigin(), maxDistance);	
+	return JS_getPlayersInRange(this.getOrigin(), maxDistance);
 }
-
-
 
 Object.defineProperty(Entity.prototype, "origin", {
 	get: function () {
@@ -183,6 +181,11 @@ Object.defineProperty(Entity.prototype, "origin", {
 	set: function (tmp) {
 		return this.setOrigin(tmp);
 	}
+});
+
+Object.defineProperty(Entity.prototype, "velocity", {
+	get: function (   ) { return entity_get_velocity(this.id                        ); },
+	set: function (tmp) { return entity_set_velocity(this.id, tmp[0], tmp[1], tmp[2]); }
 });
 
 // entities[0].origin *= 2

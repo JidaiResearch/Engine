@@ -1,10 +1,11 @@
-function vec3(x,y,z) {
+function Vec3(x,y,z) {
 	var ret = new Float32Array(3);
 	ret[0] = x;
 	ret[1] = y;
 	ret[2] = z;
 	return ret;
 }
+
 function vec3_new() {
 	return new Float32Array(3);
 }
