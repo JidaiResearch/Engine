@@ -6,6 +6,32 @@ function Vec3(x,y,z) {
 	return ret;
 }
 
+
+// todo: player0.origin += player0.forward * 200
+// player0.origin = player0.origin.add( player0.forward.scale(200) )
+
+Float32Array.prototype.scale = function(scalar) {
+	return Vec3(this[0] * scalar, this[1] * scalar, this[2] * scalar);
+}
+
+Float32Array.prototype.add = function(other) {
+	return Vec3(this[0] + other[0], this[1] + other[1], this[2] + other[2]);
+}
+
+Object.defineProperty(Float32Array.prototype, "x", {
+	get: function (   ) { return this[0]      ; },
+	set: function (tmp) { return this[0] = tmp; }
+});
+Object.defineProperty(Float32Array.prototype, "y", {
+	get: function (   ) { return this[1]      ; },
+	set: function (tmp) { return this[1] = tmp; }
+});
+Object.defineProperty(Float32Array.prototype, "z", {
+	get: function (   ) { return this[2]      ; },
+	set: function (tmp) { return this[2] = tmp; }
+});
+
+
 function vec3_new() {
 	return new Float32Array(3);
 }

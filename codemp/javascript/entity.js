@@ -175,17 +175,38 @@ Entity.prototype.getPlayersInRange = function(maxDistance) {
 }
 
 Object.defineProperty(Entity.prototype, "origin", {
-	get: function () {
-		return this.getOrigin();
-	},
-	set: function (tmp) {
-		return this.setOrigin(tmp);
-	}
+	get: function (   ) { return entity_get_origin(this.id                         ); },
+	set: function (tmp) { return entity_set_origin(this.id, tmp[0], tmp[1], tmp[2] ); }
 });
 
 Object.defineProperty(Entity.prototype, "velocity", {
 	get: function (   ) { return entity_get_velocity(this.id                        ); },
 	set: function (tmp) { return entity_set_velocity(this.id, tmp[0], tmp[1], tmp[2]); }
+});
+
+Object.defineProperty(Entity.prototype, "forward", {
+	get:   function (   ) { return entity_get_forward(this.id                        ); },
+	//set: function (tmp) { return entity_set_forward(this.id, tmp[0], tmp[1], tmp[2]); }
+});
+
+Object.defineProperty(Entity.prototype, "right", {
+	get:   function (   ) { return entity_get_right(this.id                        ); },
+	//set: function (tmp) { return entity_set_right(this.id, tmp[0], tmp[1], tmp[2]); }
+});
+
+Object.defineProperty(Entity.prototype, "up", {
+	get:   function (   ) { return entity_get_up(this.id                        ); },
+	//set: function (tmp) { return entity_set_up(this.id, tmp[0], tmp[1], tmp[2]); }
+});
+
+Object.defineProperty(Entity.prototype, "eye", {
+	get:   function (   ) { return entity_get_eye(this.id                        ); },
+	//set: function (tmp) { return entity_set_eye(this.id, tmp[0], tmp[1], tmp[2]); }
+});
+
+Object.defineProperty(Entity.prototype, "angles", {
+	get: function (   ) { return entity_get_angles(this.id                        ); },
+	set: function (tmp) { return entity_set_angles(this.id, tmp[0], tmp[1], tmp[2]); }
 });
 
 // entities[0].origin *= 2
