@@ -825,6 +825,13 @@ set(mp_client_duktape
 source_group("duktape" FILES ${mp_client_duktape})
 set(MPEngineFiles ${MPEngineFiles} ${mp_client_duktape})
 
+#set(mp_client_duktape_openjk
+#	"${MPDir}/duktape_openjk/game.cpp"
+#	"${MPDir}/duktape_openjk/game.h"
+#)
+#source_group("duktape_openjk" FILES ${mp_client_duktape_openjk})
+#set(MPEngineFiles ${MPEngineFiles} ${mp_client_duktape_openjk})
+
 set(mp_client_root
 	"${MPDir}/include_duktape.h"
 )

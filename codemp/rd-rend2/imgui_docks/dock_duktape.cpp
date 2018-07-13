@@ -12,6 +12,9 @@ extern "C" {
 
 #include "../include_duktape.h"
 
+#include "../rd-common/tr_public.h"
+extern refimport_t ri;
+
 bool IsKeyPressedMap(ImGuiKey key, bool repeat);
 void SaveIniSettingsToDisk(const char* ini_filename); // was a static function in ImGui
 void ImStrncpy(char* dst, const char* src, int count);
@@ -44,23 +47,24 @@ static int repl_callback(ImGuiTextEditCallbackData *data) {
 
 void DockDuktape::imgui() {
 
-	static int first = 1;
-	if (first) {
-		first = 0;
-		js_init();
-	}
+	//static int first = 1;
+	//if (first) {
+	//	first = 0;
+	//	js_init();
+	//}
 
-	if (ctx == NULL) {
-		ImGui::Text("ctx == NULL, no duktape content exists");
-		return;
-	}
+	// we are using the context in client.exe
+	//if (ctx == NULL) {
+	//	ImGui::Text("ctx == NULL, no duktape content exists");
+	//	return;
+	//}
 
 	ImGui::InputTextMultiline("", replbuffer, sizeof replbuffer, ImGui::GetWindowSize() + ImVec2(-15, -35 - 20), ImGuiInputTextFlags_CallbackAlways | ImGuiInputTextFlags_AllowTabInput, repl_callback, (void *)this);
 
 	if (ImGui::GetIO().KeyCtrl && ImGui::IsKeyPressed('R', false)) {
 		//js_call(ctx, "reload", "");
 		//imgui_log("dock_node.cpp> todo: reload node's .js files \n");
-		js_reload();
+		//js_reload();
 	}
 	
 	if (ImGui::IsItemActive()) {
@@ -128,7 +132,8 @@ void DockDuktape::imgui() {
 			//	}
 
 			//js_eval(replbuffer);
-			js_call(ctx, "shittyconsole", "sii", replbuffer, select_start, select_end);
+			ri.js_call(NULL, "shittyconsole", "sii", replbuffer, select_start, select_end);
+			
 #endif
 		}
 

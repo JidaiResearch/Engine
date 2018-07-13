@@ -40,15 +40,18 @@ static vm_t *gvm; // game vm, valid for legacy and new api
 //
 // game vmMain calls
 //
-
+#include "../include_duktape.h"
+CCALL duk_context *js_get_ctx();
 void GVM_InitGame( int levelTime, int randomSeed, int restart ) {
 	if ( gvm->isLegacy ) {
-		VM_Call( gvm, GAME_INIT, levelTime, randomSeed, restart );
+		VM_Call( gvm, GAME_INIT, levelTime, randomSeed, restart, (intptr_t)ctx );
 		return;
 	}
 	VMSwap v( gvm );
 
-	ge->InitGame( levelTime, randomSeed, restart );
+	//CCALL duk_context *ctx = js_get_ctx();
+
+	ge->InitGame( levelTime, randomSeed, restart, (void *)ctx );
 }
 
 void GVM_ShutdownGame( int restart ) {

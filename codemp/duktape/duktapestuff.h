@@ -47,7 +47,7 @@ struct funcis {
 */
 
 // js_stuff.cpp
-extern duk_context *ctx;
+EXTERNC duk_context *ctx;
 extern int js_printf(char *msg, ...);
 CCALL void js_reload();
 int js_push_global_by_name(duk_context *ctx, char *name);

@@ -2373,8 +2373,10 @@ void Clipboard_Set(const char *text) {
 
 #define DEFAULT_RENDER_LIBRARY "rd-vanilla"
 
+#include "../duktape/duktapestuff.h"
 CCALL void micropython_init();
 CCALL void micropython_eval(char *code);
+int js_call(duk_context *ctx, char *function, char *params, ...);
 
 void CL_InitRef( void ) {
 	static refimport_t ri;
@@ -2498,6 +2500,7 @@ void CL_InitRef( void ) {
 
 	ri.micropython_init = micropython_init;
 	ri.micropython_eval = micropython_eval;
+	ri.js_call = (int(*)(void *ctx, char *function, char *params, ...))js_call;
 
 	ret = GetRefAPI( REF_API_VERSION, &ri );
 

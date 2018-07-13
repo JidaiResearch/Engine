@@ -1096,7 +1096,7 @@ typedef struct gameImport_s {
 } gameImport_t;
 
 typedef struct gameExport_s {
-	void		(*InitGame)							( int levelTime, int randomSeed, int restart );
+	void		(*InitGame)							( int levelTime, int randomSeed, int restart, void *context );
 	void		(*ShutdownGame)						( int restart );
 	char *		(*ClientConnect)					( int clientNum, qboolean firstTime, qboolean isBot );
 	void		(*ClientBegin)						( int clientNum, qboolean allowTeamReset );

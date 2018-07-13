@@ -42,7 +42,7 @@ gclient_t		g_clients[MAX_CLIENTS];
 
 qboolean gDuelExit = qfalse;
 
-void G_InitGame					( int levelTime, int randomSeed, int restart );
+void G_InitGame					( int levelTime, int randomSeed, int restart, void *dukcontext);
 void G_RunFrame					( int levelTime );
 void G_ShutdownGame				( int restart );
 void CheckExitRules				( void );
@@ -169,11 +169,15 @@ extern void RemoveAllWP(void);
 extern void BG_ClearVehicleParseParms(void);
 gentity_t *SelectRandomDeathmatchSpawnPoint( void );
 void SP_info_jedimaster_start( gentity_t *ent );
-void G_InitGame( int levelTime, int randomSeed, int restart ) {
+#include "../duktape/duktape.h"
+#include "../duktape_openjk/game.h"
+void G_InitGame( int levelTime, int randomSeed, int restart, void *dukcontext ) {
 	int					i;
 	vmCvar_t	mapname;
 	vmCvar_t	ckSum;
 	char serverinfo[MAX_INFO_STRING] = {0};
+
+	bind_game((duk_context *)dukcontext);
 
 	//Init RMG to 0, it will be autoset to 1 if there is terrain on the level.
 	trap->Cvar_Set("RMG", "0");
@@ -3629,7 +3633,7 @@ Q_EXPORT intptr_t vmMain( int command, intptr_t arg0, intptr_t arg1, intptr_t ar
 {
 	switch ( command ) {
 	case GAME_INIT:
-		G_InitGame( arg0, arg1, arg2 );
+		G_InitGame( arg0, arg1, arg2, arg3 );
 		return 0;
 
 	case GAME_SHUTDOWN:

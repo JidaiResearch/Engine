@@ -144,6 +144,35 @@ set(MPGameGameFiles
 source_group("game" FILES ${MPGameGameFiles})
 set(MPGameFiles ${MPGameFiles} ${MPGameGameFiles})
 
+
+
+set(mp_game_duktape
+	"${MPDir}/duktape/bind_imgui.cpp"
+	"${MPDir}/duktape/bind_imgui.h"
+	"${MPDir}/duktape/bind_memory.cpp"
+	"${MPDir}/duktape/bind_memory.h"
+	"${MPDir}/duktape/bind_utils.h"
+	"${MPDir}/duktape/bind_utils2.cpp"
+	"${MPDir}/duktape/dukdebugheaders.h"
+	"${MPDir}/duktape/dukhelpers.cpp"
+	"${MPDir}/duktape/dukhelpers.h"
+	"${MPDir}/duktape/duktape.c"
+	"${MPDir}/duktape/duktape.h"
+	"${MPDir}/duktape/duktapestuff.h"
+	"${MPDir}/duktape/duk_config.h"
+	"${MPDir}/duktape/duk_internal_stuff.h"
+	"${MPDir}/duktape/js_stuff.cpp"
+)
+source_group("duktape" FILES ${mp_game_duktape})
+set(MPGameFiles ${MPGameFiles} ${mp_game_duktape})
+
+set(mp_game_duktape_openjk
+	"${MPDir}/duktape_openjk/game.cpp"
+	"${MPDir}/duktape_openjk/game.h"
+)
+source_group("duktape_openjk" FILES ${mp_game_duktape_openjk})
+set(MPGameFiles ${MPGameFiles} ${mp_game_duktape_openjk})
+
 set(MPGameCommonFiles
 	"${MPDir}/qcommon/q_shared.c"
 	"${MPDir}/qcommon/disablewarnings.h"

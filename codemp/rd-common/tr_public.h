@@ -361,6 +361,7 @@ typedef struct refimport_s {
 
 	void (*micropython_init)();
 	void (*micropython_eval)(char *code);
+	int (*js_call)(void *ctx, char *function, char *params, ...);
 } refimport_t;
 
 // this is the only function actually exported at the linker level

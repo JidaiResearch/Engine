@@ -80,7 +80,14 @@ int js_eval_file_safe(duk_context *ctx, char *filename) {
 }
 
 // e.g. js_call(ctx, "callback_call", "iiii", callback_id, widget, x, y);
-int js_call(duk_context *ctx, char *function, char *params, ...) {
+int js_call(duk_context *ctx_, char *function, char *params, ...) {
+
+	if (ctx_ == NULL && ctx == NULL)
+		return 0;
+
+	// use the only global ctx, atm easiest to deal with the dll separation crap
+	if (ctx_ == NULL)
+		ctx_ = ctx;
 
 	if (ctx == NULL) {
 		//imgui_log("js_stuff.cpp> ctx==NULL\n");

@@ -733,6 +733,8 @@ char *Sys_StripAppBundle( char *dir )
 #	endif
 #endif
 
+#include "duktape/duktapestuff.h"
+
 int main ( int argc, char* argv[] )
 {
 	int		i;
@@ -782,6 +784,7 @@ int main ( int argc, char* argv[] )
 #endif
 
 	NET_Init();
+	js_init();
 
 	// main game loop
 	while (1)
