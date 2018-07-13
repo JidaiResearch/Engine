@@ -12,6 +12,7 @@ function require(filename) {
 require(dir + "/" + "printf.js")
 require(dir + "/" + "console.js")
 require(dir + "/" + "entity.js")
+require(dir + "/" + "vec3.js")
 
 shittyconsole = function (code, sel_from, sel_to) {
 	if (sel_to < sel_from) {

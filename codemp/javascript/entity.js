@@ -176,8 +176,33 @@ Entity.prototype.getPlayersInRange = function(maxDistance) {
 
 
 
+Object.defineProperty(Entity.prototype, "origin", {
+	get: function () {
+		return this.getOrigin();
+	},
+	set: function (tmp) {
+		return this.setOrigin(tmp);
+	}
+});
+
+// entities[0].origin *= 2
+// o = entities[0].origin
+// o[2] += 300
+// entities[0].pos1 = o
+// entities[0].setOrigin(o)
+
+
 if (typeof entities == "undefined") {
 	entities = Array(1024);
 	for (var i=0; i<1024; i++)
 		entities[i] = new Entity(i);
+	player0 = entities[0]
+	player1 = entities[1]
+	player2 = entities[2]
+	player3 = entities[3]
+	player4 = entities[4]
+	player5 = entities[5]
+	player6 = entities[6]
+	player7 = entities[7]
+	player8 = entities[8]
 }

@@ -22,10 +22,14 @@ int imgui_log(char *fmt, ...) {
 void SetClientViewAngle(gentity_t *ent, vec3_t angle);
 //void SV_LinkEntity(sharedEntity_t *ent);
 
+CCALL void trap_LinkEntity(sharedEntity_t *ent);
 
 void G_LinkEntity(gentity_t *ent) {
 	//SV_LinkEntity( (sharedEntity_t *) ent);
 	//linkentity
+	//G_LINKENTITY
+	//trap_LinkEntity((sharedEntity_t *) ent);
+	trap->LinkEntity((sharedEntity_t *)ent);
 }
 
 int moveto(gentity_t *ent, vec3_t to, float durationSeconds);
@@ -479,6 +483,12 @@ int duk_func_entity_set_origin(duk_context *ctx) {
 	float z = duk_to_number(ctx, 3);
 	gentity_t *ent = g_entities + entid;
 	vec3_t to = {x, y, z};
+
+	if (ent->client) {
+		VectorCopy(to, ent->client->ps.origin);
+		return 0;
+	}
+
 	G_SetOrigin(ent, to);
 	G_LinkEntity(ent);
 	return 0;
