@@ -13,6 +13,13 @@ require(dir + "/" + "printf.js")
 require(dir + "/" + "console.js")
 require(dir + "/" + "entity.js")
 require(dir + "/" + "vec3.js")
+require(dir + "/" + "Acorn.js")
+require(dir + "/" + "JidaiScript.js")
+
+if (typeof acorn == "undefined") {
+	acorn = new Acorn()
+	jidaiScript = new JidaiScript()
+}
 
 shittyconsole = function (code, sel_from, sel_to) {
 	if (sel_to < sel_from) {
