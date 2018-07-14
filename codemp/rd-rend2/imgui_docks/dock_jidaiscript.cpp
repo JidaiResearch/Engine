@@ -1,7 +1,7 @@
 #include "dock_node.h"
 #include "../imgui/include_imgui.h"
 //#include <client/client.h>
-#include "dock_duktape.h"
+#include "dock_jidaiscript.h"
 //#include <include_duktape.h>
 #include <string>
 #include "dock_console.h"
@@ -20,17 +20,17 @@ void SaveIniSettingsToDisk(const char* ini_filename); // was a static function i
 void ImStrncpy(char* dst, const char* src, int count);
 
 
-typedef void (*type_callback_repl)(int, int, char *);
-type_callback_repl callback_repl_duktape;
-CCALL void set_callback_repl_duktape(type_callback_repl cb) {
-	callback_repl_duktape = cb;
+//typedef void (*type_callback_repl)(int, int, char *);
+//type_callback_repl callback_repl_duktape;
+//CCALL void set_callback_repl_duktape(type_callback_repl cb) {
+//	callback_repl_duktape = cb;
+//}
+
+DockJidaiScript::DockJidaiScript() {
 }
 
-DockDuktape::DockDuktape() {
-}
-
-const char *DockDuktape::label() {
-	return "Duktape";
+const char *DockJidaiScript::label() {
+	return "JidaiScript";
 }
 
 static int repl_callback(ImGuiTextEditCallbackData *data) {
@@ -45,7 +45,7 @@ static int repl_callback(ImGuiTextEditCallbackData *data) {
 	return 0;
 }
 
-void DockDuktape::imgui() {
+void DockJidaiScript::imgui() {
 
 	//static int first = 1;
 	//if (first) {
@@ -132,7 +132,7 @@ void DockDuktape::imgui() {
 			//	}
 
 			//js_eval(replbuffer);
-			ri.js_call(NULL, "repl_javascript", "sii", replbuffer, select_start, select_end);
+			ri.js_call(NULL, "repl_jidaiscript", "sii", replbuffer, select_start, select_end);
 			
 #endif
 		}

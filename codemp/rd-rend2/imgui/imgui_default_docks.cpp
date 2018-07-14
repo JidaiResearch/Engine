@@ -10,6 +10,7 @@
 #include "../imgui_docks/dock_julia.h"
 #include "../imgui_docks/dock_micropython.h"
 #include "../imgui_docks/dock_duktape.h"
+#include "../imgui_docks/dock_jidaiscript.h"
 
 #include <list>
 std::list<Dock *> docks;
@@ -137,6 +138,7 @@ CCALL int imgui_default_docks() {
 		docks.push_back(new DockNode());
 		docks.push_back(new DockMicroPython());
 		docks.push_back(new DockDuktape());
+		docks.push_back(new DockJidaiScript());
 		//docks.push_back(new DockJulia());
 	}
 

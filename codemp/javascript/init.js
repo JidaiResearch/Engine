@@ -12,16 +12,21 @@ function require(filename) {
 require(dir + "/" + "printf.js")
 require(dir + "/" + "console.js")
 require(dir + "/" + "entity.js")
-require(dir + "/" + "vec3.js")
+require(dir + "/" + "Vec3.js")
 require(dir + "/" + "Acorn.js")
 require(dir + "/" + "JidaiScript.js")
 
 if (typeof acorn == "undefined") {
 	acorn = new Acorn()
 	jidaiScript = new JidaiScript()
+	
+	// for easy js_call(ctx, "eval_jidai", "s", code)
+	eval_jidai = function(code) {
+		return jidaiScript.eval(code)
+	}
 }
 
-shittyconsole = function (code, sel_from, sel_to) {
+repl_javascript = function (code, sel_from, sel_to) {
 	if (sel_to < sel_from) {
 		tmp = sel_to;
 		sel_to = sel_from;
@@ -31,6 +36,20 @@ shittyconsole = function (code, sel_from, sel_to) {
 	if (sel_from != sel_to)
 		code = code.substr(sel_from, sel_to - sel_from);
 	//printf("code: % % %", code, sel_from, sel_to);
+	handle_input(code, get_global());
+}
+
+repl_jidaiscript = function (code, sel_from, sel_to) {
+	if (sel_to < sel_from) {
+		tmp = sel_to;
+		sel_to = sel_from;
+		sel_from = tmp;
+
+	}
+	if (sel_from != sel_to)
+		code = code.substr(sel_from, sel_to - sel_from);
+	//printf("code: % % %", code, sel_from, sel_to);
+	code = jidaiScript.compile(code)
 	handle_input(code, get_global());
 }
 
@@ -60,6 +79,10 @@ var_dump = function (ret) {
 			break;
 		}
 		case "object": {
+			if (ret.constructor.name == "Float32Array") {
+				print(ret.toString());
+				break;
+			}
 			if (ret.constructor.name == "Array") {
 
 				print("ret = [\n");

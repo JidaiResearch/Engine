@@ -121,6 +121,8 @@ set(MPRend2ImGuiDockFiles
 	"${MPDir}/rd-rend2/imgui_docks/dock_console.h"
 	"${MPDir}/rd-rend2/imgui_docks/dock_duktape.cpp"
 	"${MPDir}/rd-rend2/imgui_docks/dock_duktape.h"
+	"${MPDir}/rd-rend2/imgui_docks/dock_jidaiscript.cpp"
+	"${MPDir}/rd-rend2/imgui_docks/dock_jidaiscript.h"
 	"${MPDir}/rd-rend2/imgui_docks/dock_julia.cpp"
 	"${MPDir}/rd-rend2/imgui_docks/dock_julia.h"
 	"${MPDir}/rd-rend2/imgui_docks/dock_micropython.cpp"

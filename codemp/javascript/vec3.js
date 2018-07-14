@@ -14,21 +14,28 @@ Float32Array.prototype.add = function(other) {
 	return Vec3(this[0] + other[0], this[1] + other[1], this[2] + other[2]);
 }
 
-Object.defineProperty(Float32Array.prototype, "x", {
-	get: function (   ) { return this[0]      ; },
-	set: function (tmp) { return this[0] = tmp; }
-});
-Object.defineProperty(Float32Array.prototype, "y", {
-	get: function (   ) { return this[1]      ; },
-	set: function (tmp) { return this[1] = tmp; }
-});
-Object.defineProperty(Float32Array.prototype, "z", {
-	get: function (   ) { return this[2]      ; },
-	set: function (tmp) { return this[2] = tmp; }
-});
+// not allowed to redefine those, so just add them once
+if (Float32Array.prototype.hasOwnProperty("x") == false) {
+	Object.defineProperty(Float32Array.prototype, "x", {
+		get: function (   ) { return this[0]      ; },
+		set: function (tmp) { return this[0] = tmp; }
+	});
+	Object.defineProperty(Float32Array.prototype, "y", {
+		get: function (   ) { return this[1]      ; },
+		set: function (tmp) { return this[1] = tmp; }
+	});
+	Object.defineProperty(Float32Array.prototype, "z", {
+		get: function (   ) { return this[2]      ; },
+		set: function (tmp) { return this[2] = tmp; }
+	});
 
-Object.defineProperty(Float32Array.prototype, "mag", {
-	get: function () {
-		return Math.sqrt(this[0] * this[0] + this[1] * this[1] + this[2] * this[2]);
-	}
-});
+	Object.defineProperty(Float32Array.prototype, "mag", {
+		get: function () {
+			return Math.sqrt(this[0] * this[0] + this[1] * this[1] + this[2] * this[2]);
+		}
+	});
+}
+
+Float32Array.prototype.toString = function() {
+	return "Vec3(" + this[0] + ", " + this[1] + ", " + this[2] + ")";
+}

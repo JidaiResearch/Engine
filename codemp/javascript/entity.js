@@ -220,6 +220,7 @@ if (typeof entities == "undefined") {
 	entities = Array(1024);
 	for (var i=0; i<1024; i++)
 		entities[i] = new Entity(i);
+	player  = entities[0]
 	player0 = entities[0]
 	player1 = entities[1]
 	player2 = entities[2]
