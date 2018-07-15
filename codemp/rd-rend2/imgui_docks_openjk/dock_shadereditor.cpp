@@ -62,6 +62,8 @@ void R_SetupShaderMapsLightall(shaderProgram_t *shader) {
 	qglUseProgram(0);
 }
 
+//void R_SetupShaderMapsTonemap(shaderProgram_t *shader) {}
+
 void DockShaders::recompileShader() {
 	int newProgram = qglCreateProgram();
 	int retVert = GLSL_MyCompileGPUShader(newProgram, &shader->vertexShader, shader->vertexText, strlen(shader->vertexText), GL_VERTEX_SHADER);
@@ -86,6 +88,13 @@ void DockShaders::recompileShader() {
 	// e.g. being able dynamically to change every input map, gotta see
 	if (strcmp(shader->name, "lightall") == 0)
 		R_SetupShaderMapsLightall(shader);
+	else if (strcmp(shader->name, "tonemap") == 0) {
+		//&tr.tonemapShader
+		qglUseProgram(shader->program);
+		GLSL_SetUniformInt(shader, UNIFORM_TEXTUREMAP, TB_COLORMAP);
+		GLSL_SetUniformInt(shader, UNIFORM_LEVELSMAP, TB_LEVELSMAP);
+		qglUseProgram(0);
+	}
 
 	imgui_log("ret compile shader:  retVert=%d retFrag=%d retLink=%d\n", retVert, retFrag, retLink);
 }

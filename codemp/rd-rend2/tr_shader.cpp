@@ -2039,7 +2039,7 @@ static qboolean ParseStage( shaderStage_t *stage, const char **text )
 
 		R_CreateDiffuseAndSpecMapsFromBaseColorAndRMO(stage, bufferBaseColorTextureName, bufferPackedTextureName, flags, buildSpecFromPacked);
 
-		VectorSet4(stage->specularScale, 1.0f, 1.0f, 1.0f, 1.0f);
+		//VectorSet4(stage->specularScale, 1.0f, 1.0f, 1.0f, 1.0f);
 	}
 
 	//
