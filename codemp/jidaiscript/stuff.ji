@@ -5,3 +5,18 @@ spawnClone = function() {
 	tmp.origin = player.origin + Vec3(0,0,-40)
 	return tmp
 }
+
+spawnZF = function() {
+	tmp = spawnentity()
+	tmp.model = "models/players/jedi_zf/model.glm"
+	tmp.origin = player.origin + Vec3(0,0,-40)
+	return tmp
+}
+
+spawnSaber = function() {
+	tmp = spawnentity()
+	tmp.model = "models/weapons2/saber_6/saber_6.glm"
+	tmp.origin = player.origin + Vec3(0,0,-40)
+	return tmp
+}
+
