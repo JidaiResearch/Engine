@@ -209,6 +209,11 @@ Object.defineProperty(Entity.prototype, "angles", {
 	set: function (tmp) { return entity_set_angles(this.id, tmp[0], tmp[1], tmp[2]); }
 });
 
+Object.defineProperty(Entity.prototype, "model", {
+	get: function (   ) { return entity_get_model(this.id     ); },
+	set: function (tmp) { return entity_set_model(this.id, tmp); }
+});
+
 // entities[0].origin *= 2
 // o = entities[0].origin
 // o[2] += 300

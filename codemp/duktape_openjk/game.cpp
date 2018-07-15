@@ -702,15 +702,47 @@ int duk_func_entity_get_classname(duk_context *ctx) {
 }
 
 
+/*
+flag = spawnentity()
+flag.origin = player.origin
+flag.model = "models/flags/r_flag.md3"
+flag.model = "models/weapons2/demp2/demp2_w.glm"
+flag.model = "models/weapons2/bowcaster/bowcaster_w.glm"
+flag.model = "models/weapons2/saber_6/saber_6.glm"
+flag.model = "models/players/jedi_zf/model.glm"
+
+*/
 int duk_func_entity_set_model(duk_context *ctx) {
 	int entid = duk_to_int(ctx, 0);
 	const char *model = duk_to_string(ctx, 1);
 	gentity_t *entity = g_entities + entid;
 	entity->s.modelindex  = G_ModelIndex(model); // stuff like "models/ammo/rocket/rocket.md3"
 	entity->s.modelindex2 = 0;    // no clue, ripped from other code
+
+	int n = strlen(model); // e.g. bla.glm, length==7, detect if it ends with ".glm"
+	if (
+		n >= 4
+		&& model[n - 1] == 'm'
+		&& model[n - 2] == 'l'
+		&& model[n - 3] == 'g'
+		&& model[n - 4] == '.'
+		) {
+		entity->s.modelGhoul2 = 1;
+	}
+	else {
+		entity->s.modelGhoul2 = 0;
+	}
+
 	G_LinkEntity(entity); // is that even needed? meh idc
 	return 0;
 }
+
+
+/*
+for get_model:
+trap->GetConfigstring( start + i, s, sizeof( s ) );
+CS_MODELS + modelindex
+*/
 
 int duk_func_sendservercommand(duk_context *ctx) {
 	//int entid = duk_to_int(ctx, 0);
