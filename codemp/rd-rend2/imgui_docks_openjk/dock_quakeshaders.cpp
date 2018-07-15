@@ -14,7 +14,7 @@ const char *DockQuakeShaders::label() {
 }
 
 
-#if 0
+#if 1
 
 CCALL int shader_stage_set_image(int shaderid, int stageid, int imageid) {
 	shaderStage_t *stage;
@@ -23,14 +23,14 @@ CCALL int shader_stage_set_image(int shaderid, int stageid, int imageid) {
 		imgui_log("shader_stage_set_image> tr.shaders[%d]->stages[%d] == NULL (imageid=%d)\n", shaderid, stageid, imageid);
 		return 0;
 	}
-	stage->bundle[0].image[0] = tr.images[imageid];
+	stage->bundle[0].image[0] = tr.images + imageid;
 	return 1;
 }
 
 CCALL int getImageID(image_t *image) {
 	int imageid = 0;
 	for (int i=0; i<2048; i++)
-		if (tr.images[i] == image) {
+		if (tr.images + i == image) {
 			imageid = i;
 			break;
 		}
@@ -55,9 +55,9 @@ const char *toString(stageType_t stageType) {
 	switch (stageType) {
 		/*case ST_COLORMAP:*/
 		case ST_DIFFUSEMAP:		   return "ST_DIFFUSEMAP"; // same as ST_COLORMAP, both 0
-		case ST_NORMALMAP:		   return "ST_NORMALMAP";
-		case ST_NORMALPARALLAXMAP: return "ST_NORMALPARALLAXMAP";
-		case ST_SPECULARMAP:	   return "ST_SPECULARMAP";
+		//case ST_NORMALMAP:		   return "ST_NORMALMAP";
+		//case ST_NORMALPARALLAXMAP: return "ST_NORMALPARALLAXMAP";
+		//case ST_SPECULARMAP:	   return "ST_SPECULARMAP";
 		case ST_GLSL:			   return "ST_GLSL";
 	}
 	return "unknown stageType enum";
@@ -97,9 +97,9 @@ void imgui_stage(shaderStage_t *stage) {
 	
 
 	if (ImGui::Button("ST_DIFFUSEMAP"))        stage->type = ST_DIFFUSEMAP;
-	if (ImGui::Button("ST_NORMALMAP"))         stage->type = ST_NORMALMAP;
-	if (ImGui::Button("ST_NORMALPARALLAXMAP")) stage->type = ST_NORMALPARALLAXMAP;
-	if (ImGui::Button("ST_SPECULARMAP"))       stage->type = ST_SPECULARMAP;
+	//if (ImGui::Button("ST_NORMALMAP"))         stage->type = ST_NORMALMAP;
+	//if (ImGui::Button("ST_NORMALPARALLAXMAP")) stage->type = ST_NORMALPARALLAXMAP;
+	//if (ImGui::Button("ST_SPECULARMAP"))       stage->type = ST_SPECULARMAP;
 	if (ImGui::Button("ST_GLSL"))              stage->type = ST_GLSL;
 					
 	ImGui::Checkbox("isDetail", &stage->isDetail);
@@ -124,6 +124,7 @@ void imgui_stage(shaderStage_t *stage) {
 	int tmp_a = stage->constantColor[3];
 	ImGui::DragInt("a", &tmp_a);
 	stage->constantColor[3] = tmp_a;
+
 
 	if (stage->glslShaderGroup) {
 		ImGui::Text("current glslShaderGroup: %s", stage->glslShaderGroup->name);
@@ -224,7 +225,7 @@ void imgui_stage(shaderStage_t *stage) {
 						if (ImGui::DragInt("id", &imageid)) {
 							const int maxImages = sizeof(tr.images)/sizeof(image_t *);
 							if (imageid >=0 && imageid < maxImages)
-								bundle->image[image_id] = tr.images[imageid];
+								bundle->image[image_id] = tr.images + imageid;
 						}
 
 						ImGui::Image((ImTextureID)img->texnum, ImVec2(256,256));
@@ -234,7 +235,7 @@ void imgui_stage(shaderStage_t *stage) {
 						}
 					} else {
 						if (ImGui::Button("Assign Image")) {
-							bundle->image[image_id] = tr.images[0];
+							bundle->image[image_id] = tr.images + 0;
 						}
 					}
 					ImGui::PopID();
@@ -327,18 +328,60 @@ void imgui_stage(shaderStage_t *stage) {
 
 void DockQuakeShaders::imgui() {
 
+
+	static bool onlyFogs = false;
+
+	ImGui::Checkbox("fogs", &onlyFogs);
+
+	// implying the fog order is same as shader-load-order...
+	// the fog color is just copied, so we cant change it here anymore
+	// so we always just overwrite it where it was saved
+	int fogid = 0;
+
 	for (int i=0; i<tr.numShaders; i++) {
 		shader_t *shader = tr.shaders[i];
 
 		char headertext[512];
 		sprintf(headertext, "shader[%d] %s", i, shader->name);
 		
+
+		if (shader->contentFlags & CONTENTS_FOG)
+			fogid++;
+		//if (onlyFogs && shader->fogParms.depthForOpaque == 0.0)
+		if (onlyFogs && ((shader->contentFlags & CONTENTS_FOG) == false))
+			continue;
+
 		ImGui::PushID(shader);
 		if (ImGui::CollapsingHeader(headertext)) {
 
+
+			float tmp_fog_r = shader->fogParms.color[0];
+			ImGui::DragFloat("fog_r", &tmp_fog_r);
+			shader->fogParms.color[0] = tmp_fog_r;
+
+			float tmp_fog_g = shader->fogParms.color[1];
+			ImGui::DragFloat("fog_g", &tmp_fog_g);
+			shader->fogParms.color[1] = tmp_fog_g;
+
+			float tmp_fog_b = shader->fogParms.color[2];
+			ImGui::DragFloat("fog_b", &tmp_fog_b);
+			shader->fogParms.color[2] = tmp_fog_b;
+
+			float tmp_fog_depthForOpaque = shader->fogParms.depthForOpaque;
+			ImGui::DragFloat("fog_depthForOpaque", &tmp_fog_depthForOpaque);
+			shader->fogParms.depthForOpaque = tmp_fog_depthForOpaque;
+
+			// force update the changes
+			fog_t *fog = tr.world->fogs + fogid;
+			fog->color[0] = shader->fogParms.color[0];
+			fog->color[1] = shader->fogParms.color[1];
+			fog->color[2] = shader->fogParms.color[2];
+			// fog->parms.color is unused?
+			fog->parms.depthForOpaque = tmp_fog_depthForOpaque;
+			//fog->color[3] = shader->fogParms.color[ ??? ];
 			
 			if (ImGui::Button("Add new Stage")) {
-#if 0
+#if 1
 				for (int stage_id=0; stage_id<8; stage_id++) {
 					shaderStage_t *stage = shader->stages[stage_id];
 					if (stage == NULL) {
@@ -346,7 +389,7 @@ void DockQuakeShaders::imgui() {
 
 						stage = (shaderStage_t *) Hunk_Alloc( sizeof( shaderStage_t ), h_low );
 						shader->stages[stage_id] = stage;
-
+						memset(stage, 0, sizeof(shaderStage_t));
 						//for ( int b = 0 ; b < NUM_TEXTURE_BUNDLES ; b++ ) {
 						//	int size = stage->bundle[b].numTexMods * sizeof( texModInfo_t );
 						//	newShader->stages[i]->bundle[b].texMods = Hunk_Alloc( size, h_low );
@@ -363,7 +406,7 @@ void DockQuakeShaders::imgui() {
 			for (int stage_id=0; stage_id<8; stage_id++) {
 				shaderStage_t *stage = shader->stages[stage_id];
 				if (stage == NULL)
-					break;
+					continue;
 
 
 
