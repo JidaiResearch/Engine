@@ -171,5 +171,5 @@ JidaiScript.prototype.eval = function(code) {
 	this.last_generated_js = this.compile(code);
 	//this.last_generated_func = Function(/*params*/[], this.last_generated_js);
 	//return this.last_generated_func.apply(scope, /*args*/[]);
-	return eval(this.last_generated_js);
+	return eval.bind(get_global())(this.last_generated_js);
 }

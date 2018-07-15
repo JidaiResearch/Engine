@@ -9,10 +9,21 @@ function require(filename) {
 	}
 }
 
+function require_jidaiscript(filename) {
+	var content = file_get_contents(filename);
+	try {
+		content = jidaiScript.compile(content) // just transpile from js->ji
+		eval.bind(get_global())(content);
+	} catch (e) {
+		printf("require(%): error %\n", filename, e.stack);
+	}
+}
+
 require(dir + "/" + "printf.js")
 require(dir + "/" + "console.js")
 require(dir + "/" + "entity.js")
 require(dir + "/" + "Vec3.js")
+require(dir + "/" + "String.js")
 require(dir + "/" + "Acorn.js")
 require(dir + "/" + "JidaiScript.js")
 
@@ -25,6 +36,8 @@ if (typeof acorn == "undefined") {
 		return jidaiScript.eval(code)
 	}
 }
+
+require_jidaiscript(dir + "/../jidaiscript/" + "stuff.ji")
 
 repl_javascript = function (code, sel_from, sel_to) {
 	if (sel_to < sel_from) {
