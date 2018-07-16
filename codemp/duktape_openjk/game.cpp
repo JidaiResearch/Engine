@@ -400,6 +400,21 @@ int duk_func_entity_get_origin(duk_context *ctx) {
 	return 1;
 }
 
+int duk_func_entity_animate(duk_context *ctx) {
+	int entid       = duk_to_int(ctx, 0);
+	int frame_start = duk_to_int(ctx, 1);
+	int frame_end   = duk_to_int(ctx, 2);
+	//int frame_flip  = duk_to_int(ctx, 3);
+	gentity_t *entity = g_entities + entid;
+	entity->s.eFlags |= EF_G2ANIMATING;
+	//currentState.eFlags & EF_G2ANIMATING)
+	// the magic which makes this work is in cg_ents.cpp line 971
+	entity->s.torsoAnim = frame_start;
+	entity->s.legsAnim = frame_end;
+	entity->s.torsoFlip = (qboolean)!entity->s.torsoFlip;
+	return 0;
+}
+
 
 int duk_func_vec2angles(duk_context *ctx) {
 	float in[3];
@@ -999,9 +1014,10 @@ int bind_game(duk_context *ctx) {
 		{"entity_die"                    , duk_func_entity_die                         },
 		{"entity_notsolid"               , duk_func_entity_notsolid                    },
 		{"entity_delete"                 , duk_func_entity_delete                      },
+		{ "entity_animate"               , duk_func_entity_animate                     },
 		{"sendservercommand"             , duk_func_sendservercommand                  },
-		{ "getPlayersInRange"             , duk_func_getPlayersInRange },
-		{ "vec2angles"             , duk_func_vec2angles},
+		{"getPlayersInRange"             , duk_func_getPlayersInRange                  },
+		{"vec2angles"                    , duk_func_vec2angles                         },
 		//{"getargs"                     , duk_func_getargs                            },
 		//{"entity_send_hud"             , duk_func_entity_send_hud                    },
 		//{"entity_hudelem_settext"      , duk_func_entity_hudelem_settext             },

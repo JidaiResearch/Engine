@@ -115,6 +115,7 @@ function Entity(id) {
 	this.getOrigin           = function()                      { return entity_get_origin         (this.id);                                           }
 	this.setOrigin           = function(origin)                { return entity_set_origin         (this.id, origin[0], origin[1], origin[2]);          }
 	this.addEvent            = function(normal)                { return entity_add_event          (this.id, normal[0], normal[1], normal[2]);          }
+	this.animate             = function(start, num)            { return entity_animate            (this.id, start, start+num               );          }
 	this.getAngles           = function()                      { return entity_get_angles         (this.id);                                           }
 	this.getWeapon           = function()                      { return entity_get_weapon         (this.id);                                           }
 	this.getWeaponState      = function()                      { return entity_get_weaponstate    (this.id);                                           }
@@ -180,6 +181,7 @@ Entity.prototype.walkTo = function(to) {
 	var timeNeeded = dist / unitsPerSecond;
 	this.angles = vecToAngles(to.sub(this.origin))
 	this.moveTo(to, timeNeeded)
+	this.animate(2949, 25) // crouch animation atm, missing networked loop functionality
 }
 //zf.__proto__ = Entity.prototype
 
