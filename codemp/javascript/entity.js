@@ -174,6 +174,15 @@ Entity.prototype.getPlayersInRange = function(maxDistance) {
 	return JS_getPlayersInRange(this.getOrigin(), maxDistance);
 }
 
+Entity.prototype.walkTo = function(to) {
+	var unitsPerSecond = 100;
+	var dist = distance( this.origin, to )
+	var timeNeeded = dist / unitsPerSecond;
+	this.angles = vecToAngles(to.sub(this.origin))
+	this.moveTo(to, timeNeeded)
+}
+//zf.__proto__ = Entity.prototype
+
 Object.defineProperty(Entity.prototype, "origin", {
 	get: function (   ) { return entity_get_origin(this.id                         ); },
 	set: function (tmp) { return entity_set_origin(this.id, tmp[0], tmp[1], tmp[2] ); }

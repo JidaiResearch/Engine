@@ -24,6 +24,7 @@ require(dir + "/" + "console.js")
 require(dir + "/" + "entity.js")
 require(dir + "/" + "Vec3.js")
 require(dir + "/" + "String.js")
+require(dir + "/" + "Number.js")
 require(dir + "/" + "Acorn.js")
 require(dir + "/" + "JidaiScript.js")
 

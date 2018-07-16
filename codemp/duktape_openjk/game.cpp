@@ -400,6 +400,19 @@ int duk_func_entity_get_origin(duk_context *ctx) {
 	return 1;
 }
 
+
+int duk_func_vec2angles(duk_context *ctx) {
+	float in[3];
+	in[0] = (float) duk_to_number(ctx, 0);
+	in[1] = (float) duk_to_number(ctx, 1);
+	in[2] = (float) duk_to_number(ctx, 2);
+
+	float *buf = js_push_vec3(ctx);
+	vectoangles(in, buf);
+	return 1;
+}
+
+
 int duk_func_entity_get_velocity(duk_context *ctx) {
 	int entid = duk_to_int(ctx, 0);
 
@@ -987,7 +1000,8 @@ int bind_game(duk_context *ctx) {
 		{"entity_notsolid"               , duk_func_entity_notsolid                    },
 		{"entity_delete"                 , duk_func_entity_delete                      },
 		{"sendservercommand"             , duk_func_sendservercommand                  },
-		{"getPlayersInRange"             , duk_func_getPlayersInRange                  },
+		{ "getPlayersInRange"             , duk_func_getPlayersInRange },
+		{ "vec2angles"             , duk_func_vec2angles},
 		//{"getargs"                     , duk_func_getargs                            },
 		//{"entity_send_hud"             , duk_func_entity_send_hud                    },
 		//{"entity_hudelem_settext"      , duk_func_entity_hudelem_settext             },

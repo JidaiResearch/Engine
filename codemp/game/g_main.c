@@ -3071,6 +3071,12 @@ void G_RunFrame( int levelTime ) {
 			continue;
 		}
 
+		// kung: make sure the currentOrigin is correct... otherwise moveTo() fucks up because the origin is outdated
+		// dont update movers tho, thats retarding them
+		if (ent->s.eType != ET_MOVER) {
+			BG_EvaluateTrajectory(&ent->s.pos, level.time, ent->r.currentOrigin/*, qfalse, 0*/);
+		}
+
 		// clear events that are too old
 		if ( level.time - ent->eventTime > EVENT_VALID_MSEC ) {
 			if ( ent->s.event ) {

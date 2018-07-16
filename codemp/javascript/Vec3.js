@@ -13,6 +13,9 @@ Float32Array.prototype.mul = function(scalar) {
 Float32Array.prototype.add = function(other) {
 	return Vec3(this[0] + other[0], this[1] + other[1], this[2] + other[2]);
 }
+Float32Array.prototype.sub = function(other) {
+	return Vec3(this[0] - other[0], this[1] - other[1], this[2] - other[2]);
+}
 
 // not allowed to redefine those, so just add them once
 if (Float32Array.prototype.hasOwnProperty("x") == false) {
@@ -38,4 +41,19 @@ if (Float32Array.prototype.hasOwnProperty("x") == false) {
 
 Float32Array.prototype.toString = function() {
 	return "Vec3(" + this[0] + ", " + this[1] + ", " + this[2] + ")";
+}
+
+vecToAngles = function(vec) {
+	return vec2angles(vec.x, vec.y, vec.z)
+}
+
+distance = function(a, b) {
+	var dx = b.x - a.x;
+	var dy = b.y - a.y;
+	var dz = b.z - a.z;
+	return Math.sqrt(
+		(dx*dx) + 
+		(dy*dy) +
+		(dz*dz)
+	);
 }
