@@ -756,10 +756,29 @@ int duk_func_entity_set_model(duk_context *ctx) {
 		&& model[n - 4] == '.'
 		) {
 		entity->s.modelGhoul2 = 1;
+		entity->s.g2radius = 1000; // idk just something biggish enough, so it doesnt cull when it should be visible
 	}
 	else {
 		entity->s.modelGhoul2 = 0;
 	}
+
+	//fixme: quick way to get bounds of md3 and ghoul models
+	//G_GetModelBounds(model, &entity->r.mins, &entity->r.maxs);
+	// also I dont know whats actually needed and not, just added code till the g2 model doesnt clip anymore even if it should be visible
+	entity->r.mins[0] = -100;
+	entity->r.mins[1] = -100;
+	entity->r.mins[2] = -100;
+	entity->r.maxs[0] = 100;
+	entity->r.maxs[1] = 100;
+	entity->r.maxs[2] = 100;
+	//entity->r.absmin[0] = -10000;
+	//entity->r.absmin[1] = -10000;
+	//entity->r.absmin[2] = -10000;
+	//entity->r.absmax[0] = 10000;
+	//entity->r.absmax[1] = 10000;
+	//entity->r.absmax[2] = 10000;
+	//entity->radius = 1000;
+
 
 	G_LinkEntity(entity); // is that even needed? meh idc
 	return 0;
