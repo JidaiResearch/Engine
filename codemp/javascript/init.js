@@ -28,6 +28,8 @@ require(dir + "/" + "Number.js")
 require(dir + "/" + "Acorn.js")
 require(dir + "/" + "JidaiScript.js")
 require(dir + "/" + "Thread.js")
+require(dir + "/" + "Astar.js")
+require(dir + "/" + "Heap.js")
 
 if (typeof acorn == "undefined") {
 	acorn = new Acorn()
