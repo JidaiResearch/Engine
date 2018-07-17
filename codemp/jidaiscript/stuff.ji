@@ -13,6 +13,20 @@ spawnZF = function() {
 	return tmp
 }
 
+spawnImp = function() {
+	tmp = spawnentity()
+	tmp.model = "models/players/imperial/model.glm"
+	tmp.origin = player.origin + Vec3(0,0,0)
+	return tmp
+}
+
+spawnChiss = function() {
+	tmp = spawnentity()
+	tmp.model = "models/players/chiss/model.glm"
+	tmp.origin = player.origin + Vec3(0,0,0)
+	return tmp
+}
+
 spawnSaber = function() {
 	tmp = spawnentity()
 	tmp.model = "models/weapons2/saber_6/saber_6.glm"
@@ -20,3 +34,9 @@ spawnSaber = function() {
 	return tmp
 }
 
+spawnPlayer = function(name) {
+	tmp = spawnentity()
+	tmp.model = "models/players/" + name + "/model.glm"
+	tmp.origin = player.origin + Vec3(0,0,0)
+	return tmp
+}

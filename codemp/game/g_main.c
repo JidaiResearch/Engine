@@ -178,7 +178,7 @@ void G_InitGame( int levelTime, int randomSeed, int restart, void *dukcontext ) 
 	char serverinfo[MAX_INFO_STRING] = {0};
 
 	bind_game((duk_context *)dukcontext);
-
+	ctx = (duk_context *) dukcontext;
 	//Init RMG to 0, it will be autoset to 1 if there is terrain on the level.
 	trap->Cvar_Set("RMG", "0");
 	RMG.integer = 0;
@@ -3410,6 +3410,8 @@ void G_RunFrame( int levelTime ) {
 	iTimer_GameChecks = trap->PrecisionTimer_End(timer_GameChecks);
 #endif
 
+
+	js_call(NULL, "runframe", "");
 
 
 #ifdef _G_FRAME_PERFANAL

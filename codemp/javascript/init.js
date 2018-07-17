@@ -27,6 +27,7 @@ require(dir + "/" + "String.js")
 require(dir + "/" + "Number.js")
 require(dir + "/" + "Acorn.js")
 require(dir + "/" + "JidaiScript.js")
+require(dir + "/" + "Thread.js")
 
 if (typeof acorn == "undefined") {
 	acorn = new Acorn()
@@ -39,6 +40,11 @@ if (typeof acorn == "undefined") {
 }
 
 require_jidaiscript(dir + "/../jidaiscript/" + "stuff.ji")
+
+if (typeof level == "undefined") {
+	level = {};
+	level.time = 0;
+}
 
 repl_javascript = function (code, sel_from, sel_to) {
 	if (sel_to < sel_from) {
