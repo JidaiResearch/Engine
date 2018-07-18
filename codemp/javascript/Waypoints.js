@@ -11,7 +11,7 @@ Waypoint.prototype.distance = function(to) {
 	var dz = to.origin.z - this.origin.z
 	var dist =  Math.sqrt(dx*dx + dy*dy + dz*dz)
 	//console.log(this.neighbors[to])
-	console.log("distance from '" + this.name + "' to '" + to.name + "' is: " + dist);
+	//console.log("distance from '" + this.name + "' to '" + to.name + "' is: " + dist);
 	return dist
 }
 
@@ -109,10 +109,17 @@ Pathfinder.prototype.setupAstar = function(id_from, id_to) {
 	this.astar = new Astar()
 }
 
-Pathfinder.prototype.findPath = function(id_from, id_to) {
+// retarded "multiple dispatch" here...
+Pathfinder.prototype.findPath_id_id = function(id_from, id_to) {
 	var a = this.waypoints[id_from];
 	var b = this.waypoints[id_to  ];
 	return this.astar.findPath(a, b)
+}
+
+Pathfinder.prototype.findPath_ent_ent = function(entity_a, entity_b) {
+	var wp_from_id = this.getClosestWaypoint(entity_a.origin).id
+	var wp_to_id   = this.getClosestWaypoint(entity_b.origin).id
+	return this.findPath_id_id(wp_from_id, wp_to_id)
 }
 
 Pathfinder.prototype.getClosestWaypoint = function(origin) {
@@ -123,7 +130,7 @@ Pathfinder.prototype.getClosestWaypoint = function(origin) {
 		dist = distance( origin, this.waypoints[i].origin );
 		if (dist < closestDistance) {
 			closestWaypoint = this.waypoints[i];
-			closestDistance = dist;		
+			closestDistance = dist;
 		}
 	}
 	return closestWaypoint;
@@ -134,14 +141,13 @@ Pathfinder.LoadFromFile = function(filename) {
 	return eval(content);
 }
 
-
 load_pathfinder = function() {
 	if (typeof pf != "undefined") {
 		pf.__proto__ = Pathfinder.prototype
 		pf.reset()
 		
 	}
-	pf = Pathfinder.LoadFromFile("waypoints.txt")
+	pf = waypoints_load();
 	
 	pf.connectBoth(0, 1)
 	pf.connectBoth(1, 2)
@@ -165,42 +171,43 @@ load_pathfinder = function() {
 	pf.setupAstar()
 }
 
+waypoints_load = function() {
+	var mapname = "stripclub"; // todo
+	return Pathfinder.LoadFromFile("waypoints_" + mapname + ".js")
+}
+
+waypoints_save = function() {
+	var mapname = "stripclub"; // todo
+	waypoints.saveToFile("waypoints_" + mapname + ".js")
+}
+
 /*
-	waypoints.add( player.origin )
-	//waypoints.reset()
-	waypoints.__proto__ = Pathfinder.prototype
-	v = new Float32Array(3)
-	v.toJSON = function() {
-	return "bla"
-	}
 
-
-
-	waypoints = new Pathfinder()
-	waypoints.add( player.origin )
-	waypoints.saveToFile("waypoints.txt")
-	waypoints.connect(0, 1)
-
-
-	b = new Waypoint(player.origin)
-	c = new Waypoint(player.origin)
-	d = new Waypoint(player.origin)
-
-	a.connectTo(b)
-	b.connectTo(c)
-	c.connectTo(d)
-
-	a.name = "a"
-	b.name = "b"
-	c.name = "c"
-	d.name = "d"
-
-	//d.neighbors
-		
-		path = new Astar().findPath(a, d)
-		var tmp = []
-		for (i=0; i<path.length; i++) {
-			//tmp.push()
-			console.log(path[i].name)
+hf = spawnNPC("jedi_hf")
+killthreads()
+hf.thread( function() {
+	while (1) {
+		var path = pf.findPath_ent_ent(this, player)
+		for (var i=0; i<path.length; i++) {
+			var pos = path[i].origin
+			this.walkTo(pos)
+			do {
+				var dist = distance(this.origin, pos)
+				if (dist < 10)
+					break;
+				wait(0.05)
+			} while (1);
 		}
+		wait(0.05)
+	}
+} )()
+
+*/
+
+/*
+	path = new Astar().findPath(a, d)
+	var tmp = []
+	for (i=0; i<path.length; i++) {
+		console.log(path[i].name)
+	}
 */
