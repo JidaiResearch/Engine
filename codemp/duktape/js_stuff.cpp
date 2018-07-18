@@ -176,24 +176,24 @@ int duk_func_file_get_contents(duk_context *ctx) {
 	}
 	f = fopen(filename, "rb");
 	if (!f) {
-		js_printf("Cant open file: %s\n", filename);
-		printf("cant open file: %s", filename);
+		//js_printf("Cant open file: %s\n", filename);
+		//printf("cant open file: %s", filename);
 		goto error;
 	}
 	if (fseek(f, 0, SEEK_END) != 0) {
 		
-		js_printf("cant seek to end\n");
+		//js_printf("cant seek to end\n");
 		goto error;
 	}
 	len = ftell(f);
 	if (fseek(f, 0, SEEK_SET) != 0) {
-		js_printf("cant seek to start\n");
+		//js_printf("cant seek to start\n");
 		goto error;
 	}
 	buf = duk_push_fixed_buffer(ctx, (size_t) len);
 	got = fread(buf, 1, len, f);
 	if (got != (size_t) len) {
-		js_printf("cant read content\n");
+		//js_printf("cant read content\n");
 		goto error;
 	}
 	fclose(f);
@@ -207,9 +207,10 @@ int duk_func_file_get_contents(duk_context *ctx) {
 	if (f) {
 		fclose(f);
 	}
-	js_printf("some error reading file in file_get_contents()\n");
+	//js_printf("some error reading file in file_get_contents()\n");
 	//return DUK_RET_ERROR;
 	duk_push_undefined(ctx);
+	return 1;
 #else
 	return 1;
 #endif
@@ -294,7 +295,7 @@ CCALL duk_context *js_get_ctx() { return ctx; }
 
 CCALL void js_reload() {
 	//js_eval_file_safe(ctx, "assets\\javascript\\pre_create.js");
-	js_eval_file_safe(ctx, "F:\\repos\\OpenDF2\\OpenDF2\\codemp\\javascript\\init.js");
+	js_eval_file_safe(ctx, ".\\javascript\\init.js");
 	//js_eval_file_safe(ctx, "F:\\repos\\OpenDF2\\OpenDF2\\codemp\\javascript\\printf.js");
 	//js_eval_file_safe(ctx, "assets\\javascript\\lib_quake.js");
 	//js_call(ctx, "PostReload", "");

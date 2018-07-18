@@ -1,6 +1,7 @@
 #include "duktapestuff.h"
 #include "duktape.h"	
 #include "bind_utils.h"
+#include <Windows.h>
 
 int duk_func_utils_screensize(duk_context *ctx) {
 	//char *address = (char *)duk_to_int(ctx, 0);
@@ -17,9 +18,24 @@ int duk_func_utils_screensize(duk_context *ctx) {
 	return 1;
 }
 
+int duk_func_exedir(duk_context *ctx) {
+#if _WIN32
+	char exedir[MAX_PATH];
+	// When NULL is passed to GetModuleHandle, the handle of the exe itself is returned
+	HMODULE hModule = GetModuleHandle(NULL);
+	GetModuleFileName(hModule, exedir, sizeof(exedir));
+	duk_push_string(ctx, exedir);
+#else
+	// todo for linux server
+	duk_push_string(ctx, ".");
+#endif
+	return 1;
+}
+
 void bind_utils() {
 	struct funcis funcs[] = {
-		{"utils_screensize",	    duk_func_utils_screensize    },
+		{ "utils_screensize",	   duk_func_utils_screensize },
+		{ "exedir",	               duk_func_exedir           },
 		{NULL, NULL}
 	};
 	for (int i=0; funcs[i].name; i++) {
