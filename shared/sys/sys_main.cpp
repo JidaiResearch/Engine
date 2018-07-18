@@ -468,10 +468,10 @@ void *Sys_LoadLegacyGameDll( const char *name, VMMainProc **vmMain, SystemCallPr
 
 	Com_sprintf (filename, sizeof(filename), "%s" ARCH_STRING DLL_EXT, name);
 
-#if defined(_DEBUG)
+//#if defined(_DEBUG)
 	libHandle = Sys_LoadLibrary( filename );
 	if ( !libHandle )
-#endif
+//#endif
 	{
 		UnpackDLLResult unpackResult = Sys_UnpackDLL(filename);
 		if ( !unpackResult.succeeded )
@@ -599,10 +599,10 @@ void *Sys_LoadGameDll( const char *name, GetModuleAPIProc **moduleAPI )
 
 	Com_sprintf (filename, sizeof(filename), "%s" ARCH_STRING DLL_EXT, name);
 
-#if defined(_DEBUG)
+//#if defined(_DEBUG)
 	libHandle = Sys_LoadLibrary( filename );
 	if ( !libHandle )
-#endif
+//#endif
 	{
 		UnpackDLLResult unpackResult = Sys_UnpackDLL(filename);
 		if ( !unpackResult.succeeded )

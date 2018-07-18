@@ -838,16 +838,6 @@ set(mp_client_root
 source_group("root" FILES ${mp_client_root})
 set(MPEngineFiles ${MPEngineFiles} ${mp_client_root})
 
-set(mp_client_javascript
-	"${MPDir}/javascript/console.js"
-	"${MPDir}/javascript/entity.js"
-	"${MPDir}/javascript/init.js"
-	"${MPDir}/javascript/printf.js"
-	"${MPDir}/javascript/vec3.js"
-)
-source_group("javascript" FILES ${mp_client_javascript})
-set(MPEngineFiles ${MPEngineFiles} ${mp_client_javascript})
-	
 	
 	
 	set(MPEngineSysFiles
