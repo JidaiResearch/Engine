@@ -48,6 +48,11 @@ Pathfinder.prototype.saveToFile = function(filename) {
 		var origin = this.waypoints[i].origin
 		content += "pathfinder.add( " + origin.toString() + " );\n"
 	}
+	for (var i=0; i<this.edges.length; i++) {
+		var id_0 = this.edges[i][0]
+		var id_1 = this.edges[i][1]
+		content += "pathfinder.connectSingle( " + id_0 + ", " + id_1 + " );\n"
+	}	
 	content += "pathfinder;" // last statement of eval(...) is returned
 	file_put_contents(filename, content)
 }
@@ -103,6 +108,7 @@ Pathfinder.prototype.connectBoth = function(id_from, id_to) {
 
 Pathfinder.prototype.connectSingle = function(id_from, id_to) {
 	this.edges.push( [id_from, id_to] )
+	this.waypoints[id_from].connectTo( this.waypoints[id_to] )
 }
 
 Pathfinder.prototype.setupAstar = function(id_from, id_to) {
@@ -148,25 +154,6 @@ load_pathfinder = function() {
 		
 	}
 	pf = waypoints_load();
-	
-	pf.connectBoth(0, 1)
-	pf.connectBoth(1, 2)
-	pf.connectBoth(2, 3)
-	pf.connectBoth(3, 4)
-	pf.connectBoth(4, 5)
-	pf.connectBoth(5, 6)
-	pf.connectBoth(6, 7)
-	pf.connectBoth(7, 8)
-	pf.connectBoth(8, 9)
-	pf.connectBoth(9, 10)
-	pf.connectBoth(8, 11)
-	pf.connectBoth(11, 12)
-	pf.connectBoth(12, 13)
-	pf.connectBoth(13, 14)
-	pf.connectBoth(2, 14)
-	pf.connectBoth(13, 15)
-	pf.connectBoth(15, 16)
-	
 	pf.spawnEdgeEnts()
 	pf.setupAstar()
 }
@@ -178,7 +165,7 @@ waypoints_load = function() {
 
 waypoints_save = function() {
 	var mapname = "stripclub"; // todo
-	waypoints.saveToFile("waypoints_" + mapname + ".js")
+	pf.saveToFile("waypoints_" + mapname + ".js")
 }
 
 /*
