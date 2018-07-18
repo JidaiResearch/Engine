@@ -114,6 +114,20 @@ Pathfinder.prototype.findPath = function(id_from, id_to) {
 	var b = this.waypoints[id_to  ];
 	return this.astar.findPath(a, b)
 }
+
+Pathfinder.prototype.getClosestWaypoint = function(origin) {
+	var closestWaypoint = this.waypoints[0];
+	var dist = distance( origin, closestWaypoint.origin );
+	var closestDistance = dist;
+	for (var i=1; i<this.waypoints.length; i++) {
+		dist = distance( origin, this.waypoints[i].origin );
+		if (dist < closestDistance) {
+			closestWaypoint = this.waypoints[i];
+			closestDistance = dist;		
+		}
+	}
+	return closestWaypoint;
+}
 	
 Pathfinder.LoadFromFile = function(filename) {
 	var content = file_get_contents(filename)
