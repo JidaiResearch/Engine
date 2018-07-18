@@ -1,11 +1,11 @@
-Waypoints = function() {
+Pathfinder = function() {
 	this.waypoints = []
 	this.edges = []
 	this.entities = []
 	this.edgeents = []
 }
 
-Waypoints.prototype.add = function(origin) {
+Pathfinder.prototype.add = function(origin) {
 	this.waypoints.push( origin )
 
 	
@@ -17,8 +17,8 @@ Waypoints.prototype.add = function(origin) {
 	return this.waypoints.length - 1 // return the "id"
 }
 
-Waypoints.prototype.saveToFile = function(filename) {
-	var content = "var waypoints = new Waypoints();\n";
+Pathfinder.prototype.saveToFile = function(filename) {
+	var content = "var waypoints = new Pathfinder();\n";
 	for (var i=0; i<this.waypoints.length; i++) {
 		var wp = this.waypoints[i]
 		content += "waypoints.add( " + wp.toString() + " );\n"
@@ -28,7 +28,7 @@ Waypoints.prototype.saveToFile = function(filename) {
 }
 
 
-Waypoints.prototype.reset = function() {
+Pathfinder.prototype.reset = function() {
 	for (var i in this.entities) {
 		this.entities[i].free()
 	}
@@ -43,7 +43,7 @@ Waypoints.prototype.reset = function() {
 	//}
 }
 
-Waypoints.prototype.spawnEdgeEnts = function() {
+Pathfinder.prototype.spawnEdgeEnts = function() {
 	for (var i=0; i<this.edgeents.length; i++)
 		this.edgeents[i].free()
 	this.edgeents = []
@@ -68,54 +68,59 @@ Waypoints.prototype.spawnEdgeEnts = function() {
 	}
 }
 
-Waypoints.prototype.connectBoth = function(id_from, id_to) {
+Pathfinder.prototype.connectBoth = function(id_from, id_to) {
 	this.edges.push( [id_from, id_to   ] )
 	this.edges.push( [id_to  , id_from ] )
 }
 
-Waypoints.prototype.connectSingle = function(id_from, id_to) {
+Pathfinder.prototype.connectSingle = function(id_from, id_to) {
 	this.edges.push( [id_from, id_to] )
 }
 
-Waypoints.LoadFromFile = function(filename) {
+Pathfinder.prototype.setupAstar = function(id_from, id_to) {
+	this.astar = new Astar()
+}
+	
+Pathfinder.LoadFromFile = function(filename) {
 	var content = file_get_contents(filename)
 	return eval(content);
 }
 
 
-load_waypoints = function() {
-	if (typeof waypoints != "undefined") {
-		waypoints.__proto__ = Waypoints.prototype
-		waypoints.reset()
+load_pathfinder = function() {
+	if (typeof pf != "undefined") {
+		pf.__proto__ = Pathfinder.prototype
+		pf.reset()
 		
 	}
-	waypoints = Waypoints.LoadFromFile("waypoints.txt")
+	pf = Pathfinder.LoadFromFile("waypoints.txt")
 	
-	waypoints.connectBoth(0, 1)
-	waypoints.connectBoth(1, 2)
-	waypoints.connectBoth(2, 3)
-	waypoints.connectBoth(3, 4)
-	waypoints.connectBoth(4, 5)
-	waypoints.connectBoth(5, 6)
-	waypoints.connectBoth(6, 7)
-	waypoints.connectBoth(7, 8)
-	waypoints.connectBoth(8, 9)
-	waypoints.connectBoth(9, 10)
-	waypoints.connectBoth(8, 11)
-	waypoints.connectBoth(11, 12)
-	waypoints.connectBoth(12, 13)
-	waypoints.connectBoth(13, 14)
-	waypoints.connectBoth(2, 14)
-	waypoints.connectBoth(13, 15)
-	waypoints.connectBoth(15, 16)
+	pf.connectBoth(0, 1)
+	pf.connectBoth(1, 2)
+	pf.connectBoth(2, 3)
+	pf.connectBoth(3, 4)
+	pf.connectBoth(4, 5)
+	pf.connectBoth(5, 6)
+	pf.connectBoth(6, 7)
+	pf.connectBoth(7, 8)
+	pf.connectBoth(8, 9)
+	pf.connectBoth(9, 10)
+	pf.connectBoth(8, 11)
+	pf.connectBoth(11, 12)
+	pf.connectBoth(12, 13)
+	pf.connectBoth(13, 14)
+	pf.connectBoth(2, 14)
+	pf.connectBoth(13, 15)
+	pf.connectBoth(15, 16)
 	
-	waypoints.spawnEdgeEnts()
+	pf.spawnEdgeEnts()
+	pf.setupAstar()
 }
 
 /*
 	waypoints.add( player.origin )
 	//waypoints.reset()
-	waypoints.__proto__ = Waypoints.prototype
+	waypoints.__proto__ = Pathfinder.prototype
 	v = new Float32Array(3)
 	v.toJSON = function() {
 	return "bla"
@@ -127,7 +132,7 @@ load_waypoints = function() {
 	JSON.stringify(v)
 	JSON.stringify( Vec3(0,1,2) )
 
-	waypoints = new Waypoints()
+	waypoints = new Pathfinder()
 	waypoints.add( player.origin )
 	waypoints.saveToFile("waypoints.txt")
 	waypoints.connect(0, 1)

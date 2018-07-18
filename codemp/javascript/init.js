@@ -159,4 +159,4 @@ handle_input = function (code, global) {
 
 print("init.js loaded :^)\n");
 
-load_waypoints()
+load_pathfinder()
