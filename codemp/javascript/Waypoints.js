@@ -59,13 +59,22 @@ Waypoints.prototype.spawnEdgeEnts = function() {
 		var angles = vecToAngles(delta)
 
 		var edgeent = spawnentity()
-		edgeent.origin = wp_from
+		edgeent.origin = wp_from.sub( Vec3(0,0,25) )
 		edgeent.angles = angles.add( Vec3(0,90,90) )
 		edgeent.model = "models/items/battery.md3"
 		this.edgeents[i] = edgeent
 
 		console.log(edge_from, edge_to, angles)
 	}
+}
+
+Waypoints.prototype.connectBoth = function(id_from, id_to) {
+	this.edges.push( [id_from, id_to   ] )
+	this.edges.push( [id_to  , id_from ] )
+}
+
+Waypoints.prototype.connectSingle = function(id_from, id_to) {
+	this.edges.push( [id_from, id_to] )
 }
 
 Waypoints.LoadFromFile = function(filename) {
@@ -82,14 +91,23 @@ load_waypoints = function() {
 	}
 	waypoints = Waypoints.LoadFromFile("waypoints.txt")
 	
-	waypoints.edges.push( [0,1] )
-	waypoints.edges.push( [1,0] )
-	
-	waypoints.edges.push( [1,2] )
-	waypoints.edges.push( [2,1] )
-	
-	waypoints.edges.push( [2,3] )
-	waypoints.edges.push( [3,2] )
+	waypoints.connectBoth(0, 1)
+	waypoints.connectBoth(1, 2)
+	waypoints.connectBoth(2, 3)
+	waypoints.connectBoth(3, 4)
+	waypoints.connectBoth(4, 5)
+	waypoints.connectBoth(5, 6)
+	waypoints.connectBoth(6, 7)
+	waypoints.connectBoth(7, 8)
+	waypoints.connectBoth(8, 9)
+	waypoints.connectBoth(9, 10)
+	waypoints.connectBoth(8, 11)
+	waypoints.connectBoth(11, 12)
+	waypoints.connectBoth(12, 13)
+	waypoints.connectBoth(13, 14)
+	waypoints.connectBoth(2, 14)
+	waypoints.connectBoth(13, 15)
+	waypoints.connectBoth(15, 16)
 	
 	waypoints.spawnEdgeEnts()
 }
