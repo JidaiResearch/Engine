@@ -30,6 +30,7 @@ require(dir + "/" + "JidaiScript.js")
 require(dir + "/" + "Thread.js")
 require(dir + "/" + "Astar.js")
 require(dir + "/" + "Heap.js")
+require(dir + "/" + "Waypoints.js")
 
 if (typeof acorn == "undefined") {
 	acorn = new Acorn()
@@ -156,10 +157,6 @@ handle_input = function (code, global) {
 
 
 
-
-
-
-
-
-
 print("init.js loaded :^)\n");
+
+load_waypoints()
