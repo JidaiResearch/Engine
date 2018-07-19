@@ -164,14 +164,14 @@ int chunked(float x) {
 float time_of_day() {
 	return 0.5; // nice blue, until i have nice op system to change all this stuff easily, i just overwrite it here
 
-    if (g->day_length <= 0) {
-        return 0.5;
-    }
-    float t;
-    t = glfwGetTime();
-    t = t / g->day_length;
-    t = t - (int)t;
-    return t;
+    //if (g->day_length <= 0) {
+    //    return 0.5;
+    //}
+    //float t;
+    //t = glfwGetTime();
+    //t = t / g->day_length;
+    //t = t - (int)t;
+    //return t;
 }
 
 float get_daylight() {
@@ -423,6 +423,7 @@ Player *find_player(int id) {
     return 0;
 }
 
+#if 0
 void update_player(Player *player,
     float x, float y, float z, float rx, float ry, int interpolate)
 {
@@ -464,6 +465,7 @@ void interpolate_player(Player *player) {
         s1->ry + (s2->ry - s1->ry) * p,
         0);
 }
+#endif
 
 void delete_player(int id) {
     Player *player = find_player(id);
