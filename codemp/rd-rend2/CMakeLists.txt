@@ -173,8 +173,39 @@ set(MPRend2ImGuiDocksOpenJKFiles
 source_group("imgui_docks_openjk" FILES ${MPRend2ImGuiDocksOpenJKFiles})
 set(MPRend2Files ${MPRend2Files} ${MPRend2ImGuiDocksOpenJKFiles})
 
-
-
+set(mp_rend2_craft
+	"${MPDir}/rd-rend2/craft/auth.c"
+	"${MPDir}/rd-rend2/craft/auth.h"
+	"${MPDir}/rd-rend2/craft/client.c"
+	"${MPDir}/rd-rend2/craft/client.h"
+	"${MPDir}/rd-rend2/craft/config.h"
+	"${MPDir}/rd-rend2/craft/cube.c"
+	"${MPDir}/rd-rend2/craft/cube.h"
+	"${MPDir}/rd-rend2/craft/db.c"
+	"${MPDir}/rd-rend2/craft/db.h"
+	"${MPDir}/rd-rend2/craft/item.c"
+	"${MPDir}/rd-rend2/craft/item.h"
+	#"${MPDir}/rd-rend2/craft/main.c"
+	"${MPDir}/rd-rend2/craft/map.c"
+	"${MPDir}/rd-rend2/craft/map.h"
+	"${MPDir}/rd-rend2/craft/matrix.c"
+	"${MPDir}/rd-rend2/craft/matrix.h"
+	"${MPDir}/rd-rend2/craft/ring.c"
+	"${MPDir}/rd-rend2/craft/ring.h"
+	"${MPDir}/rd-rend2/craft/sign.c"
+	"${MPDir}/rd-rend2/craft/sign.h"
+	"${MPDir}/rd-rend2/craft/util.c"
+	"${MPDir}/rd-rend2/craft/util.h"
+	"${MPDir}/rd-rend2/craft/world.c"
+	"${MPDir}/rd-rend2/craft/world.h"
+	"${MPDir}/rd-rend2/glew/src/glew.c"
+	"${MPDir}/rd-rend2/tinycthread/tinycthread.c"
+	"${MPDir}/rd-rend2/sqlite/sqlite3.c"
+	"${MPDir}/rd-rend2/lodepng/lodepng.c"
+	"${MPDir}/rd-rend2/noise/noise.c"
+)
+source_group("craft" FILES ${mp_rend2_craft})
+set(MPRend2Files ${MPRend2Files} ${mp_rend2_craft})
 
 set(mp_rend2_duktape
 	"${MPDir}/duktape/bind_imgui.cpp"
@@ -288,6 +319,38 @@ set_property(TARGET ${MPRend2} APPEND PROPERTY COMPILE_OPTIONS ${OPENJK_VISIBILI
 set_target_properties(${MPRend2} PROPERTIES INCLUDE_DIRECTORIES "${MPRend2IncludeDirectories}")
 set_target_properties(${MPRend2} PROPERTIES PROJECT_LABEL "MP Rend2 Renderer")
 target_link_libraries(${MPRend2} ${MPRend2Libraries})
+
+
+	#if(UseInternalSDL2)
+		if(CMAKE_SIZEOF_VOID_P EQUAL 4)
+			set(MPRendLibraries
+				${MPRendLibraries}
+				${OpenJKLibDir}/SDL2/lib/x86/SDL2main.lib
+				${OpenJKLibDir}/SDL2/lib/x86/SDL2.lib
+				)
+		else()
+			set(MPRendLibraries
+				${MPRendLibraries}
+				${OpenJKLibDir}/SDL2/lib/x64/SDL2main.lib
+				${OpenJKLibDir}/SDL2/lib/x64/SDL2.lib
+				)
+		endif()
+
+		set(MPEngineIncludeDirectories
+			${MPEngineIncludeDirectories}
+			${OpenJKLibDir}/SDL2/include
+			)
+	#else()
+	#	find_package(SDL2 REQUIRED)
+	#	set(MPEngineIncludeDirectories ${MPEngineIncludeDirectories} ${SDL2_INCLUDE_DIR})
+	#	set(MPEngineLibraries ${MPEngineLibraries} ${SDL2_LIBRARY})
+	#endif()
+
+if(WIN32)
+set(MPRendLibraries ${MPRendLibraries}  wsock32 ws2_32)
+  target_link_libraries(${MPRend2} ${MPRendLibraries})
+endif()
+
 target_include_directories(${MPRend2} PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
 
 # GLSL shader file generator
