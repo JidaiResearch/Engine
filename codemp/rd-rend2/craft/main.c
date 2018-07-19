@@ -1,5 +1,6 @@
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
+//#include <GL/glew.h>
+#include "glew/include/GL/glew.h"
+//#include <GLFW/glfw3.h>
 //#include <curl/curl.h>
 #include <math.h>
 #include <stdio.h>
@@ -14,9 +15,9 @@
 #include "item.h"
 #include "map.h"
 #include "matrix.h"
-#include "noise.h"
+#include "../noise/noise.h"
 #include "sign.h"
-#include "tinycthread.h"
+#include "../tinycthread/tinycthread.h"
 #include "util.h"
 #include "world.h"
 
@@ -116,7 +117,7 @@ typedef struct {
 } Attrib;
 
 typedef struct {
-    GLFWwindow *window;
+    //GLFWwindow *window;
     Worker workers[WORKERS];
     Chunk chunks[MAX_CHUNKS];
     int chunk_count;
@@ -185,6 +186,7 @@ float get_daylight() {
     }
 }
 
+#if 0
 int get_scale_factor() {
     int window_width, window_height;
     int buffer_width, buffer_height;
@@ -195,6 +197,7 @@ int get_scale_factor() {
     result = MIN(2, result);
     return result;
 }
+#endif
 
 void get_sight_vector(float rx, float ry, float *vx, float *vy, float *vz) {
     float m = cosf(ry);
@@ -2176,6 +2179,7 @@ void on_middle_click() {
     }
 }
 
+#if 0
 void on_key(GLFWwindow *window, int key, int scancode, int action, int mods) {
     int control = mods & (GLFW_MOD_CONTROL | GLFW_MOD_SUPER);
     int exclusive =
@@ -2963,3 +2967,5 @@ int main(int argc, char **argv) {
     //curl_global_cleanup();
     return 0;
 }
+
+#endif

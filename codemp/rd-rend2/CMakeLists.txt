@@ -185,7 +185,7 @@ set(mp_rend2_craft
 	"${MPDir}/rd-rend2/craft/db.h"
 	"${MPDir}/rd-rend2/craft/item.c"
 	"${MPDir}/rd-rend2/craft/item.h"
-	#"${MPDir}/rd-rend2/craft/main.c"
+	"${MPDir}/rd-rend2/craft/main.c"
 	"${MPDir}/rd-rend2/craft/map.c"
 	"${MPDir}/rd-rend2/craft/map.h"
 	"${MPDir}/rd-rend2/craft/matrix.c"
