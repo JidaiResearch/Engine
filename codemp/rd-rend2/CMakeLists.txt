@@ -29,6 +29,8 @@ set(MPRend2Files
 	"${MPDir}/rd-rend2/tr_cmds.cpp"
 	"${MPDir}/rd-rend2/tr_compose_models.cpp"
 	"${MPDir}/rd-rend2/tr_compose_models.h"
+	"${MPDir}/rd-rend2/rip_refimport.cpp"
+	"${MPDir}/rd-rend2/rip_refimport.h"
 	"${MPDir}/rd-rend2/tr_curve.cpp"
 	"${MPDir}/rd-rend2/tr_decals.cpp"
 	"${MPDir}/rd-rend2/tr_extensions.cpp"

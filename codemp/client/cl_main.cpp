@@ -2376,6 +2376,14 @@ void Clipboard_Set(const char *text) {
 #include "../duktape/duktapestuff.h"
 CCALL void micropython_init();
 CCALL void micropython_eval(char *code);
+
+
+// kicked out micropython atm, so just make empty stubs so it links without errors
+void micropython_init() {
+}
+void micropython_eval(char *code) {
+}
+
 int js_call(duk_context *ctx, char *function, char *params, ...);
 
 void CL_InitRef( void ) {
