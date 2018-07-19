@@ -455,7 +455,7 @@ static size_t GLSL_LoadGPUShaderSource(
 	GLcharARB *buffer = nullptr;
 	if ( r_externalGLSL->integer )
 	{
-		shaderTextLen = ri.FS_ReadFile(filename, (void **)&buffer);
+		shaderTextLen = FS_ReadFile(filename, (void **)&buffer);
 	}
 
 	const char *shaderText = nullptr;
@@ -1294,7 +1294,7 @@ static const GPUProgramDesc *LoadProgramSource(
 		char programPath[MAX_QPATH];
 		Com_sprintf(programPath, sizeof(programPath), "glsl/%s.glsl", programName);
 
-		long size = ri.FS_ReadFile(programPath, (void **)&buffer);
+		long size = FS_ReadFile(programPath, (void **)&buffer);
 		if ( size )
 		{
 			GPUProgramDesc *externalProgramDesc = ojkAlloc<GPUProgramDesc>(allocator);

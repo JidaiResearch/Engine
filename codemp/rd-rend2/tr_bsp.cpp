@@ -336,7 +336,7 @@ static	void R_LoadLightmaps( world_t *worldData, lump_t *l, lump_t *surfs ) {
 				Com_sprintf( filename, sizeof( filename ), "maps/%s/lm_%04d.hdr", worldData->baseName, i * (tr.worldDeluxeMapping ? 2 : 1) );
 				//ri.Printf(PRINT_ALL, "looking for %s\n", filename);
 
-				size = ri.FS_ReadFile(filename, (void **)&hdrLightmap);
+				size = FS_ReadFile(filename, (void **)&hdrLightmap);
 			}
 
 			if (hdrLightmap)
@@ -2181,7 +2181,7 @@ static	void R_LoadSurfaces( world_t *worldData, lump_t *surfs, lump_t *verts, lu
 		Com_sprintf( filename, sizeof( filename ), "maps/%s/vertlight.raw", worldData->baseName);
 		//ri.Printf(PRINT_ALL, "looking for %s\n", filename);
 
-		size = ri.FS_ReadFile(filename, (void **)&hdrVertColors);
+		size = FS_ReadFile(filename, (void **)&hdrVertColors);
 
 		if (hdrVertColors)
 		{
@@ -2690,7 +2690,7 @@ void R_LoadLightGrid( world_t *worldData, lump_t *l ) {
 		Com_sprintf( filename, sizeof( filename ), "maps/%s/lightgrid.raw", worldData->baseName);
 		//ri.Printf(PRINT_ALL, "looking for %s\n", filename);
 
-		size = ri.FS_ReadFile(filename, (void **)&hdrLightGrid);
+		size = FS_ReadFile(filename, (void **)&hdrLightGrid);
 
 		if (hdrLightGrid)
 		{
@@ -2951,7 +2951,7 @@ void R_LoadEnvironmentJson(const char *baseName)
 
 	Com_sprintf(filename, sizeof(filename), "cubemaps/%s/env.json", baseName);
 
-	filelen = ri.FS_ReadFile(filename, &buffer.v);
+	filelen = FS_ReadFile(filename, &buffer.v);
 	if (!buffer.c)
 		return;
 	bufferEnd = buffer.c + filelen;
@@ -3755,7 +3755,7 @@ world_t *R_LoadBSP(const char *name, int *bspIndex)
 	}
 
 	// load it
-    ri.FS_ReadFile(name, &buffer.v);
+    FS_ReadFile(name, &buffer.v);
 	if (!buffer.b)
 	{
 		if (bspIndex == nullptr)

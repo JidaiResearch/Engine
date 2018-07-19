@@ -293,6 +293,9 @@ typedef struct refimport_s {
 	int				(*Cvar_VariableIntegerValue)		( const char *var_name );
 	qboolean		(*Sys_LowPhysicalMemory)			( void );
 	const char *	(*SE_GetString)						( const char * psPackageAndStringReference );
+
+	// done
+#if 1
 	void			(*FS_FreeFile)						( void *buffer );
 	void			(*FS_FreeFileList)					( char **fileList );
 	int				(*FS_Read)							( void *buffer, int len, fileHandle_t f );
@@ -300,6 +303,7 @@ typedef struct refimport_s {
 	void			(*FS_FCloseFile)					( fileHandle_t f );
 	long			(*FS_FOpenFileRead)					( const char *qpath, fileHandle_t *file, qboolean uniqueFILE );
 	fileHandle_t	(*FS_FOpenFileWrite)				( const char *qpath, qboolean safe );
+#endif
 	int				(*FS_FOpenFileByMode)				( const char *qpath, fileHandle_t *f, fsMode_t mode );
 	qboolean		(*FS_FileExists)					( const char *file );
 	int				(*FS_FileIsInPAK)					( const char *filename, int *pChecksum );

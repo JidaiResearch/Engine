@@ -2446,7 +2446,7 @@ static const void	*RB_SwapBuffers( const void *data ) {
 		if ( !tr.numFramesToCapture )
 		{
 			ri.Printf( PRINT_ALL, "Frames captured\n" );
-			ri.FS_FCloseFile(tr.debugFile);
+			FS_FCloseFile(tr.debugFile);
 			tr.debugFile = 0;
 		}
 	}

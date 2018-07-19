@@ -49,7 +49,7 @@ int RE_SavePNG( const char *filename, byte *buf, size_t width, size_t height, in
 	*/
 	int depth = 8;
 
-	fp = ri.FS_FOpenFileWrite( filename, qtrue );
+	fp = FS_FOpenFileWrite( filename, qtrue );
 	if ( !fp ) {
 		goto fopen_failed;
 	}
@@ -117,7 +117,7 @@ png_failure:
 png_create_info_struct_failed:
 	png_destroy_write_struct (&png_ptr, &info_ptr);
 png_create_write_struct_failed:
-	ri.FS_FCloseFile( fp );
+	FS_FCloseFile( fp );
 fopen_failed:
 	return status;
 }
@@ -292,7 +292,7 @@ void user_read_data( png_structp png_ptr, png_bytep data, png_size_t length ) {
 void LoadPNG ( const char *filename, byte **data, int *width, int *height )
 {
 	char *buf = NULL;
-	int len = ri.FS_ReadFile (filename, (void **)&buf);
+	int len = FS_ReadFile (filename, (void **)&buf);
 	if ( len < 0 || buf == NULL )
 	{
 		return;

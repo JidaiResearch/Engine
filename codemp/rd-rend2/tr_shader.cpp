@@ -4598,14 +4598,14 @@ static void ScanAndLoadShaderFiles( void )
 				strcpy(ext, ".mtr");
 			}
 
-			if ( ri.FS_ReadFile( filename, NULL ) <= 0 )
+			if ( FS_ReadFile( filename, NULL ) <= 0 )
 			{
 				Com_sprintf( filename, sizeof( filename ), "shaders/%s", shaderFiles[i] );
 			}
 		}
 		
 		ri.Printf( PRINT_DEVELOPER, "...loading '%s'\n", filename );
-		summand = ri.FS_ReadFile( filename, (void **)&buffers[i] );
+		summand = FS_ReadFile( filename, (void **)&buffers[i] );
 		
 		if ( !buffers[i] )
 			ri.Error( ERR_DROP, "Couldn't load %s", filename );

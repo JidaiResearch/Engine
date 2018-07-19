@@ -90,7 +90,7 @@ qhandle_t RE_RegisterIndividualSkin( const char *name , qhandle_t hSkin)
 	char			surfName[MAX_QPATH];
 
 	// load and parse the skin file
-	ri.FS_ReadFile( name, (void **)&text );
+	FS_ReadFile( name, (void **)&text );
 	if ( !text ) {
 #ifndef FINAL_BUILD
 		Com_Printf( "WARNING: RE_RegisterSkin( '%s' ) failed to load!\n", name );
