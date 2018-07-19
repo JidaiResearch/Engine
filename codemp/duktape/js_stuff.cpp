@@ -296,7 +296,7 @@ CCALL duk_context *js_get_ctx() { return ctx; }
 
 CCALL void js_reload() {
 	//js_eval_file_safe(ctx, "assets\\javascript\\pre_create.js");
-	js_eval_file_safe(ctx, ".\\javascript\\init.js");
+	js_eval_file_safe(ctx, "./javascript/init.js");
 	//js_eval_file_safe(ctx, "F:\\repos\\OpenDF2\\OpenDF2\\codemp\\javascript\\printf.js");
 	//js_eval_file_safe(ctx, "assets\\javascript\\lib_quake.js");
 	//js_call(ctx, "PostReload", "");
