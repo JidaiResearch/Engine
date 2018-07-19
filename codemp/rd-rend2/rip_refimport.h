@@ -29,4 +29,6 @@ int      CM_LeafCluster       ( int leafnum );
 int      CM_PointLeafnum      ( const vec3_t p );
 int      CM_PointContents     ( const vec3_t p, clipHandle_t model );
 
+void R_Printf(int printLevel, const char *fmt, ...);
+
 #endif

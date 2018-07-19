@@ -2,7 +2,7 @@
 
 #include "tr_local.h"
 
-#if 1
+#ifndef DEDICATED
 
 void         FS_FreeFile       (void *buffer                                               ) {        ri.FS_FreeFile       (buffer                            ); }
 void         FS_FreeFileList   (char **fileList                                            ) {        ri.FS_FreeFileList   (fileList                          ); }
@@ -29,5 +29,13 @@ int      CM_LeafCluster       (int leafnum                                      
 int      CM_PointLeafnum      (const vec3_t p                                           ) { return ri.CM_PointLeafnum    (p               ); }
 int      CM_PointContents     (const vec3_t p, clipHandle_t model                       ) { return ri.CM_PointContents   (p, model        ); }
 
-
 #endif
+
+void R_Printf(int printLevel, const char *fmt, ...) {
+	char buf[4096];
+	va_list args;
+	va_start (args, fmt);
+	vsnprintf(buf, sizeof(buf), fmt, args);
+	va_end(args);
+	ri.Printf(printLevel, buf);
+}

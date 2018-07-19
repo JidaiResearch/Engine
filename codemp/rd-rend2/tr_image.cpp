@@ -126,7 +126,7 @@ void GL_TextureMode( const char *string ) {
 
 
 	if ( i == 6 ) {
-		ri.Printf (PRINT_ALL, "bad filter name\n");
+		R_Printf (PRINT_ALL, "bad filter name\n");
 		return;
 	}
 
@@ -218,7 +218,7 @@ void R_ImageList_f( void ) {
 	const char *sizeSuffix;
 	image_t *image = tr.images;
 
-	ri.Printf(PRINT_ALL, "\n      -w-- -h-- type  -size- --name-------\n");
+	R_Printf(PRINT_ALL, "\n      -w-- -h-- type  -size- --name-------\n");
 
 	for ( i = 0 ; i < tr.numImages ; i++, image = image->poolNext )
 	{
@@ -301,15 +301,15 @@ void R_ImageList_f( void ) {
 
 		float printSize = GetReadableSize(estSize, &sizeSuffix); 
 
-		ri.Printf(PRINT_ALL, "%4i: %4ix%4i %s %7.2f%s %s\n", i, image->uploadWidth, image->uploadHeight, format, printSize, sizeSuffix, image->imgName);
+		R_Printf(PRINT_ALL, "%4i: %4ix%4i %s %7.2f%s %s\n", i, image->uploadWidth, image->uploadHeight, format, printSize, sizeSuffix, image->imgName);
 		estTotalSize += estSize;
 	}
 
 	float printSize = GetReadableSize(estTotalSize, &sizeSuffix);
 
-	ri.Printf (PRINT_ALL, " ---------\n");
-	ri.Printf (PRINT_ALL, " approx %i bytes (%.2f%s)\n", estTotalSize, printSize, sizeSuffix);
-	ri.Printf (PRINT_ALL, " %i total images\n\n", tr.numImages );
+	R_Printf (PRINT_ALL, " ---------\n");
+	R_Printf (PRINT_ALL, " approx %i bytes (%.2f%s)\n", estTotalSize, printSize, sizeSuffix);
+	R_Printf (PRINT_ALL, " %i total images\n\n", tr.numImages );
 }
 
 //=======================================================================
@@ -1692,7 +1692,7 @@ static void RawImage_ScaleToPower2( byte **data, int *inout_width, int *inout_he
 
 		//endTime = ri.Milliseconds();
 
-		//ri.Printf(PRINT_ALL, "upsampled %dx%d to %dx%d in %dms\n", width, height, scaled_width, scaled_height, endTime - startTime);
+		//R_Printf(PRINT_ALL, "upsampled %dx%d to %dx%d in %dms\n", width, height, scaled_width, scaled_height, endTime - startTime);
 
 		*data = *resampledBuffer;
 		width = scaled_width;
@@ -2597,7 +2597,7 @@ image_t* R_GetLoadedImage(const char *name, int flags) {
 			// the white image can be used with any set of parms, but other mismatches are errors
 			if (strcmp(name, "*white")) {
 				if (image->flags != flags) {
-					ri.Printf(PRINT_DEVELOPER, "WARNING: reused image %s with mixed flags (%i vs %i)\n", name, image->flags, flags);
+					R_Printf(PRINT_DEVELOPER, "WARNING: reused image %s with mixed flags (%i vs %i)\n", name, image->flags, flags);
 				}
 			}
 			return image;
@@ -2636,7 +2636,7 @@ void R_CreateDiffuseAndSpecMapsFromBaseColorAndRMO(shaderStage_t *stage, const c
 		if (image != NULL)
 		{
 			stage->bundle[TB_SPECULARMAP].image[0] = R_GetLoadedImage(specularName, flags);
-			ri.Printf(PRINT_DEVELOPER, "WARNING: reused Diffuse and Specular images for %s\n", name);
+			R_Printf(PRINT_DEVELOPER, "WARNING: reused Diffuse and Specular images for %s\n", name);
 			return;
 		}
 	}
@@ -2657,7 +2657,7 @@ void R_CreateDiffuseAndSpecMapsFromBaseColorAndRMO(shaderStage_t *stage, const c
 
 	if (width != rmoWidth || height != rmoHeight)
 	{
-		ri.Printf(PRINT_ALL, "WARNING: Can't build Specular Map for %s (different texture sizes for baseColor and rmo)\n", name);
+		R_Printf(PRINT_ALL, "WARNING: Can't build Specular Map for %s (different texture sizes for baseColor and rmo)\n", name);
 		Z_Free(baseColorPic);
 		Z_Free(rmoPic);
 		return;

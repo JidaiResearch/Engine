@@ -334,7 +334,7 @@ static	void R_LoadLightmaps( world_t *worldData, lump_t *l, lump_t *surfs ) {
 			if (r_hdr->integer)
 			{
 				Com_sprintf( filename, sizeof( filename ), "maps/%s/lm_%04d.hdr", worldData->baseName, i * (tr.worldDeluxeMapping ? 2 : 1) );
-				//ri.Printf(PRINT_ALL, "looking for %s\n", filename);
+				//R_Printf(PRINT_ALL, "looking for %s\n", filename);
 
 				size = FS_ReadFile(filename, (void **)&hdrLightmap);
 			}
@@ -342,7 +342,7 @@ static	void R_LoadLightmaps( world_t *worldData, lump_t *l, lump_t *surfs ) {
 			if (hdrLightmap)
 			{
 				byte *p = hdrLightmap;
-				//ri.Printf(PRINT_ALL, "found!\n");
+				//R_Printf(PRINT_ALL, "found!\n");
 				
 				/* FIXME: don't just skip over this header and actually parse it */
 				while (size && !(*p == '\n' && *(p+1) == '\n'))
@@ -544,7 +544,7 @@ static	void R_LoadLightmaps( world_t *worldData, lump_t *l, lump_t *surfs ) {
 	}
 
 	if ( r_lightmap->integer == 2 )	{
-		ri.Printf( PRINT_ALL, "Brightest lightmap value: %d\n", ( int ) ( maxIntensity * 255 ) );
+		R_Printf( PRINT_ALL, "Brightest lightmap value: %d\n", ( int ) ( maxIntensity * 255 ) );
 	}
 
 	Z_Free(image);
@@ -721,7 +721,7 @@ static void ParseFace( const world_t *worldData, dsurface_t *ds, drawVert_t *ver
 
 	numVerts = LittleLong(ds->numVerts);
 	if (numVerts > MAX_FACE_POINTS) {
-		ri.Printf( PRINT_WARNING, "WARNING: MAX_FACE_POINTS exceeded: %i\n", numVerts);
+		R_Printf( PRINT_WARNING, "WARNING: MAX_FACE_POINTS exceeded: %i\n", numVerts);
 		numVerts = MAX_FACE_POINTS;
 		surf->shader = tr.defaultShader;
 	}
@@ -818,7 +818,7 @@ static void ParseFace( const world_t *worldData, dsurface_t *ds, drawVert_t *ver
 
 	if (badTriangles)
 	{
-		ri.Printf(PRINT_WARNING, "Face has bad triangles, originally shader %s %d tris %d verts, now %d tris\n", surf->shader->name, numIndexes / 3, numVerts, numIndexes / 3 - badTriangles);
+		R_Printf(PRINT_WARNING, "Face has bad triangles, originally shader %s %d tris %d verts, now %d tris\n", surf->shader->name, numIndexes / 3, numVerts, numIndexes / 3 - badTriangles);
 		cv->numIndexes -= badTriangles * 3;
 	}
 
@@ -1081,7 +1081,7 @@ static void ParseTriSurf( const world_t *worldData, dsurface_t *ds, drawVert_t *
 
 	if (badTriangles)
 	{
-		ri.Printf(PRINT_WARNING, "Trisurf has bad triangles, originally shader %s %d tris %d verts, now %d tris\n", surf->shader->name, numIndexes / 3, numVerts, numIndexes / 3 - badTriangles);
+		R_Printf(PRINT_WARNING, "Trisurf has bad triangles, originally shader %s %d tris %d verts, now %d tris\n", surf->shader->name, numIndexes / 3, numVerts, numIndexes / 3 - badTriangles);
 		cv->numIndexes -= badTriangles * 3;
 	}
 
@@ -1372,7 +1372,7 @@ int R_StitchPatches( world_t *worldData, int grid1num, int grid2num ) {
 							fabs(v1[2] - v2[2]) < .01)
 						continue;
 					//
-					//ri.Printf( PRINT_ALL, "found highest LoD crack between two patches\n" );
+					//R_Printf( PRINT_ALL, "found highest LoD crack between two patches\n" );
 					// insert column into grid2 right after after column l
 					if (m) row = grid2->height-1;
 					else row = 0;
@@ -1416,7 +1416,7 @@ int R_StitchPatches( world_t *worldData, int grid1num, int grid2num ) {
 							fabs(v1[2] - v2[2]) < .01)
 						continue;
 					//
-					//ri.Printf( PRINT_ALL, "found highest LoD crack between two patches\n" );
+					//R_Printf( PRINT_ALL, "found highest LoD crack between two patches\n" );
 					// insert row into grid2 right after after row l
 					if (m) column = grid2->width-1;
 					else column = 0;
@@ -1469,7 +1469,7 @@ int R_StitchPatches( world_t *worldData, int grid1num, int grid2num ) {
 							fabs(v1[2] - v2[2]) < .01)
 						continue;
 					//
-					//ri.Printf( PRINT_ALL, "found highest LoD crack between two patches\n" );
+					//R_Printf( PRINT_ALL, "found highest LoD crack between two patches\n" );
 					// insert column into grid2 right after after column l
 					if (m) row = grid2->height-1;
 					else row = 0;
@@ -1513,7 +1513,7 @@ int R_StitchPatches( world_t *worldData, int grid1num, int grid2num ) {
 							fabs(v1[2] - v2[2]) < .01)
 						continue;
 					//
-					//ri.Printf( PRINT_ALL, "found highest LoD crack between two patches\n" );
+					//R_Printf( PRINT_ALL, "found highest LoD crack between two patches\n" );
 					// insert row into grid2 right after after row l
 					if (m) column = grid2->width-1;
 					else column = 0;
@@ -1567,7 +1567,7 @@ int R_StitchPatches( world_t *worldData, int grid1num, int grid2num ) {
 							fabs(v1[2] - v2[2]) < .01)
 						continue;
 					//
-					//ri.Printf( PRINT_ALL, "found highest LoD crack between two patches\n" );
+					//R_Printf( PRINT_ALL, "found highest LoD crack between two patches\n" );
 					// insert column into grid2 right after after column l
 					if (m) row = grid2->height-1;
 					else row = 0;
@@ -1611,7 +1611,7 @@ int R_StitchPatches( world_t *worldData, int grid1num, int grid2num ) {
 							fabs(v1[2] - v2[2]) < .01)
 						continue;
 					//
-					//ri.Printf( PRINT_ALL, "found highest LoD crack between two patches\n" );
+					//R_Printf( PRINT_ALL, "found highest LoD crack between two patches\n" );
 					// insert row into grid2 right after after row l
 					if (m) column = grid2->width-1;
 					else column = 0;
@@ -1666,7 +1666,7 @@ int R_StitchPatches( world_t *worldData, int grid1num, int grid2num ) {
 							fabs(v1[2] - v2[2]) < .01)
 						continue;
 					//
-					//ri.Printf( PRINT_ALL, "found highest LoD crack between two patches\n" );
+					//R_Printf( PRINT_ALL, "found highest LoD crack between two patches\n" );
 					// insert column into grid2 right after after column l
 					if (m) row = grid2->height-1;
 					else row = 0;
@@ -1710,7 +1710,7 @@ int R_StitchPatches( world_t *worldData, int grid1num, int grid2num ) {
 							fabs(v1[2] - v2[2]) < .01)
 						continue;
 					//
-					//ri.Printf( PRINT_ALL, "found highest LoD crack between two patches\n" );
+					//R_Printf( PRINT_ALL, "found highest LoD crack between two patches\n" );
 					// insert row into grid2 right after after row l
 					if (m) column = grid2->width-1;
 					else column = 0;
@@ -1795,7 +1795,7 @@ void R_StitchAllPatches( world_t *worldData ) {
 		}
 	}
 	while (stitched);
-	ri.Printf( PRINT_ALL, "stitched %d LoD cracks\n", numstitches );
+	R_Printf( PRINT_ALL, "stitched %d LoD cracks\n", numstitches );
 }
 
 /*
@@ -2023,7 +2023,7 @@ static void R_CreateWorldVBOs( world_t *worldData )
 			numSurfaces++;
 		}
 
-		ri.Printf(PRINT_ALL, "...calculating world VBO %d ( %i verts %i tris )\n", k, numVerts, numIndexes / 3);
+		R_Printf(PRINT_ALL, "...calculating world VBO %d ( %i verts %i tris )\n", k, numVerts, numIndexes / 3);
 
 		// create arrays
 		verts = (packedVertex_t *)ri.Hunk_AllocateTempMemory(numVerts * sizeof(packedVertex_t)); 
@@ -2129,7 +2129,7 @@ static void R_CreateWorldVBOs( world_t *worldData )
 	Z_Free(surfacesSorted);
 
 	endTime = ri.Milliseconds();
-	ri.Printf(PRINT_ALL, "world VBOs calculation time = %5.2f seconds\n", (endTime - startTime) / 1000.0);
+	R_Printf(PRINT_ALL, "world VBOs calculation time = %5.2f seconds\n", (endTime - startTime) / 1000.0);
 }
 
 /*
@@ -2179,13 +2179,13 @@ static	void R_LoadSurfaces( world_t *worldData, lump_t *surfs, lump_t *verts, lu
 		int size;
 
 		Com_sprintf( filename, sizeof( filename ), "maps/%s/vertlight.raw", worldData->baseName);
-		//ri.Printf(PRINT_ALL, "looking for %s\n", filename);
+		//R_Printf(PRINT_ALL, "looking for %s\n", filename);
 
 		size = FS_ReadFile(filename, (void **)&hdrVertColors);
 
 		if (hdrVertColors)
 		{
-			//ri.Printf(PRINT_ALL, "Found!\n");
+			//R_Printf(PRINT_ALL, "Found!\n");
 			if (size != sizeof(float) * 3 * (verts->filelen / sizeof(*dv)))
 				ri.Error(ERR_DROP, "Bad size for %s (%i, expected %i)!", filename, size, (int)((sizeof(float)) * 3 * (verts->filelen / sizeof(*dv))));
 		}
@@ -2268,7 +2268,7 @@ static	void R_LoadSurfaces( world_t *worldData, lump_t *surfs, lump_t *verts, lu
 	R_MovePatchSurfacesToHunk(worldData);
 #endif
 
-	ri.Printf( PRINT_ALL, "...loaded %d faces, %i meshes, %i trisurfs, %i flares\n", 
+	R_Printf( PRINT_ALL, "...loaded %d faces, %i meshes, %i trisurfs, %i flares\n", 
 		numFaces, numMeshes, numTriSurfs, numFlares );
 }
 
@@ -2688,7 +2688,7 @@ void R_LoadLightGrid( world_t *worldData, lump_t *l ) {
 		int size;
 
 		Com_sprintf( filename, sizeof( filename ), "maps/%s/lightgrid.raw", worldData->baseName);
-		//ri.Printf(PRINT_ALL, "looking for %s\n", filename);
+		//R_Printf(PRINT_ALL, "looking for %s\n", filename);
 
 		size = FS_ReadFile(filename, (void **)&hdrLightGrid);
 
@@ -2696,7 +2696,7 @@ void R_LoadLightGrid( world_t *worldData, lump_t *l ) {
 		{
 			float lightScale = pow(2.0f, r_mapOverBrightBits->integer - tr.overbrightBits);
 
-			//ri.Printf(PRINT_ALL, "found!\n");
+			//R_Printf(PRINT_ALL, "found!\n");
 
 			if (size != sizeof(float) * 6 * numGridDataElements)
 			{
@@ -2796,7 +2796,7 @@ void R_LoadEntities( world_t *worldData, lump_t *l ) {
 		if (!Q_strncmp(keyname, s, strlen(s)) ) {
 			s = strchr(value, ';');
 			if (!s) {
-				ri.Printf( PRINT_WARNING, "WARNING: no semi colon in vertexshaderremap '%s'\n", value );
+				R_Printf( PRINT_WARNING, "WARNING: no semi colon in vertexshaderremap '%s'\n", value );
 				break;
 			}
 			*s++ = 0;
@@ -2810,7 +2810,7 @@ void R_LoadEntities( world_t *worldData, lump_t *l ) {
 		if (!Q_strncmp(keyname, s, strlen(s)) ) {
 			s = strchr(value, ';');
 			if (!s) {
-				ri.Printf( PRINT_WARNING, "WARNING: no semi colon in shaderremap '%s'\n", value );
+				R_Printf( PRINT_WARNING, "WARNING: no semi colon in shaderremap '%s'\n", value );
 				break;
 			}
 			*s++ = 0;
@@ -2879,7 +2879,7 @@ static qboolean R_ParseSpawnVars( char *spawnVarChars, int maxSpawnVarChars, int
 		return qfalse;
 	}
 	if ( com_token[0] != '{' ) {
-		ri.Printf( PRINT_ALL, "R_ParseSpawnVars: found %s when expecting {\n",com_token );
+		R_Printf( PRINT_ALL, "R_ParseSpawnVars: found %s when expecting {\n",com_token );
 		return qfalse;
 	}
 
@@ -2889,7 +2889,7 @@ static qboolean R_ParseSpawnVars( char *spawnVarChars, int maxSpawnVarChars, int
 
 		// parse key
 		if ( !R_GetEntityToken( keyname, sizeof( keyname ) ) ) {
-			ri.Printf( PRINT_ALL, "R_ParseSpawnVars: EOF without closing brace\n" );
+			R_Printf( PRINT_ALL, "R_ParseSpawnVars: EOF without closing brace\n" );
 			return qfalse;
 		}
 
@@ -2899,17 +2899,17 @@ static qboolean R_ParseSpawnVars( char *spawnVarChars, int maxSpawnVarChars, int
 
 		// parse value  
 		if ( !R_GetEntityToken( com_token, sizeof( com_token ) ) ) {
-			ri.Printf( PRINT_ALL, "R_ParseSpawnVars: EOF without closing brace\n" );
+			R_Printf( PRINT_ALL, "R_ParseSpawnVars: EOF without closing brace\n" );
 			return qfalse;
 		}
 
 		if ( com_token[0] == '}' ) {
-			ri.Printf( PRINT_ALL, "R_ParseSpawnVars: closing brace without data\n" );
+			R_Printf( PRINT_ALL, "R_ParseSpawnVars: closing brace without data\n" );
 			return qfalse;
 		}
 
 		if ( *numSpawnVars == MAX_SPAWN_VARS ) {
-			ri.Printf( PRINT_ALL, "R_ParseSpawnVars: MAX_SPAWN_VARS\n" );
+			R_Printf( PRINT_ALL, "R_ParseSpawnVars: MAX_SPAWN_VARS\n" );
 			return qfalse;
 		}
 
@@ -2918,7 +2918,7 @@ static qboolean R_ParseSpawnVars( char *spawnVarChars, int maxSpawnVarChars, int
 
 		if (numSpawnVarChars + keyLength + tokenLength > maxSpawnVarChars)
 		{
-			ri.Printf( PRINT_ALL, "R_ParseSpawnVars: MAX_SPAWN_VAR_CHARS\n" );
+			R_Printf( PRINT_ALL, "R_ParseSpawnVars: MAX_SPAWN_VAR_CHARS\n" );
 			return qfalse;
 		}
 
@@ -2956,11 +2956,11 @@ void R_LoadEnvironmentJson(const char *baseName)
 		return;
 	bufferEnd = buffer.c + filelen;
 
-	ri.Printf(PRINT_ALL, "Loaded Enviroment JSON: %s\n", filename);
+	R_Printf(PRINT_ALL, "Loaded Enviroment JSON: %s\n", filename);
 
 	if (JSON_ValueGetType(buffer.c, bufferEnd) != JSONTYPE_OBJECT)
 	{
-		ri.Printf(PRINT_ALL, "Bad %s: does not start with a object\n", filename);
+		R_Printf(PRINT_ALL, "Bad %s: does not start with a object\n", filename);
 		FS_FreeFile(buffer.v);
 		return;
 	}
@@ -2968,14 +2968,14 @@ void R_LoadEnvironmentJson(const char *baseName)
 	environmentArrayJson = JSON_ObjectGetNamedValue(buffer.c, bufferEnd, "Cubemaps");
 	if (!environmentArrayJson)
 	{
-		ri.Printf(PRINT_ALL, "Bad %s: no Cubemaps\n", filename);
+		R_Printf(PRINT_ALL, "Bad %s: no Cubemaps\n", filename);
 		FS_FreeFile(buffer.v);
 		return;
 	}
 
 	if (JSON_ValueGetType(environmentArrayJson, bufferEnd) != JSONTYPE_ARRAY)
 	{
-		ri.Printf(PRINT_ALL, "Bad %s: Cubemaps not an array\n", filename);
+		R_Printf(PRINT_ALL, "Bad %s: Cubemaps not an array\n", filename);
 		FS_FreeFile(buffer.v);
 		return;
 	}
@@ -3100,12 +3100,12 @@ static void R_AssignCubemapsToWorldSurfaces(world_t *worldData)
 		}
 		else
 		{
-			//ri.Printf(PRINT_ALL, "surface %d has no cubemap\n", i);
+			//R_Printf(PRINT_ALL, "surface %d has no cubemap\n", i);
 			continue;
 		}
 
 		surf->cubemapIndex = R_CubemapForPoint(surfOrigin);
-		//ri.Printf(PRINT_ALL, "surface %d has cubemap %d\n", i, surf->cubemapIndex);
+		//R_Printf(PRINT_ALL, "surface %d has cubemap %d\n", i, surf->cubemapIndex);
 	}
 }
 
@@ -3489,7 +3489,7 @@ static void R_MergeLeafSurfaces(world_t *worldData)
 
 	endTime = ri.Milliseconds();
 
-	ri.Printf(PRINT_ALL, "Processed %d surfaces into %d merged, %d unmerged in %5.2f seconds\n", 
+	R_Printf(PRINT_ALL, "Processed %d surfaces into %d merged, %d unmerged in %5.2f seconds\n", 
 		numWorldSurfaces, numMergedSurfaces, numUnmergedSurfaces, (endTime - startTime) / 1000.0f);
 
 	// reset viewcounts

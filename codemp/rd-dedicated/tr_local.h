@@ -29,6 +29,7 @@ typedef unsigned int GLuint;
 #include "rd-common/tr_common.h"
 #include "rd-common/tr_public.h"
 #include "ghoul2/ghoul2_shared.h" //rwwRMG - added
+#include "../rd-rend2/rip_refimport.h"
 
 #define GL_INDEX_TYPE		GL_UNSIGNED_INT
 typedef unsigned int glIndex_t;

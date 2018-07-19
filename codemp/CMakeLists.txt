@@ -983,7 +983,10 @@ if(BuildMPDed)
 		"${MPDir}/rd-dedicated/tr_mesh.cpp"
 		"${MPDir}/rd-dedicated/tr_model.cpp"
 		"${MPDir}/rd-dedicated/tr_shader.cpp"
-		"${MPDir}/rd-dedicated/tr_skin.cpp")
+		"${MPDir}/rd-dedicated/tr_skin.cpp"	
+		"${MPDir}/rd-rend2/rip_refimport.cpp"
+		"${MPDir}/rd-rend2/rip_refimport.h"
+	)
 	source_group("renderer" FILES ${MPDedicatedRendererFiles})
 	set(MPDedFiles ${MPDedFiles} ${MPDedicatedRendererFiles})
 

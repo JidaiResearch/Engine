@@ -277,7 +277,7 @@ R_InitVBOs
 */
 void R_InitVBOs(void)
 {
-	ri.Printf(PRINT_ALL, "------- R_InitVBOs -------\n");
+	R_Printf(PRINT_ALL, "------- R_InitVBOs -------\n");
 
 	// glGenBuffers only allocates the IDs for these buffers. The 'buffer object' is
 	// actually created on first bind.
@@ -300,7 +300,7 @@ R_ShutdownVBOs
 */
 void R_ShutdownVBOs(void)
 {
-	ri.Printf(PRINT_ALL, "------- R_ShutdownVBOs -------\n");
+	R_Printf(PRINT_ALL, "------- R_ShutdownVBOs -------\n");
 
 	R_BindNullVBO();
 	R_BindNullIBO();
@@ -325,42 +325,42 @@ void R_VBOList_f(void)
 	int             vertexesSize = 0;
 	int             indexesSize = 0;
 
-	ri.Printf (PRINT_ALL, " vertex buffers\n");
-	ri.Printf (PRINT_ALL, "----------------\n\n");
+	R_Printf (PRINT_ALL, " vertex buffers\n");
+	R_Printf (PRINT_ALL, "----------------\n\n");
 
-	ri.Printf(PRINT_ALL, " id   size (MB)\n");
-	ri.Printf(PRINT_ALL, "---------------\n");
+	R_Printf(PRINT_ALL, " id   size (MB)\n");
+	R_Printf(PRINT_ALL, "---------------\n");
 
 	for(i = 0; i < tr.numVBOs; i++)
 	{
 		vbo = tr.vbos[i];
 
-		ri.Printf(PRINT_ALL, " %4i %4.2f\n", i, vbo->vertexesSize / (1024.0f * 1024.0f));
+		R_Printf(PRINT_ALL, " %4i %4.2f\n", i, vbo->vertexesSize / (1024.0f * 1024.0f));
 
 		vertexesSize += vbo->vertexesSize;
 	}
 
-	ri.Printf(PRINT_ALL, " %d total buffers\n", tr.numVBOs);
-	ri.Printf(PRINT_ALL, " %.2f MB in total\n\n", vertexesSize / (1024.0f * 1024.0f));
+	R_Printf(PRINT_ALL, " %d total buffers\n", tr.numVBOs);
+	R_Printf(PRINT_ALL, " %.2f MB in total\n\n", vertexesSize / (1024.0f * 1024.0f));
 
 
-	ri.Printf (PRINT_ALL, " index buffers\n");
-	ri.Printf (PRINT_ALL, "---------------\n\n");
+	R_Printf (PRINT_ALL, " index buffers\n");
+	R_Printf (PRINT_ALL, "---------------\n\n");
 
-	ri.Printf(PRINT_ALL, " id   size (MB)\n");
-	ri.Printf(PRINT_ALL, "---------------\n");
+	R_Printf(PRINT_ALL, " id   size (MB)\n");
+	R_Printf(PRINT_ALL, "---------------\n");
 
 	for(i = 0; i < tr.numIBOs; i++)
 	{
 		ibo = tr.ibos[i];
 
-		ri.Printf(PRINT_ALL, " %4i %4.2f\n", i, ibo->indexesSize / (1024.0f * 1024.0f));
+		R_Printf(PRINT_ALL, " %4i %4.2f\n", i, ibo->indexesSize / (1024.0f * 1024.0f));
 
 		indexesSize += ibo->indexesSize;
 	}
 
-	ri.Printf(PRINT_ALL, " %d total buffers\n", tr.numIBOs);
-	ri.Printf(PRINT_ALL, " %.2f MB in total\n\n", indexesSize / (1024.0f * 1024.0f));
+	R_Printf(PRINT_ALL, " %d total buffers\n", tr.numIBOs);
+	R_Printf(PRINT_ALL, " %.2f MB in total\n\n", indexesSize / (1024.0f * 1024.0f));
 }
 
 void AddVertexArray(
