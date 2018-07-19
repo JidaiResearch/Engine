@@ -217,7 +217,7 @@ void imgui_stage(shaderStage_t *stage) {
 				for (int image_id=0; image_id<8; image_id++) {
 					image_t *img = bundle->image[image_id];
 					ImGui::Text("Img[%d]: %p", image_id, img);
-					ImGui::PushID(((int)bundle)+image_id);
+					ImGui::PushID(((size_t)bundle)+image_id);
 					if (img) {
 
 						//ImGui::Text("image id: %d", imageid);

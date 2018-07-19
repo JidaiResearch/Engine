@@ -58,9 +58,11 @@ void RE_RenderImGui() {
 	//	io.KeysDown[i] = keyStatus[i];
 
 	// Read keyboard modifiers inputs
+	#ifdef _WIN32
 	io.KeyCtrl = (GetKeyState(VK_CONTROL) & 0x8000) != 0;
 	io.KeyShift = (GetKeyState(VK_SHIFT) & 0x8000) != 0;
 	io.KeyAlt = (GetKeyState(VK_MENU) & 0x8000) != 0;
+	#endif
 	io.KeySuper = false;
 
 	float x = -1;
@@ -74,6 +76,8 @@ void RE_RenderImGui() {
 	x = mouseStatus[0] * ratio[0];
 	y = mouseStatus[1] * ratio[1];
 #else
+	
+#ifdef _WIN32
 	POINT p;
 	if (GetCursorPos(&p)) {//cursor position now in p.x and p.y
 						   //HANDLE hwnd = GetCurrentProcess();
@@ -84,6 +88,8 @@ void RE_RenderImGui() {
 			y = p.y;
 		}
 	}
+#endif
+	
 #endif
 
 	imgui_set_mousepos((int)x, (int)y);

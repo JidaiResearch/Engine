@@ -1,6 +1,8 @@
 #ifndef DOCK_H
 #define DOCK_H
 
+#pragma GCC diagnostic ignored "-fpermissive"
+
 #include "../imgui/imgui_dock.h"
 
 // creating a new dock: add it to imgui_api.cpp line 457, like: docks.push_back(new DockExplorer());

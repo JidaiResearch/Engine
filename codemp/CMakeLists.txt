@@ -44,9 +44,12 @@ if(BuildMPRdVanilla)
 endif(BuildMPRdVanilla)
 
 #	Add rend2 JKA Renderer Project
-if(BuildMPRend2)
-	add_subdirectory("${MPDir}/rd-rend2")
-endif(BuildMPRend2)
+
+if(WIN32)
+	if(BuildMPRend2)
+		add_subdirectory("${MPDir}/rd-rend2")
+	endif(BuildMPRend2)
+endif()
 
 #    Common things between Engine and Dedicated Server
 if(BuildMPEngine OR BuildMPDed)
@@ -949,7 +952,9 @@ set(MPEngineFiles ${MPEngineFiles} ${mp_client_root})
 	set_target_properties(${MPEngine} PROPERTIES PROJECT_LABEL "MP Client")
 	target_link_libraries(${MPEngine} ${MPEngineLibraries})
 	
-	target_include_directories(${MPEngine} PRIVATE "${MPDir}/rd-rend2/micropython/ports/msvc/")
+	#if(WIN32)
+	#target_include_directories(${MPEngine} PRIVATE "${MPDir}/rd-rend2/micropython/ports/msvc/")
+	#endif()
 endif(BuildMPEngine)
 
 #        Dedicated Server (Engine) (jampded.exe)
@@ -1028,6 +1033,28 @@ if(BuildMPDed)
 		set(MPDedFiles ${MPDedFiles} ${MPDedSysFiles})
 	endif(WIN32)
 
+	
+
+set(mp_ded_duktape
+	"${MPDir}/duktape/bind_imgui.cpp"
+	"${MPDir}/duktape/bind_imgui.h"
+	"${MPDir}/duktape/bind_memory.cpp"
+	"${MPDir}/duktape/bind_memory.h"
+	"${MPDir}/duktape/bind_utils.h"
+	"${MPDir}/duktape/bind_utils2.cpp"
+	"${MPDir}/duktape/dukdebugheaders.h"
+	"${MPDir}/duktape/dukhelpers.cpp"
+	"${MPDir}/duktape/dukhelpers.h"
+	"${MPDir}/duktape/duktape.c"
+	"${MPDir}/duktape/duktape.h"
+	"${MPDir}/duktape/duktapestuff.h"
+	"${MPDir}/duktape/duk_config.h"
+	"${MPDir}/duktape/duk_internal_stuff.h"
+	"${MPDir}/duktape/js_stuff.cpp"
+)
+source_group("duktape" FILES ${mp_ded_duktape})
+set(MPDedFiles ${MPDedFiles} ${mp_ded_duktape})	
+	
 	add_executable(${MPDed} ${MPDedFiles})
 	install(TARGETS ${MPDed}
 		RUNTIME

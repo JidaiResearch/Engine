@@ -171,39 +171,40 @@ int duk_func_file_get_contents(duk_context *ctx) {
 	long len;
 	void *buf;
 	size_t got;
+	char *ret = NULL;
 	if (!filename) {
-		goto error;
+		goto fileerror;
 	}
 	f = fopen(filename, "rb");
 	if (!f) {
 		//js_printf("Cant open file: %s\n", filename);
 		//printf("cant open file: %s", filename);
-		goto error;
+		goto fileerror;
 	}
 	if (fseek(f, 0, SEEK_END) != 0) {
 		
 		//js_printf("cant seek to end\n");
-		goto error;
+		goto fileerror;
 	}
 	len = ftell(f);
 	if (fseek(f, 0, SEEK_SET) != 0) {
 		//js_printf("cant seek to start\n");
-		goto error;
+		goto fileerror;
 	}
 	buf = duk_push_fixed_buffer(ctx, (size_t) len);
 	got = fread(buf, 1, len, f);
 	if (got != (size_t) len) {
 		//js_printf("cant read content\n");
-		goto error;
+		goto fileerror;
 	}
 	fclose(f);
 	f = NULL;
 	// convert the fixed buffer to string
-	char *ret = (char *) duk_to_string(ctx, -1);
+	ret = (char *) duk_to_string(ctx, -1);
 	//printf("ret=%s\n", ret); // would print the file contents
 	return 1;
 	
-	error:
+	fileerror:
 	if (f) {
 		fclose(f);
 	}

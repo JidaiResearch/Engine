@@ -9,7 +9,12 @@ CCALL int js_printf(char *msg, ...) {
 	va_start(argptr, msg);
 	char buf[4096];
 	vsnprintf(buf, 4096, msg, argptr);
+	#ifdef DEDICATED
+	int ret = printf("%s", buf);
+	#else
 	int ret = imgui_log("%s", buf);
+	#endif
+	
 	va_end(argptr);
 	return ret;
 }

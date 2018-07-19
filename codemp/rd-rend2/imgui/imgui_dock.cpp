@@ -1,5 +1,8 @@
 #include "imgui_dock.h"
 #include "imgui_c_utils.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 //#include <opsys/opsystem_repl_julia.h>
 //#include <include_utils.h>
@@ -220,7 +223,9 @@ CCALL CDock *imgui_new_dock(const char *label, bool opened, float pos_x, float p
 	// once I support Desktop's this needs to be specific ofc
 	dockcontext->m_docks.push_back(new_dock);
 	strlcpy(new_dock->label, label, sizeof new_dock->label);
+	#ifdef _WIN32
 	new_dock->id = (ImU32)new_dock; // we dont care about ImHash(label) == dock.id...
+	#endif
 	new_dock->setActive();
 	new_dock->opened = opened;
 	new_dock->first = 1;
@@ -1045,7 +1050,9 @@ bool DockContext::begin(const char* label, bool* opened, ImGuiWindowFlags extra_
 		dock = useThisDock;
 		// kung foo man: to allow docks with the same name, I set the dock->id to the pointer address of the new dock
 		// that makes sure that a new dock with useThisDock==NULL won't find our useThisDock instance, because the id is calculated from name (normally)
+		#ifdef _WIN32
 		dock->id = (int)dock;
+		#endif
 		// dock->setActive(); // fucks up everything in on top of each other kinda lol
 	} else {
 		dock = &getDock(label, !opened || *opened);

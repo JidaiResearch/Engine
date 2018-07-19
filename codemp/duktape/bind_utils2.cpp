@@ -1,7 +1,9 @@
 #include "duktapestuff.h"
 #include "duktape.h"	
 #include "bind_utils.h"
+#ifdef _WIN32
 #include <Windows.h>
+#endif
 
 int duk_func_utils_screensize(duk_context *ctx) {
 	//char *address = (char *)duk_to_int(ctx, 0);
@@ -19,7 +21,7 @@ int duk_func_utils_screensize(duk_context *ctx) {
 }
 
 int duk_func_exedir(duk_context *ctx) {
-#if _WIN32
+#ifdef _WIN32
 	char exedir[MAX_PATH];
 	// When NULL is passed to GetModuleHandle, the handle of the exe itself is returned
 	HMODULE hModule = GetModuleHandle(NULL);
