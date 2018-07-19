@@ -922,7 +922,7 @@ CFontInfo::CFontInfo(const char *_fontName)
 	g_vFontArray[g_iCurrentFontIndex++] = this;
 
 
-	if ( ri.Cvar_VariableIntegerValue( "com_buildScript" ) == 2)
+	if ( Cvar_VariableIntegerValue( "com_buildScript" ) == 2)
 	{
 		Com_Printf( "com_buildScript(2): Registering foreign fonts...\n" );
 		static qboolean bDone = qfalse;	// Do this once only (for speed)...
@@ -1032,7 +1032,7 @@ void CFontInfo::UpdateAsianIfNeeded( bool bForceReEval /* = false */ )
 							{
 								// failed to load a needed file, reset to English...
 								//
-								ri.Cvar_Set("se_language", "english");
+								Cvar_Set("se_language", "english");
 								Com_Error( ERR_DROP, psFailureReason );
 							}
 						}

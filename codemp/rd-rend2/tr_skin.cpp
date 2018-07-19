@@ -349,7 +349,7 @@ Mangled version of the above function to load .skin files on the server.
 qhandle_t RE_RegisterServerSkin( const char *name ) {
 	qhandle_t r;
 
-	if (ri.Cvar_VariableIntegerValue( "cl_running" ) &&
+	if (Cvar_VariableIntegerValue( "cl_running" ) &&
 		ri.Com_TheHunkMarkHasBeenMade() &&
 		ShaderHashTableExists())
 	{ //If the client is running then we can go straight into the normal registerskin func

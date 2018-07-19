@@ -286,6 +286,7 @@ typedef struct refimport_s {
 	void			(*Cmd_RemoveCommand)				( const char *cmd_name );
 	void			(*Cmd_RemoveCommandList)			( const cmdList_t *cmdList );
 #endif
+#if 1
 	cvar_t *		(*Cvar_Set)							( const char *var_name, const char *value );
 	cvar_t *		(*Cvar_Get)							( const char *var_name, const char *value, uint32_t flags, const char *var_desc );
 	cvar_t *		(*Cvar_SetValue)					( const char *name, float value );
@@ -294,6 +295,7 @@ typedef struct refimport_s {
 	char *			(*Cvar_VariableString)				( const char *var_name );
 	float			(*Cvar_VariableValue)				( const char *var_name );
 	int				(*Cvar_VariableIntegerValue)		( const char *var_name );
+#endif
 	qboolean		(*Sys_LowPhysicalMemory)			( void );
 	const char *	(*SE_GetString)						( const char * psPackageAndStringReference );
 

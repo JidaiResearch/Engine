@@ -38,6 +38,16 @@ void   Cmd_ArgsBuffer       ( char *buffer, int bufferLength                    
 void   Cmd_AddCommand       ( const char *cmd_name, xcommand_t function, const char *desc);
 void   Cmd_RemoveCommand    ( const char *cmd_name                                       );
 
+
+cvar_t * Cvar_Set               ( const char *var_name, const char *value                                      );
+//cvar_t * Cvar_Get               ( const char *var_name, const char *value, uint32_t flags, const char *var_desc);
+cvar_t *Cvar_SetValue           ( const char *name, float value                                                );
+void Cvar_CheckRange            ( cvar_t *cv, float minVal, float maxVal, qboolean shouldBeIntegral            );
+void Cvar_VariableStringBuffer  ( const char *var_name, char *buffer, int bufsize                              );
+char * Cvar_VariableString      ( const char *var_name                                                         );
+float Cvar_VariableValue        ( const char *var_name                                                         );
+int Cvar_VariableIntegerValue   ( const char *var_name                                                         );
+
 void R_Printf(int printLevel, const char *fmt, ...);
 
 #endif
