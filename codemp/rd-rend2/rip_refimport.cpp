@@ -29,6 +29,14 @@ int      CM_LeafCluster       (int leafnum                                      
 int      CM_PointLeafnum      (const vec3_t p                                           ) { return ri.CM_PointLeafnum    (p               ); }
 int      CM_PointContents     (const vec3_t p, clipHandle_t model                       ) { return ri.CM_PointContents   (p, model        ); }
 
+
+void   Cmd_ExecuteString    ( const char *text                                           ) {        ri.Cmd_ExecuteString(text                 );   }
+int    Cmd_Argc             ( void                                                       ) { return ri.Cmd_Argc(                              );   }
+char * Cmd_Argv             ( int arg                                                    ) { return ri.Cmd_Argv(arg                           );   }
+void   Cmd_ArgsBuffer       ( char *buffer, int bufferLength                             ) {        ri.Cmd_ArgsBuffer(buffer, bufferLength    );   }
+void   Cmd_AddCommand       ( const char *cmd_name, xcommand_t function, const char *desc) {        ri.Cmd_AddCommand(cmd_name, function, desc);   }
+void   Cmd_RemoveCommand    ( const char *cmd_name                                       ) {        ri.Cmd_RemoveCommand(cmd_name             );   }
+
 #endif
 
 void R_Printf(int printLevel, const char *fmt, ...) {

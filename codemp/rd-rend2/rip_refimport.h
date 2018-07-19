@@ -29,6 +29,15 @@ int      CM_LeafCluster       ( int leafnum );
 int      CM_PointLeafnum      ( const vec3_t p );
 int      CM_PointContents     ( const vec3_t p, clipHandle_t model );
 
+
+typedef void (*xcommand_t) (void);
+void   Cmd_ExecuteString    ( const char *text                                           );
+int    Cmd_Argc             ( void                                                       );
+char * Cmd_Argv             ( int arg                                                    );
+void   Cmd_ArgsBuffer       ( char *buffer, int bufferLength                             );
+void   Cmd_AddCommand       ( const char *cmd_name, xcommand_t function, const char *desc);
+void   Cmd_RemoveCommand    ( const char *cmd_name                                       );
+
 void R_Printf(int printLevel, const char *fmt, ...);
 
 #endif

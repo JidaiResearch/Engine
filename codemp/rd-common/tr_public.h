@@ -275,6 +275,8 @@ typedef struct refimport_s {
 	int				(*Z_MemSize)						( memtag_t eTag );
 	void			(*Z_MorphMallocTag)					( void *pvBuffer, memtag_t eDesiredTag );
 
+// done
+#if 1
 	void			(*Cmd_ExecuteString)				( const char *text );
 	int				(*Cmd_Argc)							( void );
 	char *			(*Cmd_Argv)							( int arg );
@@ -283,6 +285,7 @@ typedef struct refimport_s {
 	void			(*Cmd_AddCommandList)				( const cmdList_t *cmdList );
 	void			(*Cmd_RemoveCommand)				( const char *cmd_name );
 	void			(*Cmd_RemoveCommandList)			( const cmdList_t *cmdList );
+#endif
 	cvar_t *		(*Cvar_Set)							( const char *var_name, const char *value );
 	cvar_t *		(*Cvar_Get)							( const char *var_name, const char *value, uint32_t flags, const char *var_desc );
 	cvar_t *		(*Cvar_SetValue)					( const char *name, float value );

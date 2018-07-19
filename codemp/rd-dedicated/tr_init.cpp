@@ -458,7 +458,7 @@ Ghoul2 Insert End
 		ri.Cvar_Set("r_modelpoolmegs", "0");
 
 	for ( size_t i = 0; i < numCommands; i++ )
-		ri.Cmd_AddCommand( commands[i].cmd, commands[i].func, "" );
+		Cmd_AddCommand( commands[i].cmd, commands[i].func, "" );
 }
 
 
@@ -530,7 +530,7 @@ void RE_Shutdown( qboolean destroyWindow, qboolean restarting ) {
 //	Com_Printf ("RE_Shutdown( %i )\n", destroyWindow );
 
 	for ( size_t i = 0; i < numCommands; i++ )
-		ri.Cmd_RemoveCommand( commands[i].cmd );
+		Cmd_RemoveCommand( commands[i].cmd );
 
 	tr.registered = qfalse;
 }

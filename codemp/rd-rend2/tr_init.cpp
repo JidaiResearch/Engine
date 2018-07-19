@@ -981,17 +981,17 @@ void R_ScreenShotTGA_f (void) {
 	char checkname[MAX_OSPATH] = {0};
 	qboolean silent = qfalse;
 
-	if ( !strcmp( ri.Cmd_Argv(1), "levelshot" ) ) {
+	if ( !strcmp( Cmd_Argv(1), "levelshot" ) ) {
 		R_LevelShot();
 		return;
 	}
 
-	if ( !strcmp( ri.Cmd_Argv(1), "silent" ) )
+	if ( !strcmp( Cmd_Argv(1), "silent" ) )
 		silent = qtrue;
 
-	if ( ri.Cmd_Argc() == 2 && !silent ) {
+	if ( Cmd_Argc() == 2 && !silent ) {
 		// explicit filename
-		Com_sprintf( checkname, sizeof( checkname ), "screenshots/%s.tga", ri.Cmd_Argv( 1 ) );
+		Com_sprintf( checkname, sizeof( checkname ), "screenshots/%s.tga", Cmd_Argv( 1 ) );
 	}
 	else {
 		// timestamp the file
@@ -1013,17 +1013,17 @@ void R_ScreenShotPNG_f (void) {
 	char checkname[MAX_OSPATH] = {0};
 	qboolean silent = qfalse;
 
-	if ( !strcmp( ri.Cmd_Argv(1), "levelshot" ) ) {
+	if ( !strcmp( Cmd_Argv(1), "levelshot" ) ) {
 		R_LevelShot();
 		return;
 	}
 
-	if ( !strcmp( ri.Cmd_Argv(1), "silent" ) )
+	if ( !strcmp( Cmd_Argv(1), "silent" ) )
 		silent = qtrue;
 
-	if ( ri.Cmd_Argc() == 2 && !silent ) {
+	if ( Cmd_Argc() == 2 && !silent ) {
 		// explicit filename
-		Com_sprintf( checkname, sizeof( checkname ), "screenshots/%s.png", ri.Cmd_Argv( 1 ) );
+		Com_sprintf( checkname, sizeof( checkname ), "screenshots/%s.png", Cmd_Argv( 1 ) );
 	}
 	else {
 		// timestamp the file
@@ -1045,17 +1045,17 @@ void R_ScreenShotJPEG_f (void) {
 	char checkname[MAX_OSPATH] = {0};
 	qboolean silent = qfalse;
 
-	if ( !strcmp( ri.Cmd_Argv(1), "levelshot" ) ) {
+	if ( !strcmp( Cmd_Argv(1), "levelshot" ) ) {
 		R_LevelShot();
 		return;
 	}
 
-	if ( !strcmp( ri.Cmd_Argv(1), "silent" ) )
+	if ( !strcmp( Cmd_Argv(1), "silent" ) )
 		silent = qtrue;
 
-	if ( ri.Cmd_Argc() == 2 && !silent ) {
+	if ( Cmd_Argc() == 2 && !silent ) {
 		// explicit filename
-		Com_sprintf( checkname, sizeof( checkname ), "screenshots/%s.jpg", ri.Cmd_Argv( 1 ) );
+		Com_sprintf( checkname, sizeof( checkname ), "screenshots/%s.jpg", Cmd_Argv( 1 ) );
 	}
 	else {
 		// timestamp the file
@@ -1355,19 +1355,19 @@ void GfxMemInfo_f( void )
 
 static void R_CaptureFrameData_f()
 {
-	int argc = ri.Cmd_Argc();
+	int argc = Cmd_Argc();
 	if ( argc <= 1 )
 	{
-		R_Printf( PRINT_ALL, "Usage: %s <multi|single>\n", ri.Cmd_Argv(0));
+		R_Printf( PRINT_ALL, "Usage: %s <multi|single>\n", Cmd_Argv(0));
 		return;
 	}
 
 
-	const char *cmd = ri.Cmd_Argv(1);
+	const char *cmd = Cmd_Argv(1);
 	if ( Q_stricmp(cmd, "single") == 0 )
 		tr.numFramesToCapture = 1;
 	else if ( Q_stricmp(cmd, "multi") == 0 )
-		tr.numFramesToCapture = atoi(ri.Cmd_Argv(1));
+		tr.numFramesToCapture = atoi(Cmd_Argv(1));
 
 	int len = ri.FS_FOpenFileByMode("rend2.log", &tr.debugFile, FS_APPEND);
 	if ( len == -1 || !tr.debugFile )
@@ -1634,7 +1634,7 @@ Ghoul2 Insert End
 	se_language = ri.Cvar_Get ( "se_language", "english", CVAR_ARCHIVE | CVAR_NORESTART, "" );
 
 	for ( size_t i = 0; i < numCommands; i++ )
-		ri.Cmd_AddCommand( commands[i].cmd, commands[i].func, "" );
+		Cmd_AddCommand( commands[i].cmd, commands[i].func, "");
 }
 
 void R_InitQueries(void)
@@ -1864,7 +1864,7 @@ void RE_Shutdown( qboolean destroyWindow, qboolean restarting ) {
 	R_Printf( PRINT_ALL, "RE_Shutdown( %i )\n", destroyWindow );
 
 	for ( size_t i = 0; i < numCommands; i++ )
-		ri.Cmd_RemoveCommand( commands[i].cmd );
+		Cmd_RemoveCommand( commands[i].cmd );
 
 	R_ShutdownBackEndFrameData();
 
