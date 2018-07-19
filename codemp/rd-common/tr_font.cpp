@@ -155,7 +155,7 @@ struct ThaiCodes_t
 					{
 						m_mapValidCodes[ piData[i] ] = i;	// convert MBCS code to sequential index...
 					}
-					ri.FS_FreeFile( piData );	// dispose of original
+					FS_FreeFile( piData );	// dispose of original
 
 					// now read in the widths... (I'll keep these in a simple STL vector, so they'all disappear when the <map> entries do...
 					//
@@ -166,7 +166,7 @@ struct ThaiCodes_t
 						{
 							m_viGlyphWidths.push_back( piData[i] );
 						}
-						ri.FS_FreeFile( piData );	// dispose of original
+						FS_FreeFile( piData );	// dispose of original
 					}
 					else
 					{
@@ -902,7 +902,7 @@ CFontInfo::CFontInfo(const char *_fontName)
             mDescender = mHeight - mAscender;
 		}
 
-		ri.FS_FreeFile(buff);
+		FS_FreeFile(buff);
 	}
 	else
 	{

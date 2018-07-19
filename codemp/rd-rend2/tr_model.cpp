@@ -146,7 +146,7 @@ qhandle_t R_RegisterMDR(const char *name, model_t *mod)
 	if(ident == MDR_IDENT)
 		loaded = R_LoadMDR(mod, buf.u, filesize, name);
 
-	ri.FS_FreeFile (buf.v);
+	FS_FreeFile (buf.v);
 	
 	if(!loaded)
 	{
@@ -181,7 +181,7 @@ qhandle_t R_RegisterIQM(const char *name, model_t *mod)
 	
 	loaded = R_LoadIQM(mod, buf.u, filesize, name);
 
-	ri.FS_FreeFile (buf.v);
+	FS_FreeFile (buf.v);
 	
 	if(!loaded)
 	{

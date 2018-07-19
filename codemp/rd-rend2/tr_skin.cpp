@@ -149,7 +149,7 @@ qhandle_t RE_RegisterIndividualSkin( const char *name , qhandle_t hSkin)
 		skin->numSurfaces++;
 	}
 
-	ri.FS_FreeFile( text );
+	FS_FreeFile( text );
 
 
 	// never let a skin have 0 shaders

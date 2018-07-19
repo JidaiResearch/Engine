@@ -4633,7 +4633,7 @@ static void ScanAndLoadShaderFiles( void )
 					ri.Printf(PRINT_WARNING, " (found \"%s\" on line %d)", token, COM_GetCurrentParseLine());
 				}
 				ri.Printf(PRINT_WARNING, ".\n");
-				ri.FS_FreeFile(buffers[i]);
+				FS_FreeFile(buffers[i]);
 				buffers[i] = NULL;
 				break;
 			}
@@ -4642,7 +4642,7 @@ static void ScanAndLoadShaderFiles( void )
 			{
 				ri.Printf(PRINT_WARNING, "WARNING: Ignoring shader file %s. Shader \"%s\" on line %d missing closing brace.\n",
 							filename, shaderName, shaderLine);
-				ri.FS_FreeFile(buffers[i]);
+				FS_FreeFile(buffers[i]);
 				buffers[i] = NULL;
 				break;
 			}
@@ -4667,13 +4667,13 @@ static void ScanAndLoadShaderFiles( void )
 		strcat( textEnd, buffers[i] );
 		strcat( textEnd, "\n" );
 		textEnd += strlen( textEnd );
-		ri.FS_FreeFile( buffers[i] );
+		FS_FreeFile( buffers[i] );
 	}
 
 	COM_Compress( s_shaderText );
 
 	// free up memory
-	ri.FS_FreeFileList( shaderFiles );
+	FS_FreeFileList( shaderFiles );
 
 	Com_Memset(shaderTextHashTableSizes, 0, sizeof(shaderTextHashTableSizes));
 	size = 0;

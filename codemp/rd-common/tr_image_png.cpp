@@ -140,7 +140,7 @@ struct PNGFileReader
 	PNGFileReader ( char *buf ) : buf(buf), offset(0), png_ptr(NULL), info_ptr(NULL) {}
 	~PNGFileReader()
 	{
-		ri.FS_FreeFile (buf);
+		FS_FreeFile (buf);
 		png_destroy_read_struct (&png_ptr, &info_ptr, NULL);
 	}
 

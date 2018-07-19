@@ -150,7 +150,7 @@ void LoadJPG( const char *filename, unsigned char **pic, int *width, int *height
 		)
 	{
 		// Free the memory to make sure we don't leak memory
-		ri.FS_FreeFile (fbuffer.v);
+		FS_FreeFile (fbuffer.v);
 		jpeg_destroy_decompress(&cinfo);
 
 		Com_Printf("LoadJPG: %s has an invalid image format: %dx%d*4=%d, components: %d", filename,
@@ -213,7 +213,7 @@ void LoadJPG( const char *filename, unsigned char **pic, int *width, int *height
 	* so as to simplify the setjmp error logic above.  (Actually, I don't
 	* think that jpeg_destroy can do an error exit, but why assume anything...)
 	*/
-	ri.FS_FreeFile (fbuffer.v);
+	FS_FreeFile (fbuffer.v);
 	/* At this point you may want to check to see whether any corrupt-data
 	* warnings occurred (test whether jerr.pub.num_warnings is nonzero).
 	*/

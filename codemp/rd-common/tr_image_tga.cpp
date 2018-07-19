@@ -373,7 +373,7 @@ void LoadTGA ( const char *name, byte **pic, int *width, int *height)
 
 TGADone:
 
-	ri.FS_FreeFile (pTempLoadedBuffer);
+	FS_FreeFile (pTempLoadedBuffer);
 
 	if (bFormatErrors)
 	{

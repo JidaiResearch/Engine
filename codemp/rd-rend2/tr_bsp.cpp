@@ -494,7 +494,7 @@ static	void R_LoadLightmaps( world_t *worldData, lump_t *l, lump_t *surfs ) {
 					GL_RGBA8);
 
 			if (hdrLightmap)
-				ri.FS_FreeFile(hdrLightmap);
+				FS_FreeFile(hdrLightmap);
 		}
 
 		if (tr.worldDeluxeMapping)
@@ -2255,7 +2255,7 @@ static	void R_LoadSurfaces( world_t *worldData, lump_t *surfs, lump_t *verts, lu
 
 	if (hdrVertColors)
 	{
-		ri.FS_FreeFile(hdrVertColors);
+		FS_FreeFile(hdrVertColors);
 	}
 
 #ifdef PATCH_STITCHING
@@ -2717,7 +2717,7 @@ void R_LoadLightGrid( world_t *worldData, lump_t *l ) {
 		}
 
 		if (hdrLightGrid)
-			ri.FS_FreeFile(hdrLightGrid);
+			FS_FreeFile(hdrLightGrid);
 	}
 }
 
@@ -2961,7 +2961,7 @@ void R_LoadEnvironmentJson(const char *baseName)
 	if (JSON_ValueGetType(buffer.c, bufferEnd) != JSONTYPE_OBJECT)
 	{
 		ri.Printf(PRINT_ALL, "Bad %s: does not start with a object\n", filename);
-		ri.FS_FreeFile(buffer.v);
+		FS_FreeFile(buffer.v);
 		return;
 	}
 	//-----------------------------CUBEMAPS------------------------------------
@@ -2969,14 +2969,14 @@ void R_LoadEnvironmentJson(const char *baseName)
 	if (!environmentArrayJson)
 	{
 		ri.Printf(PRINT_ALL, "Bad %s: no Cubemaps\n", filename);
-		ri.FS_FreeFile(buffer.v);
+		FS_FreeFile(buffer.v);
 		return;
 	}
 
 	if (JSON_ValueGetType(environmentArrayJson, bufferEnd) != JSONTYPE_ARRAY)
 	{
 		ri.Printf(PRINT_ALL, "Bad %s: Cubemaps not an array\n", filename);
-		ri.FS_FreeFile(buffer.v);
+		FS_FreeFile(buffer.v);
 		return;
 	}
 
@@ -3006,7 +3006,7 @@ void R_LoadEnvironmentJson(const char *baseName)
 			cubemap->parallaxRadius = JSON_ValueGetFloat(keyValueJson, bufferEnd);
 	}
 
-	ri.FS_FreeFile(buffer.v);
+	FS_FreeFile(buffer.v);
 }
 
 void R_LoadCubemapEntities(char *cubemapEntityName)
@@ -3858,7 +3858,7 @@ world_t *R_LoadBSP(const char *name, int *bspIndex)
 	R_BindNullVBO();
 	R_BindNullIBO();
 
-	ri.FS_FreeFile(buffer.v);
+	FS_FreeFile(buffer.v);
 
 	return worldData;
 }
