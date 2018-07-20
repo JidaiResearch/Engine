@@ -876,6 +876,10 @@ void *WIN_GL_GetProcAddress( const char *proc )
 {
 	return SDL_GL_GetProcAddress( proc );
 }
+void *GL_GetProcAddress( const char *proc )
+{
+	return SDL_GL_GetProcAddress( proc );
+}
 
 qboolean WIN_GL_ExtensionSupported( const char *extension )
 {

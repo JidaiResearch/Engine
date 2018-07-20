@@ -750,9 +750,11 @@ void G2API_CleanGhoul2Models(CGhoul2Info_v **ghoul2Ptr)
 	}	
 }
 
+vm_t *GetCurrentVM(void);
+
 qboolean G2_ShouldRegisterServer(void)
 {	
-	vm_t *currentVM = ri.GetCurrentVM();
+	vm_t *currentVM = GetCurrentVM();
 
 	if ( currentVM && currentVM->slot == VM_GAME )
 	{

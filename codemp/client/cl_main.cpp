@@ -2346,9 +2346,9 @@ qboolean Com_TheHunkMarkHasBeenMade(void);
 extern void *gpvCachedMapDiskImage;
 extern qboolean gbUsingCachedMapDataRightNow;
 
-static char *GetSharedMemory( void ) { return cl.mSharedMemory; }
-static vm_t *GetCurrentVM( void ) { return currentVM; }
-static qboolean CGVMLoaded( void ) { return (qboolean)cls.cgameStarted; }
+char *GetSharedMemory( void ) { return cl.mSharedMemory; }
+vm_t *GetCurrentVM( void ) { return currentVM; }
+qboolean CGVMLoaded( void ) { return (qboolean)cls.cgameStarted; }
 static void *CM_GetCachedMapDiskImage( void ) { return gpvCachedMapDiskImage; }
 static void CM_SetCachedMapDiskImage( void *ptr ) { gpvCachedMapDiskImage = ptr; }
 static void CM_SetUsingCache( qboolean usingCache ) { gbUsingCachedMapDataRightNow = usingCache; }
@@ -2357,7 +2357,7 @@ static void CM_SetUsingCache( qboolean usingCache ) { gbUsingCachedMapDataRightN
 IHeapAllocator *G2VertSpaceServer = NULL;
 CMiniHeap IHeapAllocator_singleton(G2_VERT_SPACE_SERVER_SIZE * 1024);
 
-static IHeapAllocator *GetG2VertSpaceServer( void ) {
+IHeapAllocator *GetG2VertSpaceServer( void ) {
 	return G2VertSpaceServer;
 }
 
@@ -2370,8 +2370,6 @@ const char *Clipboard_Get() {
 void Clipboard_Set(const char *text) {
 	SDL_SetClipboardText(text);
 }
-
-#define DEFAULT_RENDER_LIBRARY "rd-vanilla"
 
 #include "../duktape/duktapestuff.h"
 CCALL void micropython_init();
@@ -2386,140 +2384,18 @@ void micropython_eval(char *code) {
 
 int js_call(duk_context *ctx, char *function, char *params, ...);
 
+extern "C" Q_EXPORT refexport_t* QDECL GetRefAPI(int apiVersion, refimport_t *rimp);
+
 void CL_InitRef( void ) {
 	static refimport_t ri;
 	refexport_t	*ret;
-	GetRefAPI_t	GetRefAPI;
-	char		dllName[MAX_OSPATH];
-
 	Com_Printf( "----- Initializing Renderer ----\n" );
-
-	cl_renderer = Cvar_Get( "cl_renderer", DEFAULT_RENDER_LIBRARY, CVAR_ARCHIVE|CVAR_LATCH|CVAR_PROTECTED, "Which renderer library to use" );
-
-	Com_sprintf( dllName, sizeof( dllName ), "%s_" ARCH_STRING DLL_EXT, cl_renderer->string );
-
-	if( !(rendererLib = Sys_LoadDll( dllName, qfalse )) && strcmp( cl_renderer->string, cl_renderer->resetString ) )
-	{
-		Com_Printf( "failed: trying to load fallback renderer\n" );
-		Cvar_ForceReset( "cl_renderer" );
-
-		Com_sprintf( dllName, sizeof( dllName ), DEFAULT_RENDER_LIBRARY "_" ARCH_STRING DLL_EXT );
-		rendererLib = Sys_LoadDll( dllName, qfalse );
-	}
-
-	if ( !rendererLib ) {
-		Com_Error( ERR_FATAL, "Failed to load renderer\n" );
-	}
-
-	memset( &ri, 0, sizeof( ri ) );
-
-	GetRefAPI = (GetRefAPI_t)Sys_LoadFunction( rendererLib, "GetRefAPI" );
-	if ( !GetRefAPI )
-		Com_Error( ERR_FATAL, "Can't load symbol GetRefAPI: '%s'", Sys_LibraryError() );
-
-	//set up the import table
-	ri.Printf = CL_RefPrintf;
-	ri.Error = Com_Error;
-	//ri.OPrintf = Com_OPrintf;
-	ri.Milliseconds = Sys_Milliseconds2; //FIXME: unix+mac need this
-	ri.Hunk_AllocateTempMemory = Hunk_AllocateTempMemory;
-	ri.Hunk_FreeTempMemory = Hunk_FreeTempMemory;
-	ri.Hunk_Alloc = Hunk_Alloc;
-	ri.Hunk_MemoryRemaining = Hunk_MemoryRemaining;
-	ri.Z_Malloc = Z_Malloc;
-	ri.Z_Free = Z_Free;
-	ri.Z_MemSize = Z_MemSize;
-	ri.Z_MorphMallocTag = Z_MorphMallocTag;
-	ri.Cmd_ExecuteString = Cmd_ExecuteString;
-	ri.Cmd_Argc = Cmd_Argc;
-	ri.Cmd_Argv = Cmd_Argv;
-	ri.Cmd_ArgsBuffer = Cmd_ArgsBuffer;
-	ri.Cmd_AddCommand = Cmd_AddCommand;
-	ri.Cmd_RemoveCommand = Cmd_RemoveCommand;
-	ri.Cvar_Set = Cvar_Set;
-	ri.Cvar_Get = Cvar_Get;
-	ri.Cvar_SetValue = Cvar_SetValue;
-	ri.Cvar_CheckRange = Cvar_CheckRange;
-	ri.Cvar_VariableStringBuffer = Cvar_VariableStringBuffer;
-	ri.Cvar_VariableString = Cvar_VariableString;
-	ri.Cvar_VariableValue = Cvar_VariableValue;
-	ri.Cvar_VariableIntegerValue = Cvar_VariableIntegerValue;
-	ri.Sys_LowPhysicalMemory = Sys_LowPhysicalMemory;
-	ri.SE_GetString = SE_GetString;
-	ri.FS_FreeFile = FS_FreeFile;
-	ri.FS_FreeFileList = FS_FreeFileList;
-	ri.FS_Read = FS_Read;
-	ri.FS_ReadFile = FS_ReadFile;
-	ri.FS_FCloseFile = FS_FCloseFile;
-	ri.FS_FOpenFileRead = FS_FOpenFileRead;
-	ri.FS_FOpenFileWrite = FS_FOpenFileWrite;
-	ri.FS_FOpenFileByMode = FS_FOpenFileByMode;
-	ri.FS_FileExists = FS_FileExists;
-	ri.FS_FileIsInPAK = FS_FileIsInPAK;
-	ri.FS_ListFiles = FS_ListFiles;
-	ri.FS_Write = FS_Write;
-	ri.FS_WriteFile = FS_WriteFile;
-	ri.CM_BoxTrace = CM_BoxTrace;
-	ri.CM_DrawDebugSurface = CM_DrawDebugSurface;
-	ri.CM_CullWorldBox = CM_CullWorldBox;
-	ri.CM_ClusterPVS = CM_ClusterPVS;
-	ri.CM_LeafArea = CM_LeafArea;
-	ri.CM_LeafCluster = CM_LeafCluster;
-	ri.CM_PointLeafnum = CM_PointLeafnum;
-	ri.CM_PointContents = CM_PointContents;
-	ri.Com_TheHunkMarkHasBeenMade = Com_TheHunkMarkHasBeenMade;
-	ri.S_RestartMusic = S_RestartMusic;
-	ri.SND_RegisterAudio_LevelLoadEnd = SND_RegisterAudio_LevelLoadEnd;
-	ri.CIN_RunCinematic = CIN_RunCinematic;
-	ri.CIN_PlayCinematic = CIN_PlayCinematic;
-	ri.CIN_UploadCinematic = CIN_UploadCinematic;
-	ri.CL_WriteAVIVideoFrame = CL_WriteAVIVideoFrame;
-
-	// g2 data access
-	ri.GetSharedMemory = GetSharedMemory;
-
-	// (c)g vm callbacks
-	ri.GetCurrentVM = GetCurrentVM;
-	ri.CGVMLoaded = CGVMLoaded;
-	ri.CGVM_RagCallback = CGVM_RagCallback;
-
-    ri.WIN_Init = WIN_Init;
-	ri.WIN_SetGamma = WIN_SetGamma;
-    ri.WIN_Shutdown = WIN_Shutdown;
-    ri.WIN_Present = WIN_Present;
-	ri.GL_GetProcAddress = WIN_GL_GetProcAddress;
-	ri.GL_ExtensionSupported = WIN_GL_ExtensionSupported;
-
-	ri.CM_GetCachedMapDiskImage = CM_GetCachedMapDiskImage;
-	ri.CM_SetCachedMapDiskImage = CM_SetCachedMapDiskImage;
-	ri.CM_SetUsingCache = CM_SetUsingCache;
-
-	//FIXME: Might have to do something about this...
-	ri.GetG2VertSpaceServer = GetG2VertSpaceServer;
 	G2VertSpaceServer = &IHeapAllocator_singleton;
-
-	ri.PD_Store = PD_Store;
-	ri.PD_Load = PD_Load;
-
-	// ImGui integration
-	ri.Key_GetCatcher = Key_GetCatcher;
-	ri.Clipboard_Get = Clipboard_Get;
-	ri.Clipboard_Set = Clipboard_Set;
-
-	ri.micropython_init = micropython_init;
-	ri.micropython_eval = micropython_eval;
-	ri.js_call = (int(*)(void *ctx, char *function, char *params, ...))js_call;
-
 	ret = GetRefAPI( REF_API_VERSION, &ri );
-
-//	Com_Printf( "-------------------------------\n");
-
 	if ( !ret ) {
 		Com_Error (ERR_FATAL, "Couldn't initialize refresh" );
 	}
-
 	re = ret;
-
 	// unpause so the cgame definately gets a snapshot and renders a frame
 	Cvar_Set( "cl_paused", "0" );
 }

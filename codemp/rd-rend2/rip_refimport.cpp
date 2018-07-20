@@ -106,7 +106,7 @@ void R_Printf(int printLevel, const char *fmt, ...) {
 	va_start (args, fmt);
 	vsnprintf(buf, sizeof(buf), fmt, args);
 	va_end(args);
-	ri.Printf(printLevel, buf);
+	Com_Printf(/*printLevel, */buf);
 }
 
 void R_Error(int errorLevel, const char *fmt, ...) {
@@ -115,5 +115,5 @@ void R_Error(int errorLevel, const char *fmt, ...) {
 	va_start (args, fmt);
 	vsnprintf(buf, sizeof(buf), fmt, args);
 	va_end(args);
-	ri.Error(errorLevel, buf);
+	Com_Error(errorLevel, buf);
 }
