@@ -5,7 +5,7 @@
 #include "../lodepng/lodepng.h"
 #include "matrix.h"
 #include "util.h"
-#include <SDL2/include/SDL.h>
+#include "../lib/SDL2/include/SDL.h"
 
 int rand_int(int n) {
     int result;

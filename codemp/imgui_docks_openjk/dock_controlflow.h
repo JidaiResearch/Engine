@@ -4,7 +4,7 @@
 #include "../imgui_docks/dock.h"
 #include <string>
 #include "../imgui/imgui_dock.h"
-#include "../tr_local.h"
+//#include "../tr_local.h"
 
 class DockControlFlow : public Dock {
 public:

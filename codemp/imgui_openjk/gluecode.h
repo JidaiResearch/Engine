@@ -4,7 +4,7 @@
 #include "../imgui_docks/dock.h"
 #include <string>
 #include "../imgui/imgui_dock.h"
-#include "../tr_local.h"
+#include "../rd-rend2/tr_local.h"
 
 void Cvar_SetInt(cvar_t *cvar, int value);
 

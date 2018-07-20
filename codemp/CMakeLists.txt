@@ -830,6 +830,139 @@ set(mp_client_duktape
 source_group("duktape" FILES ${mp_client_duktape})
 set(MPEngineFiles ${MPEngineFiles} ${mp_client_duktape})
 
+
+
+
+
+
+set(mp_client_imgui
+	"${MPDir}/ccall.h"
+	"${MPDir}/imgui/ffi.cpp"
+	"${MPDir}/imgui/imconfig.h"
+	"${MPDir}/imgui/imgui.cpp"
+	"${MPDir}/imgui/imgui.h"
+	"${MPDir}/imgui/imgui_api.cpp"
+	"${MPDir}/imgui/imgui_api.h"
+	"${MPDir}/imgui/imgui_c_utils.cpp"
+	"${MPDir}/imgui/imgui_c_utils.h"
+	"${MPDir}/imgui/imgui_default_docks.cpp"
+	"${MPDir}/imgui/imgui_default_docks.h"
+	"${MPDir}/imgui/imgui_demo.cpp"
+	"${MPDir}/imgui/imgui_dock.cpp"
+	"${MPDir}/imgui/imgui_dock.h"
+	"${MPDir}/imgui/imgui_draw.cpp"
+	"${MPDir}/imgui/imgui_fixedarea.cpp"
+	"${MPDir}/imgui/imgui_fixedarea.h"
+	"${MPDir}/imgui/imgui_impl_idtech3_gles.cpp"
+	"${MPDir}/imgui/imgui_impl_idtech3_gles.h"
+	"${MPDir}/imgui/imgui_internal.h"
+	"${MPDir}/imgui/imgui_utils.cpp"
+	"${MPDir}/imgui/imgui_utils.h"
+	"${MPDir}/imgui/include_imgui.h"
+	"${MPDir}/imgui/include_quakegl.h"
+	"${MPDir}/imgui/stb_rect_pack.h"
+	"${MPDir}/imgui/stb_textedit.h"
+	"${MPDir}/imgui/stb_truetype.h"
+)
+source_group("imgui" FILES ${mp_client_imgui})
+set(MPEngineFiles ${MPEngineFiles} ${mp_client_imgui})
+
+set(mp_client_imgui_dock
+	"${MPDir}/imgui_docks/dock.cpp"
+	"${MPDir}/imgui_docks/dock.h"
+	"${MPDir}/imgui_docks/dock_console.cpp"
+	"${MPDir}/imgui_docks/dock_console.h"
+	"${MPDir}/imgui_docks/dock_duktape.cpp"
+	"${MPDir}/imgui_docks/dock_duktape.h"
+	"${MPDir}/imgui_docks/dock_jidaiscript.cpp"
+	"${MPDir}/imgui_docks/dock_jidaiscript.h"
+	"${MPDir}/imgui_docks/dock_julia.cpp"
+	"${MPDir}/imgui_docks/dock_julia.h"
+	"${MPDir}/imgui_docks/dock_micropython.cpp"
+	"${MPDir}/imgui_docks/dock_micropython.h"
+	"${MPDir}/imgui_docks/dock_node.cpp"
+	"${MPDir}/imgui_docks/dock_node.h"
+	"${MPDir}/imgui_docks/dock_repl.cpp"
+	"${MPDir}/imgui_docks/dock_repl.h"
+	"${MPDir}/imgui_docks/dock_skeleton.cpp"
+	"${MPDir}/imgui_docks/dock_skeleton.h"
+)
+source_group("imgui_dock" FILES ${mp_client_imgui_dock})
+set(MPEngineFiles ${MPEngineFiles} ${mp_client_imgui_dock})
+
+set(mp_client_imgui_openjk
+	"${MPDir}/imgui_openjk/imgui_openjk_default_docks.h"
+	"${MPDir}/imgui_openjk/imgui_openjk_default_docks.cpp"
+	"${MPDir}/imgui_openjk/gluecode.h"
+	"${MPDir}/imgui_openjk/gluecode.cpp"
+)
+source_group("imgui_openjk" FILES ${mp_client_imgui_openjk})
+set(MPEngineFiles ${MPEngineFiles} ${mp_client_imgui_openjk})
+
+set(mp_client_imgui_docks_openjk
+	"${MPDir}/imgui_docks_openjk/dock_all.cpp"
+	"${MPDir}/imgui_docks_openjk/dock_all.h"
+	"${MPDir}/imgui_docks_openjk/dock_controlflow.cpp"
+	"${MPDir}/imgui_docks_openjk/dock_controlflow.h"
+	"${MPDir}/imgui_docks_openjk/dock_images.cpp"
+	"${MPDir}/imgui_docks_openjk/dock_images.h"
+	"${MPDir}/imgui_docks_openjk/dock_mapinfo.cpp"
+	"${MPDir}/imgui_docks_openjk/dock_mapinfo.h"
+	"${MPDir}/imgui_docks_openjk/dock_mdxa.cpp"
+	"${MPDir}/imgui_docks_openjk/dock_mdxa.h"
+	"${MPDir}/imgui_docks_openjk/dock_mdxm.cpp"
+	"${MPDir}/imgui_docks_openjk/dock_mdxm.h"
+	"${MPDir}/imgui_docks_openjk/dock_models.cpp"
+	"${MPDir}/imgui_docks_openjk/dock_models.h"
+	"${MPDir}/imgui_docks_openjk/dock_opsys.cpp"
+	"${MPDir}/imgui_docks_openjk/dock_opsys.h"
+	"${MPDir}/imgui_docks_openjk/dock_perf.cpp"
+	"${MPDir}/imgui_docks_openjk/dock_perf.h"
+	"${MPDir}/imgui_docks_openjk/dock_quakeshaders.cpp"
+	"${MPDir}/imgui_docks_openjk/dock_quakeshaders.h"
+	"${MPDir}/imgui_docks_openjk/dock_shadereditor.cpp"
+	"${MPDir}/imgui_docks_openjk/dock_shadereditor.h"
+)
+source_group("imgui_docks_openjk" FILES ${mp_client_imgui_docks_openjk})
+set(MPEngineFiles ${MPEngineFiles} ${mp_client_imgui_docks_openjk})
+
+
+
+set(mp_client_craft
+	"${MPDir}/craft/auth.c"
+	"${MPDir}/craft/auth.h"
+	"${MPDir}/craft/client.c"
+	"${MPDir}/craft/client.h"
+	"${MPDir}/craft/config.h"
+	"${MPDir}/craft/cube.c"
+	"${MPDir}/craft/cube.h"
+	"${MPDir}/craft/db.c"
+	"${MPDir}/craft/db.h"
+	"${MPDir}/craft/item.c"
+	"${MPDir}/craft/item.h"
+	"${MPDir}/craft/main.c"
+	"${MPDir}/craft/map.c"
+	"${MPDir}/craft/map.h"
+	"${MPDir}/craft/matrix.c"
+	"${MPDir}/craft/matrix.h"
+	"${MPDir}/craft/ring.c"
+	"${MPDir}/craft/ring.h"
+	"${MPDir}/craft/sign.c"
+	"${MPDir}/craft/sign.h"
+	"${MPDir}/craft/util.c"
+	"${MPDir}/craft/util.h"
+	"${MPDir}/craft/world.c"
+	"${MPDir}/craft/world.h"
+	"${MPDir}/glew/src/glew.c"
+	"${MPDir}/tinycthread/tinycthread.c"
+	"${MPDir}/sqlite/sqlite3.c"
+	"${MPDir}/lodepng/lodepng.c"
+	"${MPDir}/noise/noise.c"
+)
+source_group("craft" FILES ${mp_client_craft})
+set(MPEngineFiles ${MPEngineFiles} ${mp_client_craft})
+
+
 #set(mp_client_duktape_openjk
 #	"${MPDir}/duktape_openjk/game.cpp"
 #	"${MPDir}/duktape_openjk/game.h"
