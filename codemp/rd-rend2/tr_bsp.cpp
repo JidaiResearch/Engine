@@ -352,7 +352,7 @@ static	void R_LoadLightmaps( world_t *worldData, lump_t *l, lump_t *surfs ) {
 				}
 
 				if (!size)
-					ri.Error(ERR_DROP, "Bad header for %s!", filename);
+					R_Error(ERR_DROP, "Bad header for %s!", filename);
 
 				size -= 2;
 				p += 2;
@@ -370,10 +370,10 @@ static	void R_LoadLightmaps( world_t *worldData, lump_t *l, lump_t *surfs ) {
 
 #if 0 // HDRFILE_RGBE
 				if (size != tr.lightmapSize * tr.lightmapSize * 4)
-					ri.Error(ERR_DROP, "Bad size for %s (%i)!", filename, size);
+					R_Error(ERR_DROP, "Bad size for %s (%i)!", filename, size);
 #else // HDRFILE_FLOAT
 				if (size != tr.lightmapSize * tr.lightmapSize * 12)
-					ri.Error(ERR_DROP, "Bad size for %s (%i)!", filename, size);
+					R_Error(ERR_DROP, "Bad size for %s (%i)!", filename, size);
 #endif
 			}
 			else
@@ -663,7 +663,7 @@ static shader_t *ShaderForShaderNum( const world_t *worldData, int shaderNum, co
 
 	int _shaderNum = LittleLong( shaderNum );
 	if ( _shaderNum < 0 || _shaderNum >= worldData->numShaders ) {
-		ri.Error( ERR_DROP, "ShaderForShaderNum: bad num %i", _shaderNum );
+		R_Error( ERR_DROP, "ShaderForShaderNum: bad num %i", _shaderNum );
 	}
 	dsh = &worldData->shaders[ _shaderNum ];
 
@@ -805,7 +805,7 @@ static void ParseFace( const world_t *worldData, dsurface_t *ds, drawVert_t *ver
 
 			if(tri[j] >= numVerts)
 			{
-				ri.Error(ERR_DROP, "Bad index in face surface");
+				R_Error(ERR_DROP, "Bad index in face surface");
 			}
 		}
 
@@ -890,7 +890,7 @@ static void ParseMesh ( const world_t *worldData, dsurface_t *ds, drawVert_t *ve
 	height = LittleLong( ds->patchHeight );
 
 	if(width < 0 || width > MAX_PATCH_SIZE || height < 0 || height > MAX_PATCH_SIZE)
-		ri.Error(ERR_DROP, "ParseMesh: bad size");
+		R_Error(ERR_DROP, "ParseMesh: bad size");
 
 	verts += LittleLong( ds->firstVert );
 	numPoints = width * height;
@@ -1068,7 +1068,7 @@ static void ParseTriSurf( const world_t *worldData, dsurface_t *ds, drawVert_t *
 
 			if(tri[j] >= numVerts)
 			{
-				ri.Error(ERR_DROP, "Bad index in face surface");
+				R_Error(ERR_DROP, "Bad index in face surface");
 			}
 		}
 
@@ -1914,7 +1914,7 @@ static void R_CreateWorldVBOs( world_t *worldData )
 
 	int             startTime, endTime;
 
-	startTime = ri.Milliseconds();
+	startTime = Sys_Milliseconds2();
 
 	// count surfaces
 	numSortedSurfaces = 0;
@@ -2128,7 +2128,7 @@ static void R_CreateWorldVBOs( world_t *worldData )
 
 	Z_Free(surfacesSorted);
 
-	endTime = ri.Milliseconds();
+	endTime = Sys_Milliseconds2();
 	R_Printf(PRINT_ALL, "world VBOs calculation time = %5.2f seconds\n", (endTime - startTime) / 1000.0);
 }
 
@@ -2153,16 +2153,16 @@ static	void R_LoadSurfaces( world_t *worldData, lump_t *surfs, lump_t *verts, lu
 	numFlares = 0;
 
 	if (surfs->filelen % sizeof(*in))
-		ri.Error (ERR_DROP, "LoadMap: funny lump size in %s",worldData->name);
+		R_Error (ERR_DROP, "LoadMap: funny lump size in %s",worldData->name);
 	count = surfs->filelen / sizeof(*in);
 
 	dv = (drawVert_t *)(fileBase + verts->fileofs);
 	if (verts->filelen % sizeof(*dv))
-		ri.Error (ERR_DROP, "LoadMap: funny lump size in %s",worldData->name);
+		R_Error (ERR_DROP, "LoadMap: funny lump size in %s",worldData->name);
 
 	indexes = (int *)(fileBase + indexLump->fileofs);
 	if ( indexLump->filelen % sizeof(*indexes))
-		ri.Error (ERR_DROP, "LoadMap: funny lump size in %s",worldData->name);
+		R_Error (ERR_DROP, "LoadMap: funny lump size in %s",worldData->name);
 
 	out = (msurface_t *)Hunk_Alloc ( count * sizeof(*out), h_low );	
 
@@ -2187,7 +2187,7 @@ static	void R_LoadSurfaces( world_t *worldData, lump_t *surfs, lump_t *verts, lu
 		{
 			//R_Printf(PRINT_ALL, "Found!\n");
 			if (size != sizeof(float) * 3 * (verts->filelen / sizeof(*dv)))
-				ri.Error(ERR_DROP, "Bad size for %s (%i, expected %i)!", filename, size, (int)((sizeof(float)) * 3 * (verts->filelen / sizeof(*dv))));
+				R_Error(ERR_DROP, "Bad size for %s (%i, expected %i)!", filename, size, (int)((sizeof(float)) * 3 * (verts->filelen / sizeof(*dv))));
 		}
 	}
 
@@ -2249,7 +2249,7 @@ static	void R_LoadSurfaces( world_t *worldData, lump_t *surfs, lump_t *verts, lu
 			numFlares++;
 			break;
 		default:
-			ri.Error( ERR_DROP, "Bad surfaceType" );
+			R_Error( ERR_DROP, "Bad surfaceType" );
 		}
 	}
 
@@ -2286,7 +2286,7 @@ static void R_LoadSubmodels( world_t *worldData, int worldIndex, lump_t *l ) {
 
 	in = (dmodel_t *)(fileBase + l->fileofs);
 	if (l->filelen % sizeof(*in))
-		ri.Error (ERR_DROP, "LoadMap: funny lump size in %s",worldData->name);
+		R_Error (ERR_DROP, "LoadMap: funny lump size in %s",worldData->name);
 	count = l->filelen / sizeof(*in);
 
 	worldData->numBModels = count;
@@ -2298,7 +2298,7 @@ static void R_LoadSubmodels( world_t *worldData, int worldIndex, lump_t *l ) {
 		model = R_AllocModel();
 
 		if ( model == NULL ) {
-			ri.Error(ERR_DROP, "R_LoadSubmodels: R_AllocModel() failed");
+			R_Error(ERR_DROP, "R_LoadSubmodels: R_AllocModel() failed");
 		}
 
 		model->type = MOD_BRUSH;
@@ -2357,7 +2357,7 @@ static	void R_LoadNodesAndLeafs (world_t *worldData, lump_t *nodeLump, lump_t *l
 	in = (dnode_t *)(fileBase + nodeLump->fileofs);
 	if (nodeLump->filelen % sizeof(dnode_t) ||
 		leafLump->filelen % sizeof(dleaf_t) ) {
-		ri.Error (ERR_DROP, "LoadMap: funny lump size in %s",worldData->name);
+		R_Error (ERR_DROP, "LoadMap: funny lump size in %s",worldData->name);
 	}
 	numNodes = nodeLump->filelen / sizeof(dnode_t);
 	numLeafs = leafLump->filelen / sizeof(dleaf_t);
@@ -2430,7 +2430,7 @@ static	void R_LoadShaders( world_t *worldData, lump_t *l ) {
 	
 	in = (dshader_t *)(fileBase + l->fileofs);
 	if (l->filelen % sizeof(*in))
-		ri.Error (ERR_DROP, "LoadMap: funny lump size in %s",worldData->name);
+		R_Error (ERR_DROP, "LoadMap: funny lump size in %s",worldData->name);
 	count = l->filelen / sizeof(*in);
 	out = (dshader_t *)Hunk_Alloc ( count*sizeof(*out), h_low );
 
@@ -2459,7 +2459,7 @@ static	void R_LoadMarksurfaces (world_t *worldData, lump_t *l)
 	
 	in = (int *)(fileBase + l->fileofs);
 	if (l->filelen % sizeof(*in))
-		ri.Error (ERR_DROP, "LoadMap: funny lump size in %s",worldData->name);
+		R_Error (ERR_DROP, "LoadMap: funny lump size in %s",worldData->name);
 	count = l->filelen / sizeof(*in);
 	out = (int *)Hunk_Alloc ( count*sizeof(*out), h_low);	
 
@@ -2488,7 +2488,7 @@ static	void R_LoadPlanes( world_t *worldData, lump_t *l ) {
 	
 	in = (dplane_t *)(fileBase + l->fileofs);
 	if (l->filelen % sizeof(*in))
-		ri.Error (ERR_DROP, "LoadMap: funny lump size in %s",worldData->name);
+		R_Error (ERR_DROP, "LoadMap: funny lump size in %s",worldData->name);
 	count = l->filelen / sizeof(*in);
 	out = (cplane_t *)Hunk_Alloc ( count*2*sizeof(*out), h_low);	
 	
@@ -2531,7 +2531,7 @@ static	void R_LoadFogs( world_t *worldData, lump_t *l, lump_t *brushesLump, lump
 
 	fogs = (dfog_t *)(fileBase + l->fileofs);
 	if (l->filelen % sizeof(*fogs)) {
-		ri.Error (ERR_DROP, "LoadMap: funny lump size in %s",worldData->name);
+		R_Error (ERR_DROP, "LoadMap: funny lump size in %s",worldData->name);
 	}
 	count = l->filelen / sizeof(*fogs);
 
@@ -2547,13 +2547,13 @@ static	void R_LoadFogs( world_t *worldData, lump_t *l, lump_t *brushesLump, lump
 
 	brushes = (dbrush_t *)(fileBase + brushesLump->fileofs);
 	if (brushesLump->filelen % sizeof(*brushes)) {
-		ri.Error (ERR_DROP, "LoadMap: funny lump size in %s",worldData->name);
+		R_Error (ERR_DROP, "LoadMap: funny lump size in %s",worldData->name);
 	}
 	brushesCount = brushesLump->filelen / sizeof(*brushes);
 
 	sides = (dbrushside_t *)(fileBase + sidesLump->fileofs);
 	if (sidesLump->filelen % sizeof(*sides)) {
-		ri.Error (ERR_DROP, "LoadMap: funny lump size in %s",worldData->name);
+		R_Error (ERR_DROP, "LoadMap: funny lump size in %s",worldData->name);
 	}
 	sidesCount = sidesLump->filelen / sizeof(*sides);
 
@@ -2571,14 +2571,14 @@ static	void R_LoadFogs( world_t *worldData, lump_t *l, lump_t *brushesLump, lump
 		else
 		{
 			if ( (unsigned)out->originalBrushNumber >= brushesCount ) {
-				ri.Error( ERR_DROP, "fog brushNumber out of range" );
+				R_Error( ERR_DROP, "fog brushNumber out of range" );
 			}
 			brush = brushes + out->originalBrushNumber;
 
 			firstSide = LittleLong( brush->firstSide );
 
 				if ( (unsigned)firstSide > sidesCount - 6 ) {
-				ri.Error( ERR_DROP, "fog brush sideNumber out of range" );
+				R_Error( ERR_DROP, "fog brush sideNumber out of range" );
 			}
 
 			// brushes are always sorted with the axial sides first
@@ -2700,7 +2700,7 @@ void R_LoadLightGrid( world_t *worldData, lump_t *l ) {
 
 			if (size != sizeof(float) * 6 * numGridDataElements)
 			{
-				ri.Error(ERR_DROP, "Bad size for %s (%i, expected %i)!", filename, size, (int)(sizeof(float)) * 6 * numGridDataElements);
+				R_Error(ERR_DROP, "Bad size for %s (%i, expected %i)!", filename, size, (int)(sizeof(float)) * 6 * numGridDataElements);
 			}
 
 			worldData->hdrLightGrid = (float *)Hunk_Alloc(size, h_low);
@@ -3179,7 +3179,7 @@ static void R_MergeLeafSurfaces(world_t *worldData)
 
 	int startTime, endTime;
 
-	startTime = ri.Milliseconds();
+	startTime = Sys_Milliseconds2();
 
 	numWorldSurfaces = worldData->numWorldSurfaces;
 
@@ -3487,7 +3487,7 @@ static void R_MergeLeafSurfaces(world_t *worldData)
 		mergedSurf++;
 	}
 
-	endTime = ri.Milliseconds();
+	endTime = Sys_Milliseconds2();
 
 	R_Printf(PRINT_ALL, "Processed %d surfaces into %d merged, %d unmerged in %5.2f seconds\n", 
 		numWorldSurfaces, numMergedSurfaces, numUnmergedSurfaces, (endTime - startTime) / 1000.0f);
@@ -3760,7 +3760,7 @@ world_t *R_LoadBSP(const char *name, int *bspIndex)
 	{
 		if (bspIndex == nullptr)
 		{
-			ri.Error (ERR_DROP, "RE_LoadWorldMap: %s not found", name);
+			R_Error (ERR_DROP, "RE_LoadWorldMap: %s not found", name);
 		}
 
 		return nullptr;
@@ -3778,7 +3778,7 @@ world_t *R_LoadBSP(const char *name, int *bspIndex)
 	int bspVersion = LittleLong(header->version);
 	if (bspVersion != BSP_VERSION)
 	{
-		ri.Error(
+		R_Error(
 			ERR_DROP,
 			"R_LoadBSP: %s has wrong version number (%i should be %i)", 
 			name,
@@ -3873,7 +3873,7 @@ Called directly from cgame
 void RE_LoadWorldMap( const char *name ) {
 	if (tr.worldMapLoaded)
 	{
-		ri.Error(ERR_DROP, "ERROR: attempted to redundantly load world map");
+		R_Error(ERR_DROP, "ERROR: attempted to redundantly load world map");
 	}
 
 	// set default map light scale

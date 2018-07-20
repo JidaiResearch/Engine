@@ -2678,7 +2678,7 @@ int ragTraceCount = 0;
 void Rag_Trace( trace_t *results, const vec3_t start, const vec3_t mins, const vec3_t maxs, const vec3_t end, const int passEntityNum, const int contentmask, const EG2_Collision eG2TraceType, const int useLod )
 {
 #ifdef _DEBUG
-	int ragPreTrace = ri.Milliseconds();
+	int ragPreTrace = Sys_Milliseconds2();
 #endif
 	if ( CGVMLoaded() )
 	{
@@ -2704,7 +2704,7 @@ void Rag_Trace( trace_t *results, const vec3_t start, const vec3_t mins, const v
 	}
 
 #ifdef _DEBUG
-	int ragPostTrace = ri.Milliseconds();
+	int ragPostTrace = Sys_Milliseconds2();
 
 	ragTraceTime += (ragPostTrace - ragPreTrace);
 	if (results->startsolid)

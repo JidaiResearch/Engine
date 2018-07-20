@@ -408,7 +408,7 @@ static GLuint GLSL_CompileGPUShader(
 
 		qglDeleteShader(shader);
 
-		ri.Error(ERR_FATAL, "Couldn't compile shader");
+		R_Error(ERR_FATAL, "Couldn't compile shader");
 		return 0;
 	}
 
@@ -505,7 +505,7 @@ static void GLSL_LinkProgram(GLuint program)
 	{
 		GLSL_PrintProgramInfoLog(program, qfalse);
 		R_Printf(PRINT_ALL, "\n");
-		ri.Error(ERR_FATAL, "shaders failed to link");
+		R_Error(ERR_FATAL, "shaders failed to link");
 	}
 }
 
@@ -1363,7 +1363,7 @@ static int GLSL_LoadGPUProgramGeneric(
 		if (!GLSL_LoadGPUShader(builder, &tr.genericShader[i], "generic", attribs, NO_XFB_VARS,
 				extradefines, *programDesc))
 		{
-			ri.Error(ERR_FATAL, "Could not load generic shader!");
+			R_Error(ERR_FATAL, "Could not load generic shader!");
 		}
 
 		GLSL_InitUniforms(&tr.genericShader[i]);
@@ -1420,7 +1420,7 @@ static int GLSL_LoadGPUProgramFogPass(
 		if (!GLSL_LoadGPUShader(builder, &tr.fogShader[i], "fogpass", attribs, NO_XFB_VARS,
 				extradefines, *programDesc))
 		{
-			ri.Error(ERR_FATAL, "Could not load fogpass shader!");
+			R_Error(ERR_FATAL, "Could not load fogpass shader!");
 		}
 
 		GLSL_InitUniforms(&tr.fogShader[i]);
@@ -1456,7 +1456,7 @@ static int GLSL_LoadGPUProgramDLight(
 		if (!GLSL_LoadGPUShader(builder, &tr.dlightShader[i], "dlight", attribs, NO_XFB_VARS,
 				extradefines, *programDesc))
 		{
-			ri.Error(ERR_FATAL, "Could not load dlight shader!");
+			R_Error(ERR_FATAL, "Could not load dlight shader!");
 		}
 
 		GLSL_InitUniforms(&tr.dlightShader[i]);
@@ -1602,7 +1602,7 @@ static int GLSL_LoadGPUProgramLightAll(
 		if (!GLSL_LoadGPUShader(builder, &tr.lightallShader[i], "lightall", attribs, NO_XFB_VARS,
 				extradefines, *programDesc))
 		{
-			ri.Error(ERR_FATAL, "Could not load lightall shader!");
+			R_Error(ERR_FATAL, "Could not load lightall shader!");
 		}
 
 		GLSL_InitUniforms(&tr.lightallShader[i]);
@@ -1650,7 +1650,7 @@ static int GLSL_LoadGPUProgramBasicWithDefinitions(
 			extraDefines,
 			*programDesc))
 	{
-		ri.Error(ERR_FATAL, "Could not load %s shader!", programName);
+		R_Error(ERR_FATAL, "Could not load %s shader!", programName);
 	}
 
 	return 1;
@@ -1830,7 +1830,7 @@ static int GLSL_LoadGPUProgramCalcLuminanceLevel(
 		if (!GLSL_LoadGPUShader(builder, &tr.calclevels4xShader[i], "calclevels4x", attribs,
 				NO_XFB_VARS, extradefines, *programDesc))
 		{
-			ri.Error(ERR_FATAL, "Could not load calclevels4x shader!");
+			R_Error(ERR_FATAL, "Could not load calclevels4x shader!");
 		}
 
 		GLSL_InitUniforms(&tr.calclevels4xShader[i]);
@@ -1877,7 +1877,7 @@ static int GLSL_LoadGPUProgramShadowMask(
 	if (!GLSL_LoadGPUShader(builder, &tr.shadowmaskShader, "shadowmask", attribs, NO_XFB_VARS,
 			extradefines, *programDesc))
 	{
-		ri.Error(ERR_FATAL, "Could not load shadowmask shader!");
+		R_Error(ERR_FATAL, "Could not load shadowmask shader!");
 	}
 
 	GLSL_InitUniforms(&tr.shadowmaskShader);
@@ -1962,7 +1962,7 @@ static int GLSL_LoadGPUProgramDepthBlur(
 		if (!GLSL_LoadGPUShader(builder, &tr.depthBlurShader[i], "depthBlur", attribs, NO_XFB_VARS,
 				extradefines, *programDesc))
 		{
-			ri.Error(ERR_FATAL, "Could not load depthBlur shader!");
+			R_Error(ERR_FATAL, "Could not load depthBlur shader!");
 		}
 
 		GLSL_InitUniforms(&tr.depthBlurShader[i]);
@@ -1997,13 +1997,13 @@ static int GLSL_LoadGPUProgramGaussianBlur(
 	if (!GLSL_LoadGPUShader(builder, &tr.gaussianBlurShader[0], "gaussian_blur", attribs,
 			NO_XFB_VARS, extradefines, *programDesc))
 	{
-		ri.Error(ERR_FATAL, "Could not load gaussian_blur (X-direction) shader!");
+		R_Error(ERR_FATAL, "Could not load gaussian_blur (X-direction) shader!");
 	}
 
 	if (!GLSL_LoadGPUShader(builder, &tr.gaussianBlurShader[1], "gaussian_blur", attribs,
 			NO_XFB_VARS, nullptr, *programDesc))
 	{
-		ri.Error(ERR_FATAL, "Could not load gaussian_blur (Y-direction) shader!");
+		R_Error(ERR_FATAL, "Could not load gaussian_blur (Y-direction) shader!");
 	}
 
 	int numPrograms = 0;
@@ -2084,7 +2084,7 @@ static int GLSL_LoadGPUProgramSurfaceSprites(
 		if (!GLSL_LoadGPUShader(builder, program, "surface_sprites", attribs, NO_XFB_VARS,
 				extradefines, *programDesc))
 		{
-			ri.Error(ERR_FATAL, "Could not load surface sprites shader!");
+			R_Error(ERR_FATAL, "Could not load surface sprites shader!");
 		}
 
 		GLSL_InitUniforms(program);
@@ -2185,7 +2185,7 @@ void GLSL_LoadGPUShaders()
 
 	R_IssuePendingRenderCommands();
 
-	int startTime = ri.Milliseconds();
+	int startTime = Sys_Milliseconds2();
 
 	Allocator allocator(512 * 1024);
 	ShaderProgramBuilder builder;
@@ -2216,7 +2216,7 @@ void GLSL_LoadGPUShaders()
 
 	R_Printf(PRINT_ALL, "loaded %i GLSL shaders (%i gen %i light %i etc) in %5.2f seconds\n", 
 		numGenShaders + numLightShaders + numEtcShaders, numGenShaders, numLightShaders, 
-		numEtcShaders, (ri.Milliseconds() - startTime) / 1000.0);
+		numEtcShaders, (Sys_Milliseconds2() - startTime) / 1000.0);
 }
 
 void GLSL_ShutdownGPUShaders(void)

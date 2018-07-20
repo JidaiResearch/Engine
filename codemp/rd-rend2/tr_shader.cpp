@@ -478,7 +478,7 @@ static void ParseTexMod( const char *_text, shaderStage_t *stage )
 	texModInfo_t *tmi;
 
 	if ( stage->bundle[0].numTexMods == TR_MAX_TEXMODS ) {
-		ri.Error( ERR_DROP, "ERROR: too many tcMod stages in shader '%s'", shader.name );
+		R_Error( ERR_DROP, "ERROR: too many tcMod stages in shader '%s'", shader.name );
 		return;
 	}
 
@@ -4608,7 +4608,7 @@ static void ScanAndLoadShaderFiles( void )
 		summand = FS_ReadFile( filename, (void **)&buffers[i] );
 		
 		if ( !buffers[i] )
-			ri.Error( ERR_DROP, "Couldn't load %s", filename );
+			R_Error( ERR_DROP, "Couldn't load %s", filename );
 		
 		// Do a simple check on the shader structure in that file to make sure one bad shader file cannot fuck up all other shaders.
 		p = buffers[i];

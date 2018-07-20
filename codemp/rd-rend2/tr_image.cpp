@@ -336,7 +336,7 @@ static void ResampleTexture( byte *in, int inwidth, int inheight, byte *out,
 	byte	*pix1, *pix2, *pix3, *pix4;
 
 	if (outwidth>2048)
-		ri.Error(ERR_DROP, "ResampleTexture: max width");
+		R_Error(ERR_DROP, "ResampleTexture: max width");
 								
 	fracstep = inwidth*0x10000/outwidth;
 
@@ -2368,7 +2368,7 @@ image_t *R_CreateImage( const char *name, byte *pic, int width, int height, imgT
 	int         glWrapClampMode;
 
 	if (strlen(name) >= MAX_QPATH ) {
-		ri.Error (ERR_DROP, "R_CreateImage: \"%s\" is too long", name);
+		R_Error (ERR_DROP, "R_CreateImage: \"%s\" is too long", name);
 	}
 	if ( !strncmp( name, "*lightmap", 9 ) ) {
 		isLightmap = qtrue;

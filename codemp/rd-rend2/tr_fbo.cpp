@@ -86,7 +86,7 @@ qboolean R_CheckFBO(const FBO_t * fbo)
 
 		default:
 			R_Printf(PRINT_WARNING, "R_CheckFBO: (%s) unknown error 0x%X\n", fbo->name, code);
-			//ri.Error(ERR_FATAL, "R_CheckFBO: (%s) unknown error 0x%X", fbo->name, code);
+			//R_Error(ERR_FATAL, "R_CheckFBO: (%s) unknown error 0x%X", fbo->name, code);
 			//assert(0);
 			break;
 	}
@@ -105,22 +105,22 @@ FBO_t          *FBO_Create(const char *name, int width, int height)
 
 	if(strlen(name) >= MAX_QPATH)
 	{
-		ri.Error(ERR_DROP, "FBO_Create: \"%s\" is too long", name);
+		R_Error(ERR_DROP, "FBO_Create: \"%s\" is too long", name);
 	}
 
 	if(width <= 0 || width > glRefConfig.maxRenderbufferSize)
 	{
-		ri.Error(ERR_DROP, "FBO_Create: bad width %i", width);
+		R_Error(ERR_DROP, "FBO_Create: bad width %i", width);
 	}
 
 	if(height <= 0 || height > glRefConfig.maxRenderbufferSize)
 	{
-		ri.Error(ERR_DROP, "FBO_Create: bad height %i", height);
+		R_Error(ERR_DROP, "FBO_Create: bad height %i", height);
 	}
 
 	if(tr.numFBOs == MAX_FBOS)
 	{
-		ri.Error(ERR_DROP, "FBO_Create: MAX_FBOS hit");
+		R_Error(ERR_DROP, "FBO_Create: MAX_FBOS hit");
 	}
 
 	fbo = tr.fbos[tr.numFBOs] = (FBO_t *)Hunk_Alloc(sizeof(*fbo), h_low);

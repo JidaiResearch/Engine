@@ -190,7 +190,7 @@ void *R_GetCommandBuffer( int bytes ) {
 	// always leave room for the end of list command
 	if ( cmdList->used + bytes + 4 > MAX_RENDER_COMMANDS ) {
 		if ( bytes > MAX_RENDER_COMMANDS - 4 ) {
-			ri.Error( ERR_FATAL, "R_GetCommandBuffer: bad size %i", bytes );
+			R_Error( ERR_FATAL, "R_GetCommandBuffer: bad size %i", bytes );
 		}
 		// if we run out of room, just start dropping commands
 		return NULL;
@@ -603,7 +603,7 @@ void RE_BeginFrame( stereoFrame_t stereoFrame ) {
 		} else if ( stereoFrame == STEREO_RIGHT ) {
 			cmd->buffer = (int)GL_BACK_RIGHT;
 		} else {
-			ri.Error( ERR_FATAL, "RE_BeginFrame: Stereo is enabled, but stereoFrame was %i", stereoFrame );
+			R_Error( ERR_FATAL, "RE_BeginFrame: Stereo is enabled, but stereoFrame was %i", stereoFrame );
 		}
 	}
 	else
@@ -664,7 +664,7 @@ void RE_BeginFrame( stereoFrame_t stereoFrame ) {
 					return;
 			}
 			else
-				ri.Error( ERR_FATAL, "RE_BeginFrame: Stereo is enabled, but stereoFrame was %i", stereoFrame );
+				R_Error( ERR_FATAL, "RE_BeginFrame: Stereo is enabled, but stereoFrame was %i", stereoFrame );
 
 			R_SetColorMode(colcmd->rgba, stereoFrame, r_anaglyphMode->integer);
 			colcmd->commandId = RC_COLORMASK;
@@ -672,7 +672,7 @@ void RE_BeginFrame( stereoFrame_t stereoFrame ) {
 		else
 		{
 			if(stereoFrame != STEREO_CENTER)
-				ri.Error( ERR_FATAL, "RE_BeginFrame: Stereo is disabled, but stereoFrame was %i", stereoFrame );
+				R_Error( ERR_FATAL, "RE_BeginFrame: Stereo is disabled, but stereoFrame was %i", stereoFrame );
 
 			if( !(cmd = (drawBufferCommand_t *)R_GetCommandBuffer(sizeof(*cmd))) )
 				return;

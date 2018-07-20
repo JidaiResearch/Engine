@@ -94,6 +94,9 @@ int Cvar_VariableIntegerValue   ( const char *var_name                          
 	qboolean     Sys_LowPhysicalMemory  ( void                                                                       ) { return ri.Sys_LowPhysicalMemory  (); }
 	const char * SE_GetString           ( const char * psPackageAndStringReference                                   ) { return ri.SE_GetString           (psPackageAndStringReference); }
 
+	int Sys_Milliseconds2() { return ri.Milliseconds(); }
+	
+
 #endif
 
 void R_Printf(int printLevel, const char *fmt, ...) {
@@ -103,4 +106,13 @@ void R_Printf(int printLevel, const char *fmt, ...) {
 	vsnprintf(buf, sizeof(buf), fmt, args);
 	va_end(args);
 	ri.Printf(printLevel, buf);
+}
+
+void R_Error(int errorLevel, const char *fmt, ...) {
+	char buf[4096];
+	va_list args;
+	va_start (args, fmt);
+	vsnprintf(buf, sizeof(buf), fmt, args);
+	va_end(args);
+	ri.Error(errorLevel, buf);
 }

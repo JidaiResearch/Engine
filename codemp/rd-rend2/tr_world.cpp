@@ -633,7 +633,7 @@ static mnode_t *R_PointInLeaf( const vec3_t p ) {
 	cplane_t	*plane;
 	
 	if ( !tr.world ) {
-		ri.Error (ERR_DROP, "R_PointInLeaf: bad model");
+		R_Error(ERR_DROP, "R_PointInLeaf: bad model");
 	}
 
 	node = tr.world->nodes;

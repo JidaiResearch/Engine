@@ -206,7 +206,7 @@ void RE_AddRefEntityToScene( const refEntity_t *ent ) {
 		return;
 	}
 	if ( (int)ent->reType < 0 || ent->reType >= RT_MAX_REF_ENTITY_TYPE ) {
-		ri.Error( ERR_DROP, "RE_AddRefEntityToScene: bad reType %i", ent->reType );
+		R_Error( ERR_DROP, "RE_AddRefEntityToScene: bad reType %i", ent->reType );
 	}
 
 	backEndData->entities[r_numentities].e = *ent;
@@ -478,10 +478,10 @@ void RE_RenderScene( const refdef_t *fd ) {
 		return;
 	}
 
-	startTime = ri.Milliseconds();
+	startTime = Sys_Milliseconds2();
 
 	if (!tr.world && !( fd->rdflags & RDF_NOWORLDMODEL ) ) {
-		ri.Error (ERR_DROP, "R_RenderScene: NULL worldmodel");
+		R_Error(ERR_DROP, "R_RenderScene: NULL worldmodel");
 	}
 
 	RE_BeginScene(fd);
@@ -571,5 +571,5 @@ void RE_RenderScene( const refdef_t *fd ) {
 
 	RE_EndScene();
 
-	tr.frontEndMsec += ri.Milliseconds() - startTime;
+	tr.frontEndMsec += Sys_Milliseconds2() - startTime;
 }

@@ -96,5 +96,5 @@ int Cvar_VariableIntegerValue   ( const char *var_name                          
 	const char * SE_GetString           ( const char * psPackageAndStringReference                                   );
 
 void R_Printf(int printLevel, const char *fmt, ...);
-
+void R_Error(int errorLevel, const char *fmt, ...);
 #endif

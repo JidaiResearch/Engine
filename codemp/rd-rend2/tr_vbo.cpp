@@ -68,7 +68,7 @@ static GLenum GetGLBufferUsage ( vboUsage_t usage )
 			return GL_STREAM_COPY;
 
 		default:
-			ri.Error (ERR_FATAL, "bad vboUsage_t given: %i", usage);
+			R_Error (ERR_FATAL, "bad vboUsage_t given: %i", usage);
 			return GL_INVALID_OPERATION;
 	}
 }
@@ -83,7 +83,7 @@ VBO_t *R_CreateVBO(byte * vertexes, int vertexesSize, vboUsage_t usage)
 	VBO_t          *vbo;
 
 	if ( tr.numVBOs == MAX_VBOS ) {
-		ri.Error( ERR_DROP, "R_CreateVBO: MAX_VBOS hit");
+		R_Error( ERR_DROP, "R_CreateVBO: MAX_VBOS hit");
 	}
 
 	R_IssuePendingRenderCommands();
@@ -132,7 +132,7 @@ IBO_t *R_CreateIBO(byte * indexes, int indexesSize, vboUsage_t usage)
 	IBO_t          *ibo;
 
 	if ( tr.numIBOs == MAX_IBOS ) {
-		ri.Error( ERR_DROP, "R_CreateIBO: MAX_IBOS hit");
+		R_Error( ERR_DROP, "R_CreateIBO: MAX_IBOS hit");
 	}
 
 	R_IssuePendingRenderCommands();
@@ -180,7 +180,7 @@ void R_BindVBO(VBO_t * vbo)
 	if(!vbo)
 	{
 		//R_BindNullVBO();
-		ri.Error(ERR_DROP, "R_BindNullVBO: NULL vbo");
+		R_Error(ERR_DROP, "R_BindNullVBO: NULL vbo");
 		return;
 	}
 
@@ -235,7 +235,7 @@ void R_BindIBO(IBO_t * ibo)
 	if(!ibo)
 	{
 		//R_BindNullIBO();
-		ri.Error(ERR_DROP, "R_BindIBO: NULL ibo");
+		R_Error(ERR_DROP, "R_BindIBO: NULL ibo");
 		return;
 	}
 

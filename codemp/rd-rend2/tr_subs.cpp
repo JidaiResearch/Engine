@@ -35,19 +35,19 @@ void QDECL Com_Printf( const char *msg, ... )
 
 	R_Printf(PRINT_ALL, "%s", text);
 }
-
-void QDECL Com_OPrintf( const char *msg, ... )
-{
-	va_list         argptr;
-	char            text[1024];
-
-	va_start(argptr, msg);
-	Q_vsnprintf(text, sizeof(text), msg, argptr);
-	va_end(argptr);
-
-	ri.OPrintf("%s", text);
-}
-
+//
+//void QDECL Com_OPrintf( const char *msg, ... )
+//{
+//	va_list         argptr;
+//	char            text[1024];
+//
+//	va_start(argptr, msg);
+//	Q_vsnprintf(text, sizeof(text), msg, argptr);
+//	va_end(argptr);
+//
+//	ri.OPrintf("%s", text);
+//}
+//
 void QDECL Com_Error( int level, const char *error, ... )
 {
 	va_list         argptr;
@@ -57,7 +57,7 @@ void QDECL Com_Error( int level, const char *error, ... )
 	Q_vsnprintf(text, sizeof(text), error, argptr);
 	va_end(argptr);
 
-	ri.Error(level, "%s", text);
+	R_Error(level, "%s", text);
 }
 
 //// HUNK

@@ -601,7 +601,7 @@ void GL_CheckErrs( const char *file, int line ) {
 			break;
 	}
 
-	ri.Error( ERR_FATAL, "GL_CheckErrors: %s in %s at line %d", s , file, line);
+	R_Error( ERR_FATAL, "GL_CheckErrors: %s in %s at line %d", s , file, line);
 #endif
 }
 

@@ -1844,7 +1844,7 @@ void R_SortAndSubmitDrawSurfs( drawSurf_t *drawSurfs, int numDrawSurfs ) {
 
 				// no shader should ever have this sort type
 				if ( shader->sort == SS_BAD ) {
-					ri.Error (ERR_DROP, "Shader '%s'with sort == SS_BAD", shader->name );
+					R_Error (ERR_DROP, "Shader '%s'with sort == SS_BAD", shader->name );
 				}
 
 				// if the mirror was completely clipped away, we may need to check another surface
@@ -1960,7 +1960,7 @@ static void R_AddEntitySurface(const trRefdef_t *refdef, trRefEntity_t *ent, int
 					0 /* cubeMap */ );
 				break;
 			default:
-				ri.Error( ERR_DROP, "R_AddEntitySurfaces: Bad modeltype" );
+				R_Error( ERR_DROP, "R_AddEntitySurfaces: Bad modeltype" );
 				break;
 			}
 		}
@@ -1977,7 +1977,7 @@ static void R_AddEntitySurface(const trRefdef_t *refdef, trRefEntity_t *ent, int
 			0 /* cubeMap */ );
 		break;
 	default:
-		ri.Error( ERR_DROP, "R_AddEntitySurfaces: Bad reType" );
+		R_Error( ERR_DROP, "R_AddEntitySurfaces: Bad reType" );
 	}
 }
 
