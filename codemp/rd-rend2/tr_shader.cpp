@@ -4572,7 +4572,7 @@ static void ScanAndLoadShaderFiles( void )
 
 	long sum = 0, summand;
 	// scan for shader files
-	shaderFiles = ri.FS_ListFiles( "shaders", ".shader", &numShaderFiles );
+	shaderFiles = FS_ListFiles( "shaders", ".shader", &numShaderFiles );
 
 	if ( !shaderFiles || !numShaderFiles )
 	{

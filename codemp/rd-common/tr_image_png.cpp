@@ -28,7 +28,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 void user_write_data( png_structp png_ptr, png_bytep data, png_size_t length ) {
 	fileHandle_t fp = *(fileHandle_t*)png_get_io_ptr( png_ptr );
-	ri.FS_Write( data, length, fp );
+	FS_Write( data, length, fp );
 }
 void user_flush_data( png_structp png_ptr ) {
 	//TODO: ri.FS_Flush?

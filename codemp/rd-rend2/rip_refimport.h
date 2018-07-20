@@ -14,7 +14,7 @@ long				FS_FOpenFileRead(const char *qpath, fileHandle_t *file, qboolean uniqueF
 fileHandle_t		FS_FOpenFileWrite(const char *qpath, qboolean safe);
 int					FS_FOpenFileByMode(const char *qpath, fileHandle_t *f, fsMode_t mode);
 qboolean			FS_FileExists(const char *file);
-int					FS_FileIsInPAK(const char *filename);
+int					FS_FileIsInPAK(const char *filename, int *pChecksum);
 char **				FS_ListFiles(const char *directory, const char *extension, int *numfiles);
 int					FS_Write(const void *buffer, int len, fileHandle_t f);
 void				FS_WriteFile(const char *qpath, const void *buffer, int size);

@@ -16,7 +16,7 @@ int          FS_FOpenFileByMode(const char *qpath, fileHandle_t *f, fsMode_t mod
 qboolean     FS_FileExists     (const char *file                                           ) { return ri.FS_FileExists     (file                              ); }
 char **      FS_ListFiles      (const char *directory, const char *extension, int *numfiles) { return ri.FS_ListFiles      (directory, extension, numfiles    ); }
 int          FS_Write          (const void *buffer, int len, fileHandle_t f                ) { return ri.FS_Write          (buffer, len, f                    ); }
-//int FS_FileIsInPAK(const char *filename) { return ri.FS_FileIsInPAK(filename); }
+int          FS_FileIsInPAK    (const char *filename, int *pChecksum                       ) { return ri.FS_FileIsInPAK    (filename, pChecksum               ); }
 
 
 
