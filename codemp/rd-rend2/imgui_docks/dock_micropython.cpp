@@ -78,10 +78,10 @@ CCALL void micropython_eval(char *code);
 
 // todo: put in tr_imports.cpp or something
 CCALL void micropython_init() {
-	ri.micropython_init();
+	micropython_init();
 }
 CCALL void micropython_eval(char *code) {
-	ri.micropython_eval(code);
+	micropython_eval(code);
 }
 
 void DockMicroPython::imgui() {

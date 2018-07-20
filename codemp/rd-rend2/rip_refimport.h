@@ -68,6 +68,21 @@ int Cvar_VariableIntegerValue   ( const char *var_name                          
 	void *     GL_GetProcAddress( const char *name                                                      );
 	qboolean   GL_ExtensionSupported( const char *extension                                             );
 
+
+
+
+	void *          CM_GetCachedMapDiskImage       ( void                                             ); 
+	void            CM_SetCachedMapDiskImage       ( void *ptr                                        ); 
+	void            CM_SetUsingCache               ( qboolean usingCache                              ); 
+	IHeapAllocator *GetG2VertSpaceServer           ( void                                             ); 
+	bool            PD_Store                       ( const char *name, const void *data, size_t size  ); 
+	const void *    PD_Load                        ( const char *name, size_t *size                   ); 
+	int             Key_GetCatcher                 (                                                  ); 
+	const char *    Clipboard_Get                  (                                                  ); 
+	void            Clipboard_Set                  ( const char *text                                 ); 
+	void            micropython_init               (                                                  ); 
+	void            micropython_eval               ( char *code                                       );
+
 void R_Printf(int printLevel, const char *fmt, ...);
 
 #endif

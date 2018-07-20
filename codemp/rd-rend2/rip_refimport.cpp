@@ -67,6 +67,22 @@ int Cvar_VariableIntegerValue   ( const char *var_name                          
 	void *     GL_GetProcAddress( const char *name                                                      ) { return ri.GL_GetProcAddress               (name                                 ); }
 	qboolean   GL_ExtensionSupported( const char *extension                                             ) { return ri.GL_ExtensionSupported           (extension                            ); }
 
+
+
+	void *          CM_GetCachedMapDiskImage       ( void                                             ) { return ri.CM_GetCachedMapDiskImage    (                 ); }
+	void            CM_SetCachedMapDiskImage       ( void *ptr                                        ) {        ri.CM_SetCachedMapDiskImage    (ptr              ); }
+	void            CM_SetUsingCache               ( qboolean usingCache                              ) {        ri.CM_SetUsingCache            (usingCache       ); }
+	IHeapAllocator *GetG2VertSpaceServer           ( void                                             ) { return ri.GetG2VertSpaceServer        (                 ); }
+	bool            PD_Store                       ( const char *name, const void *data, size_t size  ) { return ri.PD_Store                    (name, data, size ); }
+	const void *    PD_Load                        ( const char *name, size_t *size                   ) { return ri.PD_Load                     (name, size       ); }
+	int             Key_GetCatcher                 (                                                  ) { return ri.Key_GetCatcher              (                 ); }
+	const char *    Clipboard_Get                  (                                                  ) { return ri.Clipboard_Get               (                 ); }
+	void            Clipboard_Set                  ( const char *text                                 ) {        ri.Clipboard_Set               (text             ); }
+	void            micropython_init               (                                                  ) {        ri.micropython_init            (                 ); }
+	void            micropython_eval               ( char *code                                       ) {        ri.micropython_eval            (code             ); }
+	//int             (*js_call)                        (void *ctx, char *function, char *params, ...      ) { return.js_call(ctx, function, params, ...); }
+
+
 #endif
 
 void R_Printf(int printLevel, const char *fmt, ...) {

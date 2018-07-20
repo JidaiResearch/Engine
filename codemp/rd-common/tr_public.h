@@ -356,6 +356,7 @@ typedef struct refimport_s {
 	qboolean		(*GL_ExtensionSupported)			( const char *extension );
 #endif
 
+#if 1
 	// gpvCachedMapDiskImage
 	void *			(*CM_GetCachedMapDiskImage)			( void );
 	void			(*CM_SetCachedMapDiskImage)			( void *ptr );
@@ -377,6 +378,8 @@ typedef struct refimport_s {
 
 	void (*micropython_init)();
 	void (*micropython_eval)(char *code);
+#endif
+
 	int (*js_call)(void *ctx, char *function, char *params, ...);
 } refimport_t;
 
