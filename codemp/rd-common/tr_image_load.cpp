@@ -23,7 +23,8 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "tr_common.h"
-#include "rip_refimport.h"
+#include "../rd-rend2/rip_refimport.h"
+
 const int MAX_IMAGE_LOADERS = 10;
 struct ImageLoaderMap
 {

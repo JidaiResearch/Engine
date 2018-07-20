@@ -283,6 +283,7 @@ if(BuildMPEngine OR BuildMPDed)
 	set(MPEngineAndDedG2Files
 		"${MPDir}/ghoul2/G2.h"
 		"${MPDir}/ghoul2/G2_gore.h"
+		"${MPDir}/ghoul2/G2_gore.cpp"
 		"${MPDir}/ghoul2/ghoul2_shared.h"
 		"${MPDir}/ghoul2/g2_local.h"
 		)
@@ -360,12 +361,12 @@ if(BuildMPEngine)
 
 	#    Dependencies
 
-	if (NOT WIN32)
+	#if (NOT WIN32)
 		# OpenGL
 		find_package(OpenGL REQUIRED)
 		set(MPEngineIncludeDirectories ${MPEngineIncludeDirectories} ${OPENGL_INCLUDE_DIR})
 		set(MPEngineLibraries ${MPEngineLibraries} ${OPENGL_LIBRARIES})
-	endif()
+	#endif()
 
 	# OpenAL (is optionally included for Windows)
 	if (MSVC AND NOT WIN64)
@@ -963,6 +964,91 @@ source_group("craft" FILES ${mp_client_craft})
 set(MPEngineFiles ${MPEngineFiles} ${mp_client_craft})
 
 
+
+
+set(MPRend2RdCommonFiles
+	"${MPDir}/rd-common/mdx_format.h"
+	"${MPDir}/rd-common/tr_common.h"
+	"${MPDir}/rd-common/tr_font.cpp"
+	"${MPDir}/rd-common/tr_font.h"
+	"${MPDir}/rd-common/tr_image_load.cpp"
+	"${MPDir}/rd-common/tr_image_jpg.cpp"
+	"${MPDir}/rd-common/tr_image_tga.cpp"
+	"${MPDir}/rd-common/tr_image_png.cpp"
+	"${MPDir}/rd-common/tr_noise.cpp"
+	"${MPDir}/rd-common/tr_public.h"
+	"${MPDir}/rd-common/tr_types.h")
+source_group("rd-common" FILES ${MPRend2RdCommonFiles})
+set(MPEngineFiles ${MPEngineFiles} ${MPRend2RdCommonFiles})
+
+
+
+set(MPRend2Files
+	"${MPDir}/rd-rend2/iqm.h"
+	"${MPDir}/rd-rend2/glext.h"
+	"${MPDir}/rd-rend2/qgl.h"
+	"${MPDir}/rd-rend2/G2_API.cpp"
+	"${MPDir}/rd-rend2/G2_bolts.cpp"
+	"${MPDir}/rd-rend2/G2_bones.cpp"
+	"${MPDir}/rd-rend2/G2_misc.cpp"
+	"${MPDir}/rd-rend2/G2_surfaces.cpp"
+	"${MPDir}/rd-rend2/tr_allocator.cpp"
+	"${MPDir}/rd-rend2/tr_allocator.h"
+	"${MPDir}/rd-rend2/tr_animation.cpp"
+	"${MPDir}/rd-rend2/tr_backend.cpp"
+	"${MPDir}/rd-rend2/tr_bsp.cpp"
+	"${MPDir}/rd-rend2/tr_cache.cpp"
+	"${MPDir}/rd-rend2/tr_cache.h"
+	"${MPDir}/rd-rend2/tr_cmds.cpp"
+	"${MPDir}/rd-rend2/tr_compose_models.cpp"
+	"${MPDir}/rd-rend2/tr_compose_models.h"
+	"${MPDir}/rd-rend2/rip_refimport.cpp"
+	"${MPDir}/rd-rend2/rip_refimport.h"
+	"${MPDir}/rd-rend2/tr_curve.cpp"
+	"${MPDir}/rd-rend2/tr_decals.cpp"
+	"${MPDir}/rd-rend2/tr_extensions.cpp"
+	"${MPDir}/rd-rend2/tr_extramath.cpp"
+	"${MPDir}/rd-rend2/tr_extramath.h"
+	"${MPDir}/rd-rend2/tr_extratypes.h"
+	"${MPDir}/rd-rend2/tr_fbo.cpp"
+	"${MPDir}/rd-rend2/tr_fbo.h"
+	"${MPDir}/rd-rend2/tr_flares.cpp"
+	"${MPDir}/rd-rend2/tr_ghoul2.cpp"
+	"${MPDir}/rd-rend2/tr_glsl.cpp"
+	"${MPDir}/rd-rend2/tr_glsl_parse.cpp"
+	"${MPDir}/rd-rend2/tr_image.cpp"
+	"${MPDir}/rd-rend2/tr_imgui.cpp"
+	"${MPDir}/rd-rend2/tr_init.cpp"
+	"${MPDir}/rd-rend2/tr_light.cpp"
+	"${MPDir}/rd-rend2/tr_local.h"
+	"${MPDir}/rd-rend2/tr_main.cpp"
+	"${MPDir}/rd-rend2/tr_marks.cpp"
+	"${MPDir}/rd-rend2/tr_mesh.cpp"
+	"${MPDir}/rd-rend2/tr_model.cpp"
+	"${MPDir}/rd-rend2/tr_model_iqm.cpp"
+	"${MPDir}/rd-rend2/tr_postprocess.cpp"
+	"${MPDir}/rd-rend2/tr_postprocess.h"
+	"${MPDir}/rd-rend2/tr_scene.cpp"
+	"${MPDir}/rd-rend2/tr_shade.cpp"
+	"${MPDir}/rd-rend2/tr_shade_calc.cpp"
+	"${MPDir}/rd-rend2/tr_shader.cpp"
+	"${MPDir}/rd-rend2/tr_shadows.cpp"
+	"${MPDir}/rd-rend2/tr_skin.cpp"
+	"${MPDir}/rd-rend2/tr_sky.cpp"
+	"${MPDir}/rd-rend2/tr_subs.cpp"
+	"${MPDir}/rd-rend2/tr_surface.cpp"
+	"${MPDir}/rd-rend2/tr_vbo.cpp"
+	"${MPDir}/rd-rend2/tr_world.cpp"
+	"${MPDir}/rd-rend2/tr_weather.cpp"
+	"${MPDir}/rd-rend2/tr_weather.h"
+	"${MPDir}/rd-rend2/glsl_shaders.cpp"
+	"${MPDir}/rd-rend2/glsl_shaders.h"
+	)
+source_group("renderer" FILES ${MPRend2Files})
+#file(GLOB MPRend2GLSLFiles "${MPDir}/rd-rend2/glsl/*.glsl")
+#source_group("renderer\\glsl" FILES ${MPRend2GLSLFiles})
+set(MPEngineFiles ${MPEngineFiles} ${MPRend2Files})
+
 #set(mp_client_duktape_openjk
 #	"${MPDir}/duktape_openjk/game.cpp"
 #	"${MPDir}/duktape_openjk/game.h"
@@ -1081,9 +1167,60 @@ set(MPEngineFiles ${MPEngineFiles} ${mp_client_root})
 	# Hide symbols not explicitly marked public.
 	set_property(TARGET ${MPEngine} APPEND PROPERTY COMPILE_OPTIONS ${OPENJK_VISIBILITY_FLAGS})
 
+	
+	
+	#if(UseInternalSDL2)
+		if(CMAKE_SIZEOF_VOID_P EQUAL 4)
+			set(MPEngineLibraries
+				${MPEngineLibraries}
+				${OpenJKLibDir}/SDL2/lib/x86/SDL2main.lib
+				${OpenJKLibDir}/SDL2/lib/x86/SDL2.lib
+				)
+		else()
+			set(MPEngineLibraries
+				${MPEngineLibraries}
+				${OpenJKLibDir}/SDL2/lib/x64/SDL2main.lib
+				${OpenJKLibDir}/SDL2/lib/x64/SDL2.lib
+				)
+		endif()
+
+		set(MPEngineIncludeDirectories
+			${MPEngineIncludeDirectories}
+			${OpenJKLibDir}/SDL2/include
+			)
+	#else()
+	#	find_package(SDL2 REQUIRED)
+	#	set(MPEngineIncludeDirectories ${MPEngineIncludeDirectories} ${SDL2_INCLUDE_DIR})
+	#	set(MPEngineLibraries ${MPEngineLibraries} ${SDL2_LIBRARY})
+	#endif()		
+	
+# Transparently use either bundled or system libjpeg.
+list(APPEND MPEngineIncludeDirectories ${JPEG_INCLUDE_DIR})
+list(APPEND MPEngineLibraries          ${JPEG_LIBRARIES})
+
+# Transparently use either bundled or system libpng.  Order is important --
+# libpng used zlib, so it must come before it on the linker command line.
+list(APPEND MPEngineIncludeDirectories ${PNG_INCLUDE_DIRS})
+list(APPEND MPEngineLibraries          ${PNG_LIBRARIES})
+
+# Transparently use either bundled or system zlib.
+list(APPEND MPEngineIncludeDirectories ${ZLIB_INCLUDE_DIR})
+list(APPEND MPEngineLibraries          ${ZLIB_LIBRARIES})
+
+# Transparently use our bundled minizip.
+list(APPEND MPEngineIncludeDirectories ${MINIZIP_INCLUDE_DIRS})
+list(APPEND MPEngineLibraries          ${MINIZIP_LIBRARIES})	
+	
+	
+	
+	
 	set_target_properties(${MPEngine} PROPERTIES INCLUDE_DIRECTORIES "${MPEngineIncludeDirectories}")
 	set_target_properties(${MPEngine} PROPERTIES PROJECT_LABEL "MP Client")
 	target_link_libraries(${MPEngine} ${MPEngineLibraries})
+	
+	
+
+	
 	
 	#if(WIN32)
 	#target_include_directories(${MPEngine} PRIVATE "${MPDir}/rd-rend2/micropython/ports/msvc/")

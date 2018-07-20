@@ -74,15 +74,15 @@ static int repl_callback(ImGuiTextEditCallbackData *data) {
 
 CCALL void micropython_init();
 CCALL void micropython_eval(char *code);
-#include "../tr_local.h"
+#include "../rd-rend2/tr_local.h"
 
 // todo: put in tr_imports.cpp or something
-CCALL void micropython_init() {
-	micropython_init();
-}
-CCALL void micropython_eval(char *code) {
-	micropython_eval(code);
-}
+//CCALL void micropython_init() {
+//	micropython_init();
+//}
+//CCALL void micropython_eval(char *code) {
+//	micropython_eval(code);
+//}
 
 void DockMicroPython::imgui() {
 	ImGui::InputTextMultiline("", replbuffer, sizeof replbuffer, ImGui::GetWindowSize() + ImVec2(-15, -35 - 20), ImGuiInputTextFlags_CallbackAlways | ImGuiInputTextFlags_AllowTabInput, repl_callback, (void *)this);

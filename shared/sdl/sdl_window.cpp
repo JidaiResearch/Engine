@@ -50,7 +50,7 @@ cvar_t	*r_centerWindow;
 cvar_t	*r_customwidth;
 cvar_t	*r_customheight;
 cvar_t	*r_swapInterval;
-cvar_t	*r_stereo;
+extern cvar_t	*r_stereo;
 cvar_t	*r_mode;
 cvar_t	*r_displayRefresh;
 
@@ -815,10 +815,6 @@ void WIN_Shutdown( void )
 }
 
 void GLimp_EnableLogging( qboolean enable )
-{
-}
-
-void GLimp_LogComment( char *comment )
 {
 }
 

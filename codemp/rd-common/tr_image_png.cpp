@@ -24,7 +24,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 #include "tr_common.h"
 #include <png.h>
-#include "rip_refimport.h"
+#include "../rd-rend2/rip_refimport.h"
 
 void user_write_data( png_structp png_ptr, png_bytep data, png_size_t length ) {
 	fileHandle_t fp = *(fileHandle_t*)png_get_io_ptr( png_ptr );

@@ -1,7 +1,8 @@
 #include "rip_refimport.h"
 #include "tr_local.h"
 
-#ifndef DEDICATED
+//#ifndef DEDICATED
+#if 0
 
 void         FS_FreeFile       (void *buffer                                               ) {        ri.FS_FreeFile       (buffer                            ); }
 void         FS_FreeFileList   (char **fileList                                            ) {        ri.FS_FreeFileList   (fileList                          ); }
