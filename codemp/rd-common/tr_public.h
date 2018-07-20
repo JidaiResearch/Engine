@@ -266,6 +266,7 @@ typedef struct refimport_s {
 	int				(*Milliseconds)						( void );
 
 	// memory management (can use tr_subs)
+#if 1
 	void *			(*Hunk_AllocateTempMemory)			( int size );
 	void			(*Hunk_FreeTempMemory)				( void *buf );
 	void *			(*Hunk_Alloc)						( int size, ha_pref preference );
@@ -274,6 +275,9 @@ typedef struct refimport_s {
 	void			(*Z_Free)							( void *ptr );
 	int				(*Z_MemSize)						( memtag_t eTag );
 	void			(*Z_MorphMallocTag)					( void *pvBuffer, memtag_t eDesiredTag );
+	qboolean		(*Sys_LowPhysicalMemory)			( void );
+	const char *	(*SE_GetString)						( const char * psPackageAndStringReference );
+#endif
 
 // done
 #if 1
@@ -296,8 +300,6 @@ typedef struct refimport_s {
 	float			(*Cvar_VariableValue)				( const char *var_name );
 	int				(*Cvar_VariableIntegerValue)		( const char *var_name );
 #endif
-	qboolean		(*Sys_LowPhysicalMemory)			( void );
-	const char *	(*SE_GetString)						( const char * psPackageAndStringReference );
 
 	// done
 #if 1

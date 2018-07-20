@@ -83,6 +83,17 @@ int Cvar_VariableIntegerValue   ( const char *var_name                          
 	//int             (*js_call)                        (void *ctx, char *function, char *params, ...      ) { return.js_call(ctx, function, params, ...); }
 
 
+	void *       Hunk_AllocateTempMemory( int size                                                                   ) { return ri.Hunk_AllocateTempMemory(size); }
+	void         Hunk_FreeTempMemory    ( void *buf                                                                  ) {        ri.Hunk_FreeTempMemory    (buf); }
+	void *       Hunk_Alloc             ( int size, ha_pref preference                                               ) { return ri.Hunk_Alloc             (size, preference); }
+	int          Hunk_MemoryRemaining   ( void                                                                       ) { return ri.Hunk_MemoryRemaining   (); }
+	void *       Z_Malloc               ( int iSize, memtag_t eTag, qboolean bZeroit /*= qfalse*/, int iAlign /*= 4*/) { return ri.Z_Malloc               (iSize, eTag, bZeroit, iAlign); }
+	void         Z_Free                 ( void *ptr                                                                  ) {        ri.Z_Free                 (ptr); }
+	int          Z_MemSize              ( memtag_t eTag                                                              ) { return ri.Z_MemSize              (eTag); }
+	void         Z_MorphMallocTag       ( void *pvBuffer, memtag_t eDesiredTag                                       ) {        ri.Z_MorphMallocTag       (pvBuffer, eDesiredTag); }
+	qboolean     Sys_LowPhysicalMemory  ( void                                                                       ) { return ri.Sys_LowPhysicalMemory  (); }
+	const char * SE_GetString           ( const char * psPackageAndStringReference                                   ) { return ri.SE_GetString           (psPackageAndStringReference); }
+
 #endif
 
 void R_Printf(int printLevel, const char *fmt, ...) {

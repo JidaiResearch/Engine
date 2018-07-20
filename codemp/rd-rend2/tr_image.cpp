@@ -1319,7 +1319,7 @@ static void R_MipMap2( byte *in, int inWidth, int inHeight ) {
 
 	outWidth = inWidth >> 1;
 	outHeight = inHeight >> 1;
-	temp = (unsigned int *)ri.Hunk_AllocateTempMemory( outWidth * outHeight * 4 );
+	temp = (unsigned int *)Hunk_AllocateTempMemory( outWidth * outHeight * 4 );
 
 	inWidthMask = inWidth - 1;
 	inHeightMask = inHeight - 1;
@@ -1354,7 +1354,7 @@ static void R_MipMap2( byte *in, int inWidth, int inHeight ) {
 	}
 
 	Com_Memcpy( in, temp, outWidth * outHeight * 4 );
-	ri.Hunk_FreeTempMemory( temp );
+	Hunk_FreeTempMemory( temp );
 }
 
 
@@ -1366,7 +1366,7 @@ static void R_MipMapsRGB( byte *in, int inWidth, int inHeight)
 
 	outWidth = inWidth >> 1;
 	outHeight = inHeight >> 1;
-	temp = (byte *)ri.Hunk_AllocateTempMemory( outWidth * outHeight * 4 );
+	temp = (byte *)Hunk_AllocateTempMemory( outWidth * outHeight * 4 );
 
 	for ( i = 0 ; i < outHeight ; i++ ) {
 		byte *outbyte = temp + (  i          * outWidth ) * 4;
@@ -1396,7 +1396,7 @@ static void R_MipMapsRGB( byte *in, int inWidth, int inHeight)
 	}
 
 	Com_Memcpy( in, temp, outWidth * outHeight * 4 );
-	ri.Hunk_FreeTempMemory( temp );
+	Hunk_FreeTempMemory( temp );
 }
 
 /*
@@ -1649,7 +1649,7 @@ static void RawImage_ScaleToPower2( byte **data, int *inout_width, int *inout_he
 			finalheight >>= 1;
 		}
 
-		*resampledBuffer = (byte *)ri.Hunk_AllocateTempMemory( finalwidth * finalheight * 4 );
+		*resampledBuffer = (byte *)Hunk_AllocateTempMemory( finalwidth * finalheight * 4 );
 
 		if (scaled_width != width || scaled_height != height)
 		{
@@ -1701,7 +1701,7 @@ static void RawImage_ScaleToPower2( byte **data, int *inout_width, int *inout_he
 	else if ( scaled_width != width || scaled_height != height ) {
 		if (data && resampledBuffer)
 		{
-			*resampledBuffer = (byte *)ri.Hunk_AllocateTempMemory( scaled_width * scaled_height * 4 );
+			*resampledBuffer = (byte *)Hunk_AllocateTempMemory( scaled_width * scaled_height * 4 );
 			ResampleTexture (*data, width, height, *resampledBuffer, scaled_width, scaled_height);
 			*data = *resampledBuffer;
 		}
@@ -2122,7 +2122,7 @@ static void Upload32( byte *data, int width, int height, imgType_t type, int fla
 		RawImage_ScaleToPower2(&data, &width, &height, &scaled_width, &scaled_height, type, flags, &resampledBuffer);
 	}
 
-	scaledBuffer = (byte *)ri.Hunk_AllocateTempMemory( sizeof( unsigned ) * scaled_width * scaled_height );
+	scaledBuffer = (byte *)Hunk_AllocateTempMemory( sizeof( unsigned ) * scaled_width * scaled_height );
 
 	//
 	// scan the texture for each channel's max values
@@ -2241,9 +2241,9 @@ done:
 	GL_CheckErrors();
 
 	if ( scaledBuffer != 0 )
-		ri.Hunk_FreeTempMemory( scaledBuffer );
+		Hunk_FreeTempMemory( scaledBuffer );
 	if ( resampledBuffer != 0 )
-		ri.Hunk_FreeTempMemory( resampledBuffer );
+		Hunk_FreeTempMemory( resampledBuffer );
 }
 
 
@@ -2520,7 +2520,7 @@ void R_UpdateSubImage( image_t *image, byte *pic, int x, int y, int width, int h
 
 	RawImage_ScaleToPower2(&pic, &width, &height, &scaled_width, &scaled_height, image->type, image->flags, &resampledBuffer);
 
-	scaledBuffer = (byte *)ri.Hunk_AllocateTempMemory( sizeof( unsigned ) * scaled_width * scaled_height );
+	scaledBuffer = (byte *)Hunk_AllocateTempMemory( sizeof( unsigned ) * scaled_width * scaled_height );
 
 	GL_SelectTexture( image->TMU );
 	GL_Bind(image);	
@@ -2582,9 +2582,9 @@ done:
 	GL_CheckErrors();
 
 	if ( scaledBuffer != 0 )
-		ri.Hunk_FreeTempMemory( scaledBuffer );
+		Hunk_FreeTempMemory( scaledBuffer );
 	if ( resampledBuffer != 0 )
-		ri.Hunk_FreeTempMemory( resampledBuffer );
+		Hunk_FreeTempMemory( resampledBuffer );
 }
 
 image_t* R_GetLoadedImage(const char *name, int flags) {
@@ -3007,7 +3007,7 @@ static void R_CreateFogImage( void ) {
 	float	d;
 	float	borderColor[4];
 
-	data = (byte *)ri.Hunk_AllocateTempMemory( FOG_S * FOG_T * 4 );
+	data = (byte *)Hunk_AllocateTempMemory( FOG_S * FOG_T * 4 );
 
 	// S is distance, T is depth
 	for (x=0 ; x<FOG_S ; x++) {
@@ -3024,7 +3024,7 @@ static void R_CreateFogImage( void ) {
 	// the border color at the edges.  OpenGL 1.2 has clamp-to-edge, which does
 	// what we want.
 	tr.fogImage = R_CreateImage("*fog", (byte *)data, FOG_S, FOG_T, IMGTYPE_COLORALPHA, IMGFLAG_CLAMPTOEDGE, 0 );
-	ri.Hunk_FreeTempMemory( data );
+	Hunk_FreeTempMemory( data );
 
 	borderColor[0] = 1.0;
 	borderColor[1] = 1.0;

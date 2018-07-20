@@ -60,36 +60,36 @@ void QDECL Com_Error( int level, const char *error, ... )
 	ri.Error(level, "%s", text);
 }
 
-// HUNK
-void *Hunk_AllocateTempMemory( int size ) {
-	return ri.Hunk_AllocateTempMemory( size );
-}
-
-void Hunk_FreeTempMemory( void *buf ) {
-	ri.Hunk_FreeTempMemory( buf );
-}
-
-void *Hunk_Alloc( int size, ha_pref preference ) {
-	return ri.Hunk_Alloc( size, preference );
-}
-
-int Hunk_MemoryRemaining( void ) {
-	return ri.Hunk_MemoryRemaining();
-}
-
-// ZONE
-void *Z_Malloc( int iSize, memtag_t eTag, qboolean bZeroit, int iAlign ) {
-	return ri.Z_Malloc( iSize, eTag, bZeroit, iAlign );
-}
-
-void Z_Free( void *ptr ) {
-	ri.Z_Free( ptr );
-}
-
-int Z_MemSize( memtag_t eTag ) {
-	return ri.Z_MemSize( eTag );
-}
-
-void Z_MorphMallocTag( void *pvBuffer, memtag_t eDesiredTag ) {
-	ri.Z_MorphMallocTag( pvBuffer, eDesiredTag );
-}
+//// HUNK
+//void *Hunk_AllocateTempMemory( int size ) {
+//	return ri.Hunk_AllocateTempMemory( size );
+//}
+//
+//void Hunk_FreeTempMemory( void *buf ) {
+//	ri.Hunk_FreeTempMemory( buf );
+//}
+//
+//void *Hunk_Alloc( int size, ha_pref preference ) {
+//	return ri.Hunk_Alloc( size, preference );
+//}
+//
+//int Hunk_MemoryRemaining( void ) {
+//	return ri.Hunk_MemoryRemaining();
+//}
+//
+//// ZONE
+//void *Z_Malloc( int iSize, memtag_t eTag, qboolean bZeroit, int iAlign ) {
+//	return ri.Z_Malloc( iSize, eTag, bZeroit, iAlign );
+//}
+//
+//void Z_Free( void *ptr ) {
+//	ri.Z_Free( ptr );
+//}
+//
+//int Z_MemSize( memtag_t eTag ) {
+//	return ri.Z_MemSize( eTag );
+//}
+//
+//void Z_MorphMallocTag( void *pvBuffer, memtag_t eDesiredTag ) {
+//	ri.Z_MorphMallocTag( pvBuffer, eDesiredTag );
+//}

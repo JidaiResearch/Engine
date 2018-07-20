@@ -654,7 +654,7 @@ static byte *RB_ReadPixels(
 	padwidth = PAD(linelen, packAlign);
 
 	// Allocate a few more bytes so that we can choose an alignment we like
-	buffer = (byte *)ri.Hunk_AllocateTempMemory(padwidth * height + *offset + packAlign - 1);
+	buffer = (byte *)Hunk_AllocateTempMemory(padwidth * height + *offset + packAlign - 1);
 
 	bufstart = (byte*)(PADP((intptr_t) buffer + *offset, packAlign));
 	qglReadPixels(x, y, width, height, GL_RGB, GL_UNSIGNED_BYTE, bufstart);
@@ -698,7 +698,7 @@ static void R_SaveTGA(
 	const size_t pixelBufferSize = stride * height;
 	const size_t bufferSize = headerSize + pixelBufferSize;
 
-	byte *buffer = (byte *)ri.Hunk_AllocateTempMemory(bufferSize);
+	byte *buffer = (byte *)Hunk_AllocateTempMemory(bufferSize);
 
 	// Write TGA header
 	Com_Memset(buffer, 0, headerSize);
@@ -712,7 +712,7 @@ static void R_SaveTGA(
 	ConvertRGBtoBGR(buffer + headerSize, pixels, stride, width, height);
 
 	FS_WriteFile(filename, buffer, bufferSize);
-	ri.Hunk_FreeTempMemory(buffer);
+	Hunk_FreeTempMemory(buffer);
 }
 
 /* 
@@ -783,7 +783,7 @@ void R_SaveScreenshot(screenshotReadback_t *screenshotReadback)
 		const int stride = screenshotReadback->strideInBytes;
 		const size_t pixelBufferSize = stride * height;
 
-		byte *pixels = (byte *)ri.Hunk_AllocateTempMemory(pixelBufferSize);
+		byte *pixels = (byte *)Hunk_AllocateTempMemory(pixelBufferSize);
 		Com_Memcpy(pixels, pixelBuffer, pixelBufferSize);
 		qglUnmapBuffer(GL_PIXEL_PACK_BUFFER);
 
@@ -805,7 +805,7 @@ void R_SaveScreenshot(screenshotReadback_t *screenshotReadback)
 				break;
 		}
 
-		ri.Hunk_FreeTempMemory(pixels);
+		Hunk_FreeTempMemory(pixels);
 	}
 
 	qglDeleteBuffers(1, &screenshotReadback->pbo);
@@ -922,7 +922,7 @@ static void R_LevelShot( void ) {
 	allsource = RB_ReadPixels(0, 0, glConfig.vidWidth, glConfig.vidHeight, &offset, &padlen);
 	source = allsource + offset;
 
-	buffer = (byte *)ri.Hunk_AllocateTempMemory(LEVELSHOTSIZE * LEVELSHOTSIZE*3 + 18);
+	buffer = (byte *)Hunk_AllocateTempMemory(LEVELSHOTSIZE * LEVELSHOTSIZE*3 + 18);
 	Com_Memset (buffer, 0, 18);
 	buffer[2] = 2;		// uncompressed type
 	buffer[12] = LEVELSHOTSIZE & 255;
@@ -959,8 +959,8 @@ static void R_LevelShot( void ) {
 
 	FS_WriteFile( checkname, buffer, LEVELSHOTSIZE * LEVELSHOTSIZE*3 + 18 );
 
-	ri.Hunk_FreeTempMemory( buffer );
-	ri.Hunk_FreeTempMemory( allsource );
+	Hunk_FreeTempMemory( buffer );
+	Hunk_FreeTempMemory( allsource );
 
 	R_Printf( PRINT_ALL, "Wrote %s\n", checkname );
 }
@@ -1788,7 +1788,7 @@ void R_Init( void ) {
 	max_polys = Q_min( r_maxpolys->integer, DEFAULT_MAX_POLYS );
 	max_polyverts = Q_min( r_maxpolyverts->integer, DEFAULT_MAX_POLYVERTS );
 
-	ptr = (byte*)ri.Hunk_Alloc(
+	ptr = (byte*)Hunk_Alloc(
 		sizeof( *backEndData ) +
 		sizeof(srfPoly_t) * max_polys +
 		sizeof(polyVert_t) * max_polyverts +
@@ -1881,8 +1881,8 @@ void RE_Shutdown( qboolean destroyWindow, qboolean restarting ) {
 
 		if ( destroyWindow && restarting )
 		{
-			ri.Z_Free((void *)glConfig.extensions_string);
-			ri.Z_Free((void *)glConfigExt.originalExtensionString);
+			Z_Free((void *)glConfig.extensions_string);
+			Z_Free((void *)glConfigExt.originalExtensionString);
 
 			qglDeleteVertexArrays(1, &tr.globalVao);
 			SaveGhoul2InfoArray();
@@ -1907,7 +1907,7 @@ Touch all images to make sure they are resident
 */
 void RE_EndRegistration( void ) {
 	R_IssuePendingRenderCommands();
-	if (!ri.Sys_LowPhysicalMemory()) {
+	if (!Sys_LowPhysicalMemory()) {
 		RB_ShowImages();
 	}
 }

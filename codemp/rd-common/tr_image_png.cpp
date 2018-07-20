@@ -224,7 +224,7 @@ struct PNGFileReader
 		png_read_update_info (png_ptr, info_ptr);
 
 		// We always assume there are 4 channels. RGB channels are expanded to RGBA when read.
-		byte *tempData = (byte *)ri.Z_Malloc (width_ * height_ * 4, TAG_TEMP_PNG, qfalse, 4);
+		byte *tempData = (byte *)Z_Malloc (width_ * height_ * 4, TAG_TEMP_PNG, qfalse, 4);
 		if ( !tempData )
 		{
 			R_Printf (PRINT_ERROR, "Could not allocate enough memory to load the image.");
@@ -232,12 +232,12 @@ struct PNGFileReader
 		}
 
 		// Dynamic array of row pointers, with 'height' elements, initialized to NULL.
-		byte **row_pointers = (byte **)ri.Hunk_AllocateTempMemory (sizeof (byte *) * height_);
+		byte **row_pointers = (byte **)Hunk_AllocateTempMemory (sizeof (byte *) * height_);
 		if ( !row_pointers )
 		{
 			R_Printf (PRINT_ERROR, "Could not allocate enough memory to load the image.");
 
-			ri.Z_Free (tempData);
+			Z_Free (tempData);
 
 			return 0;
 		}
@@ -245,8 +245,8 @@ struct PNGFileReader
 		// Re-set the jmp so that these new memory allocations can be reclaimed
 		if ( setjmp (png_jmpbuf (png_ptr)) )
 		{
-			ri.Hunk_FreeTempMemory (row_pointers);
-			ri.Z_Free (tempData);
+			Hunk_FreeTempMemory (row_pointers);
+			Z_Free (tempData);
 			return 0;
 		}
 
@@ -260,7 +260,7 @@ struct PNGFileReader
 		// Finish reading
 		png_read_end (png_ptr, NULL);
 
-		ri.Hunk_FreeTempMemory (row_pointers);
+		Hunk_FreeTempMemory (row_pointers);
 
 		// Finally assign all the parameters
 		*data = tempData;
