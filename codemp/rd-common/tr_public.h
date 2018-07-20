@@ -327,6 +327,8 @@ typedef struct refimport_s {
 	int				(*CM_PointLeafnum)					( const vec3_t p );
 	int				(*CM_PointContents)					( const vec3_t p, clipHandle_t model );
 #endif
+
+#if 1
 	qboolean		(*Com_TheHunkMarkHasBeenMade)		( void );
 	void			(*S_RestartMusic)					( void );
 	qboolean		(*SND_RegisterAudio_LevelLoadEnd)	( qboolean bDeleteEverythingNotUsedThisLevel );
@@ -352,6 +354,7 @@ typedef struct refimport_s {
 	// OpenGL-specific
 	void *			(*GL_GetProcAddress)				( const char *name );
 	qboolean		(*GL_ExtensionSupported)			( const char *extension );
+#endif
 
 	// gpvCachedMapDiskImage
 	void *			(*CM_GetCachedMapDiskImage)			( void );

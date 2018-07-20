@@ -48,6 +48,26 @@ char * Cvar_VariableString      ( const char *var_name                          
 float Cvar_VariableValue        ( const char *var_name                                                         );
 int Cvar_VariableIntegerValue   ( const char *var_name                                                         );
 
+
+
+	qboolean   Com_TheHunkMarkHasBeenMade( void                                                         );
+	void       S_RestartMusic( void                                                                     );
+	qboolean   SND_RegisterAudio_LevelLoadEnd( qboolean bDeleteEverythingNotUsedThisLevel               );
+	e_status   CIN_RunCinematic( int handle                                                             );
+	int        CIN_PlayCinematic( const char *arg0, int xpos, int ypos, int width, int height, int bits );
+	void       CIN_UploadCinematic( int handle                                                          );
+	void       CL_WriteAVIVideoFrame( const byte *imageBuffer, int size                                 );
+	char *     GetSharedMemory( void                                                                    );
+	//vm_t *     GetCurrentVM( void                                                                       );
+	qboolean   CGVMLoaded( void                                                                         );
+	int        CGVM_RagCallback( int callType                                                           );
+	window_t   WIN_Init( const windowDesc_t *desc, glconfig_t *glConfig                                 );
+	void       WIN_SetGamma( glconfig_t *glConfig, byte red[256], byte green[256], byte blue[256]       );
+	void       WIN_Present( window_t *window                                                            );
+	void       WIN_Shutdown( void                                                                       );
+	void *     GL_GetProcAddress( const char *name                                                      );
+	qboolean   GL_ExtensionSupported( const char *extension                                             );
+
 void R_Printf(int printLevel, const char *fmt, ...);
 
 #endif

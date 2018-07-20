@@ -1,5 +1,4 @@
 #include "rip_refimport.h"
-
 #include "tr_local.h"
 
 #ifndef DEDICATED
@@ -46,6 +45,27 @@ void Cvar_VariableStringBuffer  ( const char *var_name, char *buffer, int bufsiz
 char * Cvar_VariableString      ( const char *var_name                                                         ) { return ri.Cvar_VariableString(var_name                          ); }
 float Cvar_VariableValue        ( const char *var_name                                                         ) { return ri.Cvar_VariableValue(var_name                           ); }
 int Cvar_VariableIntegerValue   ( const char *var_name                                                         ) { return ri.Cvar_VariableIntegerValue(var_name                    ); }
+
+
+
+
+	qboolean   Com_TheHunkMarkHasBeenMade( void                                                         ) { return ri.Com_TheHunkMarkHasBeenMade      (                                     ); }
+	void       S_RestartMusic( void                                                                     ) {        ri.S_RestartMusic                  (                                     ); }
+	qboolean   SND_RegisterAudio_LevelLoadEnd( qboolean bDeleteEverythingNotUsedThisLevel               ) { return ri.SND_RegisterAudio_LevelLoadEnd  (bDeleteEverythingNotUsedThisLevel    ); }
+	e_status   CIN_RunCinematic( int handle                                                             ) { return ri.CIN_RunCinematic                (handle                               ); }
+	int        CIN_PlayCinematic( const char *arg0, int xpos, int ypos, int width, int height, int bits ) { return ri.CIN_PlayCinematic               (arg0, xpos, ypos, width, height, bits); }
+	void       CIN_UploadCinematic( int handle                                                          ) {        ri.CIN_UploadCinematic             (handle                               ); }
+	void       CL_WriteAVIVideoFrame( const byte *imageBuffer, int size                                 ) {        ri.CL_WriteAVIVideoFrame           (imageBuffer, size                    ); }
+	char *     GetSharedMemory( void                                                                    ) { return ri.GetSharedMemory                 (                                     ); }
+	//vm_t *     GetCurrentVM( void                                                                       ) { return ri.GetCurrentVM                    (                                     ); }
+	qboolean   CGVMLoaded( void                                                                         ) { return ri.CGVMLoaded                      (                                     ); }
+	int        CGVM_RagCallback( int callType                                                           ) { return ri.CGVM_RagCallback                (callType                             ); }
+	window_t   WIN_Init( const windowDesc_t *desc, glconfig_t *glConfig                                 ) { return ri.WIN_Init                        (desc, glConfig                       ); }
+	void       WIN_SetGamma( glconfig_t *glConfig, byte red[256], byte green[256], byte blue[256]       ) {        ri.WIN_SetGamma                    (glConfig, red, green, blue           ); }
+	void       WIN_Present( window_t *window                                                            ) {        ri.WIN_Present                     (window                               ); }
+	void       WIN_Shutdown( void                                                                       ) {        ri.WIN_Shutdown                    (                                     ); }
+	void *     GL_GetProcAddress( const char *name                                                      ) { return ri.GL_GetProcAddress               (name                                 ); }
+	qboolean   GL_ExtensionSupported( const char *extension                                             ) { return ri.GL_ExtensionSupported           (extension                            ); }
 
 #endif
 

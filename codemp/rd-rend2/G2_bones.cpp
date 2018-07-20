@@ -2680,9 +2680,9 @@ void Rag_Trace( trace_t *results, const vec3_t start, const vec3_t mins, const v
 #ifdef _DEBUG
 	int ragPreTrace = ri.Milliseconds();
 #endif
-	if ( ri.CGVMLoaded() )
+	if ( CGVMLoaded() )
 	{
-		ragCallbackTraceLine_t *callData = (ragCallbackTraceLine_t *)ri.GetSharedMemory();
+		ragCallbackTraceLine_t *callData = (ragCallbackTraceLine_t *)GetSharedMemory();
 
 		VectorCopy(start, callData->start);
 		VectorCopy(end, callData->end);
@@ -2691,7 +2691,7 @@ void Rag_Trace( trace_t *results, const vec3_t start, const vec3_t mins, const v
 		callData->ignore = passEntityNum;
 		callData->mask = contentmask;
 
-		ri.CGVM_RagCallback( RAG_CALLBACK_TRACELINE );
+		CGVM_RagCallback( RAG_CALLBACK_TRACELINE );
 
 		*results = callData->tr;
 	}
@@ -2875,24 +2875,24 @@ static inline bool G2_ApplyRealBonePhysics(boneInfo_t &bone, SRagEffector &e, CR
 #ifdef _DEBUG_BONE_NAMES
 static inline void G2_RagDebugBox(vec3_t mins, vec3_t maxs, int duration)
 {
-	if ( !ri.CGVMLoaded() )
+	if ( !CGVMLoaded() )
 		return;
 
-	ragCallbackDebugBox_t *callData = (ragCallbackDebugBox_t *)ri.GetSharedMemory();
+	ragCallbackDebugBox_t *callData = (ragCallbackDebugBox_t *)GetSharedMemory();
 
 	callData->duration = duration;
 	VectorCopy(mins, callData->mins);
 	VectorCopy(maxs, callData->maxs);
 
-	ri.CGVM_RagCallback( RAG_CALLBACK_DEBUGBOX );
+	CGVM_RagCallback( RAG_CALLBACK_DEBUGBOX );
 }
 
 static inline void G2_RagDebugLine(vec3_t start, vec3_t end, int time, int color, int radius)
 {
-	if ( !ri.CGVMLoaded() )
+	if ( !CGVMLoaded() )
 		return;
 
-	ragCallbackDebugLine_t *callData = (ragCallbackDebugLine_t *)ri.GetSharedMemory();
+	ragCallbackDebugLine_t *callData = (ragCallbackDebugLine_t *)GetSharedMemory();
 
 	VectorCopy(start, callData->start);
 	VectorCopy(end, callData->end);
@@ -2900,7 +2900,7 @@ static inline void G2_RagDebugLine(vec3_t start, vec3_t end, int time, int color
 	callData->color = color;
 	callData->radius = radius;
 
-	ri.CGVM_RagCallback( RAG_CALLBACK_DEBUGLINE );
+	CGVM_RagCallback( RAG_CALLBACK_DEBUGLINE );
 }
 #endif
 
@@ -3920,17 +3920,17 @@ static float AngleNormZero(float theta)
 
 static inline void G2_BoneSnap(CGhoul2Info_v &ghoul2V, boneInfo_t &bone, CRagDollUpdateParams *params)
 {
-	if ( !ri.CGVMLoaded() || !params )
+	if ( !CGVMLoaded() || !params )
 	{
 		return;
 	}
 
-	ragCallbackBoneSnap_t *callData = (ragCallbackBoneSnap_t *)ri.GetSharedMemory();
+	ragCallbackBoneSnap_t *callData = (ragCallbackBoneSnap_t *)GetSharedMemory();
 
 	callData->entNum = params->me;
 	strcpy(callData->boneName, G2_Get_Bone_Name(&ghoul2V[0], ghoul2V[0].mBlist, bone.boneNumber));
 
-	ri.CGVM_RagCallback( RAG_CALLBACK_BONESNAP );
+	CGVM_RagCallback( RAG_CALLBACK_BONESNAP );
 }
 
 static void G2_RagDollSolve(CGhoul2Info_v &ghoul2V,int g2Index,float decay,int frameNum,const vec3_t currentOrg,bool limitAngles,CRagDollUpdateParams *params)

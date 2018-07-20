@@ -350,7 +350,7 @@ qhandle_t RE_RegisterServerSkin( const char *name ) {
 	qhandle_t r;
 
 	if (Cvar_VariableIntegerValue( "cl_running" ) &&
-		ri.Com_TheHunkMarkHasBeenMade() &&
+		Com_TheHunkMarkHasBeenMade() &&
 		ShaderHashTableExists())
 	{ //If the client is running then we can go straight into the normal registerskin func
 		return RE_RegisterSkin(name);
