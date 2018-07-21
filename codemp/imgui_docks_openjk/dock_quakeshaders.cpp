@@ -2,7 +2,7 @@
 #include "../imgui/include_imgui.h"
 #include <client/client.h>
 
-#include "../tr_local.h"
+#include "../rd-rend2/tr_local.h"
 #include "../imgui_docks/dock_console.h"
 #include "../imgui_openjk/gluecode.h"
 

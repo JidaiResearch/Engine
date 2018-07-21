@@ -372,17 +372,7 @@ typedef struct refimport_s {
 	// Persistent data store
 	bool			(*PD_Store)							( const char *name, const void *data, size_t size );
 	const void *	(*PD_Load)							( const char *name, size_t *size );
-
-	// Used for ImGui integration
-	int (*Key_GetCatcher)();
-	const char *(*Clipboard_Get)();
-	void (*Clipboard_Set)(const char *text);
-
-	void (*micropython_init)();
-	void (*micropython_eval)(char *code);
 #endif
-
-	int (*js_call)(void *ctx, char *function, char *params, ...);
 } refimport_t;
 
 // this is the only function actually exported at the linker level

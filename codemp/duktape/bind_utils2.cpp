@@ -34,10 +34,20 @@ int duk_func_exedir(duk_context *ctx) {
 	return 1;
 }
 
+
+void ICARUS_InterrogateScript( const char *filename );
+
+int duk_func_icarus_run(duk_context *ctx) {
+	const char *filename = duk_to_string(ctx, 0);
+	ICARUS_InterrogateScript(filename);
+	return 0;
+}
+
 void bind_utils() {
 	struct funcis funcs[] = {
 		{ "utils_screensize",	   duk_func_utils_screensize },
 		{ "exedir",	               duk_func_exedir           },
+		{ "icarus_run",	           duk_func_icarus_run       },
 		{NULL, NULL}
 	};
 	for (int i=0; funcs[i].name; i++) {

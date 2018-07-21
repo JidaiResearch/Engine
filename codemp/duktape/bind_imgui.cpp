@@ -1,6 +1,6 @@
 
-#include "rd-rend2/imgui/include_imgui.h"
-#include "rd-rend2/imgui_docks/dock_console.h"
+#include "../imgui/include_imgui.h"
+#include "../imgui_docks/dock_console.h"
 #include <stdio.h>
 #include <stdarg.h>
 

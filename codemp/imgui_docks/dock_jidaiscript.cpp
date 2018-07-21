@@ -63,7 +63,7 @@ void DockJidaiScript::imgui() {
 
 	if (ImGui::GetIO().KeyCtrl && ImGui::IsKeyPressed('R', false)) {
 		//js_call(ctx, "reload", "");
-		ri.js_call(NULL, "reload", "");
+		js_call(NULL, "reload", "");
 		//imgui_log("dock_node.cpp> todo: reload node's .js files \n");
 		//js_reload();
 	}
@@ -133,7 +133,7 @@ void DockJidaiScript::imgui() {
 			//	}
 
 			//js_eval(replbuffer);
-			ri.js_call(NULL, "repl_jidaiscript", "sii", replbuffer, select_start, select_end);
+			js_call(NULL, "repl_jidaiscript", "sii", replbuffer, select_start, select_end);
 			
 #endif
 		}
