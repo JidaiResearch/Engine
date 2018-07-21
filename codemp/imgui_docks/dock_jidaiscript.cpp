@@ -12,9 +12,6 @@ extern "C" {
 
 #include "../include_duktape.h"
 
-#include "../rd-common/tr_public.h"
-extern refimport_t ri;
-
 bool IsKeyPressedMap(ImGuiKey key, bool repeat);
 void SaveIniSettingsToDisk(const char* ini_filename); // was a static function in ImGui
 void ImStrncpy(char* dst, const char* src, int count);

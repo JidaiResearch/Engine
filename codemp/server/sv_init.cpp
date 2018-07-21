@@ -809,8 +809,8 @@ extern vm_t *currentVM;
 extern void *gpvCachedMapDiskImage;
 extern qboolean gbUsingCachedMapDataRightNow;
 
-static char *GetSharedMemory( void ) { return sv.mSharedMemory; }
-static vm_t *GetCurrentVM( void ) { return currentVM; }
+char *GetSharedMemory( void ) { return sv.mSharedMemory; }
+vm_t *GetCurrentVM( void ) { return currentVM; }
 static void *CM_GetCachedMapDiskImage( void ) { return gpvCachedMapDiskImage; }
 static void CM_SetCachedMapDiskImage( void *ptr ) { gpvCachedMapDiskImage = ptr; }
 static void CM_SetUsingCache( qboolean usingCache ) { gbUsingCachedMapDataRightNow = usingCache; }
@@ -819,97 +819,20 @@ static void CM_SetUsingCache( qboolean usingCache ) { gbUsingCachedMapDataRightN
 extern void SV_GetConfigstring( int index, char *buffer, int bufferSize );
 extern void SV_SetConfigstring( int index, const char *val );
 
-static IHeapAllocator *GetG2VertSpaceServer( void ) {
+IHeapAllocator *GetG2VertSpaceServer( void ) {
 	return G2VertSpaceServer;
 }
 
 refexport_t	*re = NULL;
 
 static void SV_InitRef( void ) {
-	static refimport_t ri;
 	refexport_t *ret;
 
 	Com_Printf( "----- Initializing Renderer ----\n" );
-
-	memset( &ri, 0, sizeof( ri ) );
-
-	//set up the import table
-	ri.Printf = SV_RefPrintf;
-	ri.Error = Com_Error;
-	//ri.OPrintf = Com_OPrintf;
-	ri.Milliseconds = Sys_Milliseconds2; //FIXME: unix+mac need this
-	ri.Hunk_AllocateTempMemory = Hunk_AllocateTempMemory;
-	ri.Hunk_FreeTempMemory = Hunk_FreeTempMemory;
-	ri.Hunk_Alloc = Hunk_Alloc;
-	ri.Hunk_MemoryRemaining = Hunk_MemoryRemaining;
-	ri.Z_Malloc = Z_Malloc;
-	ri.Z_Free = Z_Free;
-	ri.Z_MemSize = Z_MemSize;
-	ri.Z_MorphMallocTag = Z_MorphMallocTag;
-	ri.Cmd_ExecuteString = Cmd_ExecuteString;
-	ri.Cmd_Argc = Cmd_Argc;
-	ri.Cmd_Argv = Cmd_Argv;
-	ri.Cmd_ArgsBuffer = Cmd_ArgsBuffer;
-	ri.Cmd_AddCommand = Cmd_AddCommand;
-	ri.Cmd_RemoveCommand = Cmd_RemoveCommand;
-	ri.Cvar_Set = Cvar_Set;
-	ri.Cvar_Get = Cvar_Get;
-	ri.Cvar_VariableStringBuffer = Cvar_VariableStringBuffer;
-	ri.Cvar_VariableString = Cvar_VariableString;
-	ri.Cvar_VariableValue = Cvar_VariableValue;
-	ri.Cvar_VariableIntegerValue = Cvar_VariableIntegerValue;
-	ri.Sys_LowPhysicalMemory = Sys_LowPhysicalMemory;
-	ri.SE_GetString = SE_GetString;
-	ri.FS_FreeFile = FS_FreeFile;
-	ri.FS_FreeFileList = FS_FreeFileList;
-	ri.FS_Read = FS_Read;
-	ri.FS_ReadFile = FS_ReadFile;
-	ri.FS_FCloseFile = FS_FCloseFile;
-	ri.FS_FOpenFileRead = FS_FOpenFileRead;
-	ri.FS_FOpenFileWrite = FS_FOpenFileWrite;
-	ri.FS_FOpenFileByMode = FS_FOpenFileByMode;
-	ri.FS_FileExists = FS_FileExists;
-	ri.FS_FileIsInPAK = FS_FileIsInPAK;
-	ri.FS_ListFiles = FS_ListFiles;
-	ri.FS_Write = FS_Write;
-	ri.FS_WriteFile = FS_WriteFile;
-	ri.CM_BoxTrace = CM_BoxTrace;
-	ri.CM_DrawDebugSurface = CM_DrawDebugSurface;
-//	ri.CM_CullWorldBox = CM_CullWorldBox;
-//	ri.CM_TerrainPatchIterate = CM_TerrainPatchIterate;
-//	ri.CM_RegisterTerrain = CM_RegisterTerrain;
-//	ri.CM_ShutdownTerrain = CM_ShutdownTerrain;
-	ri.CM_ClusterPVS = CM_ClusterPVS;
-	ri.CM_LeafArea = CM_LeafArea;
-	ri.CM_LeafCluster = CM_LeafCluster;
-	ri.CM_PointLeafnum = CM_PointLeafnum;
-	ri.CM_PointContents = CM_PointContents;
-	ri.Com_TheHunkMarkHasBeenMade = Com_TheHunkMarkHasBeenMade;
-//	ri.S_RestartMusic = S_RestartMusic;
-//	ri.SND_RegisterAudio_LevelLoadEnd = SND_RegisterAudio_LevelLoadEnd;
-//	ri.CIN_RunCinematic = CIN_RunCinematic;
-//	ri.CIN_PlayCinematic = CIN_PlayCinematic;
-//	ri.CIN_UploadCinematic = CIN_UploadCinematic;
-//	ri.CL_WriteAVIVideoFrame = CL_WriteAVIVideoFrame;
-
-	// g2 data access
-	ri.GetSharedMemory = GetSharedMemory;
-
-	// (c)g vm callbacks
-	ri.GetCurrentVM = GetCurrentVM;
-//	ri.CGVMLoaded = CGVMLoaded;
-//	ri.CGVM_RagCallback = CGVM_RagCallback;
-
-	// ugly win32 backend
-	ri.CM_GetCachedMapDiskImage = CM_GetCachedMapDiskImage;
-	ri.CM_SetCachedMapDiskImage = CM_SetCachedMapDiskImage;
-	ri.CM_SetUsingCache = CM_SetUsingCache;
-
-	//FIXME: Might have to do something about this...
-	ri.GetG2VertSpaceServer = GetG2VertSpaceServer;
+	
 	G2VertSpaceServer = &IHeapAllocator_singleton;
 
-	ret = GetRefAPI( REF_API_VERSION, &ri );
+	ret = GetRefAPI();
 
 //	Com_Printf( "-------------------------------\n");
 

@@ -1963,18 +1963,10 @@ unsigned int AnyLanguage_ReadCharFromString_JK2 ( char **text, qboolean *pbIsTra
 }
 #endif
 
-extern "C" Q_EXPORT refexport_t* QDECL GetRefAPI ( int apiVersion, refimport_t *refimp ) {
+extern "C" Q_EXPORT refexport_t* QDECL GetRefAPI () {
 	static refexport_t	re;
-
-	ri = *refimp;
-
+	
 	memset( &re, 0, sizeof( re ) );
-
-	if ( apiVersion != REF_API_VERSION ) {
-		R_Printf(PRINT_ALL, "Mismatched REF_API_VERSION: expected %i, got %i\n",
-			REF_API_VERSION, apiVersion );
-		return NULL;
-	}
 
 	// the RE_ functions are Renderer Entry points
 

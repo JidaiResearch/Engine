@@ -2000,19 +2000,10 @@ GetRefAPI
 @@@@@@@@@@@@@@@@@@@@@
 */
 extern "C" {
-Q_EXPORT refexport_t* QDECL GetRefAPI ( int apiVersion, refimport_t *rimp ) {
+Q_EXPORT refexport_t* QDECL GetRefAPI () {
 	static refexport_t	re;
-
-	assert( rimp );
-	ri = *rimp;
-
+	
 	Com_Memset( &re, 0, sizeof( re ) );
-
-	if ( apiVersion != REF_API_VERSION ) {
-		R_Printf(PRINT_ALL, "Mismatched REF_API_VERSION: expected %i, got %i\n", 
-			REF_API_VERSION, apiVersion );
-		return NULL;
-	}
 
 	// the RE_ functions are Renderer Entry points
 

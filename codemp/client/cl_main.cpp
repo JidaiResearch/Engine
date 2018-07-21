@@ -2384,14 +2384,13 @@ void micropython_eval(char *code) {
 
 int js_call(duk_context *ctx, char *function, char *params, ...);
 
-extern "C" Q_EXPORT refexport_t* QDECL GetRefAPI(int apiVersion, refimport_t *rimp);
+extern "C" Q_EXPORT refexport_t* QDECL GetRefAPI();
 
 void CL_InitRef( void ) {
-	static refimport_t ri;
 	refexport_t	*ret;
 	Com_Printf( "----- Initializing Renderer ----\n" );
 	G2VertSpaceServer = &IHeapAllocator_singleton;
-	ret = GetRefAPI( REF_API_VERSION, &ri );
+	ret = GetRefAPI();
 	if ( !ret ) {
 		Com_Error (ERR_FATAL, "Couldn't initialize refresh" );
 	}
