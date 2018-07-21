@@ -2,7 +2,7 @@
 #include "../imgui_docks/dock_console.h"
 #include "../imgui_openjk/gluecode.h"
 #include "../imgui_openjk/imgui_openjk_default_docks.h"
-#include "../tr_compose_models.h"
+#include "../rd-rend2/tr_compose_models.h"
 
 //void DockMDXA::imgui_list_surfhierarchy() {
 //	mdxmSurfHierarchy_t *surfHierarchy = firstSurfHierarchy(header);

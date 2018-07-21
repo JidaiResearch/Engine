@@ -1,6 +1,6 @@
 #include "duktapestuff.h"
 #include "duktape.h"
-#include "../rd-rend2/imgui_docks/dock_console.h"
+#include "../imgui_docks/dock_console.h"
 
 duk_context *ctx = NULL;
 

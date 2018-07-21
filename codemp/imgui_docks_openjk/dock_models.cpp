@@ -4,8 +4,8 @@
 #include "../imgui_docks_openjk/dock_mdxm.h"
 #include "../imgui_docks_openjk/dock_mdxa.h"
 //#include <renderergl2/tr_model_kung.h>
-#include "../tr_local.h"
-#include "../tr_compose_models.h"
+#include "../rd-rend2/tr_local.h"
+#include "../rd-rend2/tr_compose_models.h"
 
 DockModels::DockModels() {}
 
