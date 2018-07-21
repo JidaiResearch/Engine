@@ -735,6 +735,31 @@ char *Sys_StripAppBundle( char *dir )
 
 #include "duktape/duktapestuff.h"
 
+
+void Com_BusyWait() {
+	if ( com_busyWait->integer )
+	{
+		bool shouldSleep = false;
+
+#if !defined(_JK2EXE)
+		if ( com_dedicated->integer )
+		{
+			shouldSleep = true;
+		}
+#endif
+
+		if ( com_minimized->integer )
+		{
+			shouldSleep = true;
+		}
+
+		if ( shouldSleep )
+		{
+			Sys_Sleep( 5 );
+		}
+	}
+}
+
 int main ( int argc, char* argv[] )
 {
 	int		i;
@@ -742,9 +767,7 @@ int main ( int argc, char* argv[] )
 
 	Sys_PlatformInit();
 	CON_Init();
-
-	// get the initial time base
-	Sys_Milliseconds();
+	Sys_Milliseconds(); // get the initial time base
 
 #ifdef MACOS_X
 	// This is passed if we are launched by double-clicking
@@ -771,50 +794,8 @@ int main ( int argc, char* argv[] )
 	}
 
 	Com_Init (commandLine);
-
-#ifndef DEDICATED
-	SDL_version compiled;
-	SDL_version linked;
-
-	SDL_VERSION( &compiled );
-	SDL_GetVersion( &linked );
-
-	Com_Printf( "SDL Version Compiled: %d.%d.%d\n", compiled.major, compiled.minor, compiled.patch );
-	Com_Printf( "SDL Version Linked: %d.%d.%d\n", linked.major, linked.minor, linked.patch );
-#endif
-
 	NET_Init();
 	js_init();
-
-	// main game loop
-	while (1)
-	{
-		if ( com_busyWait->integer )
-		{
-			bool shouldSleep = false;
-
-#if !defined(_JK2EXE)
-			if ( com_dedicated->integer )
-			{
-				shouldSleep = true;
-			}
-#endif
-
-			if ( com_minimized->integer )
-			{
-				shouldSleep = true;
-			}
-
-			if ( shouldSleep )
-			{
-				Sys_Sleep( 5 );
-			}
-		}
-
-		// run the game
-		Com_Frame();
-	}
-
-	// never gets here
+	js_call(ctx, "main", "");
 	return 0;
 }
